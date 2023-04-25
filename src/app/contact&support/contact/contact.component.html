@@ -1,0 +1,37 @@
+<app-toolbar></app-toolbar>
+
+<div class="spacer"></div>
+
+<app-faq></app-faq>
+
+<div class="spacer"></div>
+
+
+<!-- CONTACTO -->
+<form #contactForm = "ngForm" (ngsubmit)="sendMessage(contactForm)" class="contact-form" >
+
+    <h1 class="titulo-contacto">CONTACTO</h1>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" name="name" placeholder="Ingresa tu nombre" #name= "ngModel" [(ngModel)]="contactService.selectedContact.name">
+    </mat-form-field>
+    
+    <mat-form-field class="example-full-width">
+        <mat-label>Correo</mat-label>
+        <input matInput type="text" name="email" placeholder="Ingresa tu email" #email= "ngModel" [(ngModel)]="contactService.selectedContact.email">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Motivo</mat-label>
+      <textarea matInput type="text" name="description" placeholder="Ingresa el motivo del mensaje ..." #description= "ngModel" [(ngModel)]="contactService.selectedContact.description"  ></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="boton-enviar-contacto" (click)="sendMessage(contactForm)">Enviar</button>
+    
+</form>
+  
+
+
+
+

@@ -1,0 +1,43 @@
+<app-toolbar></app-toolbar>
+
+<span class="salto-linea"> - </span>
+
+<div class="container">
+    <!-- FILTRO -->
+    <div class="row">
+
+        <div class="col-3">
+            <app-filter-result></app-filter-result>
+        </div>
+
+        <div class="col-9">
+            <div class="container" *ngFor="let room of roomService.rooms" >
+    
+                <app-card-room [room] = "room"></app-card-room>
+
+                <span class="salto-linea"> - </span>
+                
+            </div>
+        </div>
+
+    </div>
+
+    
+
+</div>
+
+
+
+<span class="salto-linea"> - </span>
+
+<div class="paginator">
+    <mat-paginator [length]="5"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        aria-label="Select page">
+    </mat-paginator>
+</div>
+
+  
+  
+  

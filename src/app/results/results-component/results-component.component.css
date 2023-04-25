@@ -1,0 +1,12 @@
+
+.salto-linea {
+    font-size: 0;
+    display: block;
+}
+
+.mat-paginator{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

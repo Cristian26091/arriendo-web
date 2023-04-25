@@ -1,0 +1,17 @@
+<mat-stepper linear #stepper>
+    <mat-step>
+        <ng-template matStepLabel>Servicios</ng-template>
+        <button mat-raised-button matStepperNext color="primary" >Siguiente</button>
+        <!-- HERE CONTENT -->
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Medio de pago</ng-template>
+        <button mat-raised-button matStepperNext color="primary" >Siguiente</button>
+        <!-- HERE CONTENT -->
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Confirmación y contrato</ng-template>
+        <!-- HERE CONTENT -->
+        <button mat-raised-button color="primary" (click)="downloadMyFile()">Descargar contrato</button>
+    </mat-step>
+</mat-stepper>

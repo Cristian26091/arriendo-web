@@ -1,0 +1,46 @@
+<div class="container">
+
+    <mat-card class="mat-card-container">
+        <mat-card-title>Filtro</mat-card-title>
+
+        <div class="filter-element-container">
+            <mat-card-subtitle>Precio</mat-card-subtitle>
+            <mat-slider min="200" max="500">
+                <input value="10" matSliderStartThumb>
+                <input value="" matSliderEndThumb>
+            </mat-slider>
+        </div>
+        
+        <div class="filter-element-container">
+            <mat-card-subtitle>Baño compartido</mat-card-subtitle>
+            <mat-slide-toggle></mat-slide-toggle>
+        </div>
+
+        <div class="filter-element-container">
+            <mat-card-subtitle>Región</mat-card-subtitle>
+            <mat-form-field appearance="fill">
+                <mat-label>Escoge una región</mat-label>
+                <mat-select [(ngModel)]="selectedRegion" (selectionChange)="onRegionSelected($event)">
+                
+                    <mat-option *ngFor="let region of regiones" [value]="region">
+                    {{region.nombre_region}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="filter-element-container">
+            <mat-card-subtitle>Comuna</mat-card-subtitle>
+            <mat-form-field appearance="fill">
+                <mat-label>Escoge una Comuna</mat-label>
+                <mat-select [(ngModel)]="selectedComuna" (selectionChange)="onComunaSelected($event)">
+                    <mat-option *ngFor="let comuna of comunas" [value]="comuna">
+                        {{comuna}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div> 
+
+    </mat-card>
+  
+</div>

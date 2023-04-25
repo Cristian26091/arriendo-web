@@ -1,0 +1,48 @@
+<span class="salto-linea"> - </span>
+
+<button mat-raised-button color="primary" routerLink="/rent">Arrendar</button>
+
+<span class="salto-linea"> - </span>
+
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+      <h4 class="card-title texto-titulo">{{roomService.selectedRoom.ciudad}}{{", "}}{{roomService.selectedRoom.comuna}}{{", "}}{{roomService.selectedRoom.calle}}</h4>
+      <p class="card-text">{{roomService.selectedRoom.descripcion}}</p>
+    </div>
+
+    <ul class="list-group list-group-flush">
+
+        <!-- Precio -->
+        <li class="list-group-item">
+            <p> <b>Precio:</b> {{roomService.selectedRoom.precio}}</p>
+        </li>
+
+        <!-- Baño compartido -->
+        <li class="list-group-item">
+            <p> <b>Baño compartido:</b> {{banio_compartido}}</p>
+        </li>
+
+        <!-- Región -->
+        <li class="list-group-item">
+            <p> <b>Región:</b> {{roomService.selectedRoom.region}}</p>
+        </li>
+
+        <!-- Comuna -->
+        <li class="list-group-item">
+            <p> <b>Comuna:</b> {{roomService.selectedRoom.comuna}}</p>
+        </li>
+
+        <!-- Tipo inmueble -->
+        <li class="list-group-item">
+            <p> <b>Tipo de residencia:</b> {{roomService.selectedRoom.casa_depto}}</p>
+        </li>
+
+        <!-- Fecha de publicaicon -->
+        <li class="list-group-item">
+            <p> <b>Fecha de publicación:</b> {{roomService.selectedRoom.fecha_publicacion | date}}</p>
+        </li>
+
+    </ul>
+</div>
+
+<span class="salto-linea"> - </span>

@@ -1,0 +1,14 @@
+.mat-button{
+  color: white;
+  
+}
+.spacer{
+  flex:1 1 auto;
+}
+
+.image-logo{
+  width: 12%;
+  padding-right: 50px;
+
+}
+

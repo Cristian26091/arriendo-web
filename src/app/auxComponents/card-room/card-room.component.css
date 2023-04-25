@@ -1,0 +1,15 @@
+.precio-text{
+    font-weight: bold;
+}
+.card-title{
+    font-weight: bold;
+}
+
+.button-container{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.image-container {
+    padding: 20px;
+}

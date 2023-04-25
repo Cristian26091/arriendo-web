@@ -1,0 +1,13 @@
+.demo-inline-calendar-card {
+    width: 100%;
+}
+
+.mat-raised-button{
+    width: 100%;
+
+}
+
+.salto-linea {
+    font-size: 0;
+    display: block;
+}
