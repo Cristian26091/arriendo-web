@@ -1,8 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { RegionService } from '../../services/region.service';
 import { Region } from '../../models/region.model';
-import { MatSelectChange } from '@angular/material/select';
-
 
 @Component({
   selector: 'app-searcher',
@@ -11,19 +9,15 @@ import { MatSelectChange } from '@angular/material/select';
 })
 export class SearcherComponent{
   
-  
-  
   selectedRegion: string;
   selectedComuna: string;
   selectedTipoVivienda: string;
 
   regionesOptions: Region[];
   comunasOptions: string[];
-  tiposVivienda: string[];
   
   constructor(public RegionService: RegionService){
     this.comunasOptions = [];
-    this.tiposVivienda = [];
     this.regionesOptions = [];
   }
 
@@ -58,7 +52,7 @@ export class SearcherComponent{
 
   onTipoViviendaSelected(event: any){
     this.selectedTipoVivienda = event.target.value;
-    // console.log(event.value);
+    console.log(event.target.value);
   }
 
 }
