@@ -2,37 +2,28 @@
 
     <div class="select-group">
 
-        <select class="form-select" >
-            <option selected>Región</option>
-            <option value="1">Opción 1</option>
-            <option value="2">Opción 2</option>
-            <option value="3">Opción 3</option>
+        <!-- Region -->
+        <select class="form-select" [(ngModel)]="selectedRegion" (change)="onRegionSelected($event)" >
+            <option value="" disabled selected>Mensaje predeterminado</option>
+            <option *ngFor="let region of regionesOptions" [value]="region.nombre_region">{{ region.nombre_region }}</option>
         </select>
         
-        <select class="form-select">
-            <option selected>Comuna</option>
-            <option value="1">Opción 1</option>
-            <option value="2">Opción 2</option>
-            <option value="3">Opción 3</option>
+        <!-- Comuna -->
+        <select class="form-select" [(ngModel)]="selectedComuna" (change)="onComunaSelected($event)">
+            <option selected disabled="true">Comuna</option>
+            <option *ngFor="let comuna of comunasOptions" [value]="comuna">{{comuna}}</option>
         </select>      
     
-        <select class="form-select">
+        <!-- Tipo vivienda -->
+        <select class="form-select" [(ngModel)]="selectedTipoVivienda" (change)="onTipoViviendaSelected($event)"> 
             <option selected>Tipo de vivienda</option>
-            <option value="1">Opción 1</option>
-            <option value="2">Opción 2</option>
-            <option value="3">Opción 3</option>
+            <option value="1">Departamento</option>
+            <option value="2">Casa</option>
         </select>          
     
+        <!-- Boton buscar  -->
         <button type="button" class="btn btn-primary" routerLink="/results">Buscar</button>
     
     </div>
     
 </div>
-
-
-  
-
-
-
-
-
