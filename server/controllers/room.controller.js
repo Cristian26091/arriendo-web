@@ -11,6 +11,33 @@ roomCtrl.getRoom = async (req, res) => {
     res.json(room);
 }
 
+// Devover infomarción filtrada respecto a la requests (en desarrollo)
+roomCtrl.getRoomByFilter = async (req, res) => {
+    const { disponible, region, comuna, tipoVivienda }  = req.query;
+    const filtro = {};
+
+    if (disponible) {
+        filtro.disponible = disponible === true;
+    }
+
+    if (region) {
+        filtro.region = region;
+    }
+
+    if (comuna) {
+        filtro.comuna = comuna;
+    }
+
+    if (tipoVivienda){
+        filtro.tipoVivienda = tipoVivienda;
+    }
+
+    const rooms = await Room.find(filtro);
+
+    res.json(rooms);
+
+}
+
 roomCtrl.createRoom = (req, res) =>{
     
 }

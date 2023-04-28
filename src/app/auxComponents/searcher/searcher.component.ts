@@ -2,6 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import { RegionService } from '../../services/region.service';
 import { Region } from '../../models/region.model';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-searcher',
   templateUrl: './searcher.component.html',
@@ -16,7 +18,7 @@ export class SearcherComponent{
   regionesOptions: Region[];
   comunasOptions: string[];
   
-  constructor(public RegionService: RegionService){
+  constructor(public RegionService: RegionService, private router: Router){
     this.comunasOptions = [];
     this.regionesOptions = [];
   }
@@ -54,5 +56,16 @@ export class SearcherComponent{
     this.selectedTipoVivienda = event.target.value;
     console.log(event.target.value);
   }
+
+  buscar() {
+    // realizar busqueda en base a estos parametros (hint: utilizar service para la comunicacion de datos etre distintas vistas)
+    const req = {
+      region: this.selectedRegion,
+      comuna: this.selectedComuna,
+      tipoVivienda: this.selectedTipoVivienda
+    }
+    
+  }
+  
 
 }
