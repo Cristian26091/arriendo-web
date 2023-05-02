@@ -18,6 +18,7 @@ router.get('/faq', faq.getFaqs);
 //----------ROOM ROUTES-----------
 router.get('/room', room.getRooms);
 router.get('/room/:idRoom', room.getRoom);
+router.get('/filterRooms', room.getRoomByFilter);
 // router.post('room/', room.createRoom);
 // router.put('/room/:id', room.editRoom);
 // router.delete('room/:id', room.deleteRoom);

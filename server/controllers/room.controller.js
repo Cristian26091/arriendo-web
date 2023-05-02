@@ -7,36 +7,41 @@ roomCtrl.getRooms = async (req, res) => {
 }
 
 roomCtrl.getRoom = async (req, res) => {
+    // console.log("entre al controller de getrooms");
     const room = await Room.findById(req.params.idRoom);
     res.json(room);
 }
 
-// Devover infomarción filtrada respecto a la requests (en desarrollo)
+// Devolver infomarción filtrada respecto a la requests (en desarrollo)
 roomCtrl.getRoomByFilter = async (req, res) => {
-    const { disponible, region, comuna, tipoVivienda }  = req.query;
-    const filtro = {};
-
-    if (disponible) {
-        filtro.disponible = disponible === true;
-    }
-
+    console.log("Room controller metodo getRoomByFilter", req.body);
+    const { region, comuna} = req.query;
+  
+    let query = {};
+  
     if (region) {
-        filtro.region = region;
+      query["region"] = region;
     }
-
     if (comuna) {
-        filtro.comuna = comuna;
+      query["comuna"] = comuna;
     }
-
-    if (tipoVivienda){
-        filtro.tipoVivienda = tipoVivienda;
+    // if (casa_depto) {
+    //   query.casa_depto = casa_depto;
+    // }
+    // console.log(req);
+    try {
+      console.log("=======================================");
+      console.log(query);
+      console.log("=======================================");
+      // console.log(query);
+      const rooms = await Room.find(query);
+      console.log("Datos filtrados desde el controller:",rooms);
+      res.json(rooms);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error en el servidor' });
     }
-
-    const rooms = await Room.find(filtro);
-
-    res.json(rooms);
-
-}
+  };
 
 roomCtrl.createRoom = (req, res) =>{
     

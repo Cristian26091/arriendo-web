@@ -16,6 +16,7 @@ const routes: Routes = [
     path: 'results',
     component: ResultsComponentComponent
   },
+
   {
     path: 'room/:id',
     component: RoomComponentComponent
