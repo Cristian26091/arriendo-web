@@ -15,77 +15,75 @@ import { Room } from '../../models/room';
 export class SearcherComponent{
   
   selectedRegion: string;
+  selectedRegionNumber: number;
   selectedComuna: string;
-  selectedTipoVivienda: string; 
-
-  regionesOptions: Region[];  
+  selectedTipoVivienda: string;
   comunasOptions: string[];
+
   
   constructor(public RegionService: RegionService, private router: Router, private RoomService: RoomService){
     this.comunasOptions = [];
-    this.regionesOptions = [];
+    this.selectedRegionNumber = 0;
+    this.selectedRegion = "";
+    this.selectedComuna = "";
+    this.selectedTipoVivienda = "";
   }
 
   ngOnInit(): void {
     this.getRegions();
   }
 
+  // Funcion que obtiene las regiones desde la base de datos
   getRegions(){
     this.RegionService.getRegions()
       .subscribe( res =>{
-        // this.RegionService.regions = res as Region[];
-        this.regionesOptions = res as Region[];
-        // console.log(this.regionesOptions);
+        this.RegionService.regions = res as Region[];
     });
   }
 
   // Evento accionado cuando se seleciona una region
   onRegionSelected(event: any){
     this.selectedRegion = event.target.value;
-    // console.log(event.target.value);
-    const region = this.regionesOptions.find(r => r.nombre_region === this.selectedRegion);
+
+    //AL MOMENTO DE COMPARAR, HACERLO POR NUMERO Y NO POR NOMBRE
+    const region = this.RegionService.regions.find(r => r.nombre_region === this.selectedRegion);
     
     if (region) {
       this.comunasOptions = region.comunas.map((c) => c.nombre_comuna);
     } else {
       this.comunasOptions = [];
     }
-    // console.log(this.comunasOptions)
 
+    console.log(this.RegionService.regions);
   }
 
   // Evento accionado cuando se seleciona una comuna
   onComunaSelected(event: any){
     this.selectedComuna = event.target.value;
-    // console.log(event.value);
-    
   }
 
   // Evento accionado cuando se seleciona un tipo de vivienda 
   onTipoViviendaSelected(event: any){
     this.selectedTipoVivienda = event.target.value;
-    // console.log(event.target.value);
   }
 
+  // Funcion que se ejecuta cuando se presiona el boton buscar
   buscar() {
-    // realizar busqueda en base a estos parametros (hint: utilizar service para la comunicacion de datos etre distintas vistas)
     const queryParams = {
       region: this.selectedRegion,
       comuna: this.selectedComuna,
       tipoVivienda: this.selectedTipoVivienda
     }
     this.getRoomByFilterFront(queryParams);
-    console.log("Searcher component .ts", queryParams);
-    // this.router.navigate(['/room/'],{ queryParams });
+    //CAMIBAR EL NAVIGATE DE FORMA QUE RETORNE A LA VISTA MOSTRANDO LOS RESULTADOS (RESULTS)
     this.router.navigate(['/results']);
   }
 
+  // Funcion que obtiene las habitaciones segun los filtros seleccionados
   getRoomByFilterFront(req: any){
-    // console.log(req);
     this.RoomService.getRoomByFilter(req).subscribe( (res) =>{
       this.RoomService.rooms = res as Room[];
     });
-    console.log("Estas son las piezas filtradas: ", this.RoomService.rooms);
-      // Realizar alguna acción adicional aquí, por ejemplo, navegar a otra página
   }
+
 }

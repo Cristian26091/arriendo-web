@@ -4,19 +4,19 @@
 
         <!-- Region -->
         <select class="form-select" [(ngModel)]="selectedRegion" (change)="onRegionSelected($event)" >
-            <option value="" disabled selected>Mensaje predeterminado</option>
-            <option *ngFor="let region of regionesOptions" [value]="region.nombre_region">{{ region.nombre_region }}</option>
+            <option selected disabled="true">Ingrese una region</option>
+            <option *ngFor="let region of RegionService.regions" [value]="region.nombre_region">{{ region.numero + '-' +region.nombre_region}}</option>
         </select>
         
-        <!-- Comuna -->
+        <!-- Ciudad o Comuna -->
         <select class="form-select" [(ngModel)]="selectedComuna" (change)="onComunaSelected($event)">
-            <option selected disabled="true">Comuna</option>
+            <option selected disabled="true">Ingrese una comuna</option>
             <option *ngFor="let comuna of comunasOptions" [value]="comuna">{{comuna}}</option>
         </select>      
     
         <!-- Tipo vivienda -->
         <select class="form-select" [(ngModel)]="selectedTipoVivienda" (change)="onTipoViviendaSelected($event)"> 
-            <option selected>Tipo de vivienda</option>
+            <option selected>Ingrese tipo de vivienda</option>
             <option value="depto">Departamento</option>
             <option value="casa">Casa</option>
         </select>          

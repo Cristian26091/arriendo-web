@@ -27,13 +27,14 @@ export class RoomService {
   }
 
   getRoomByFilter (req: any): Observable<any[]>{
-    console.log("Room service:",req);
     let params = {
       region: "",
-      comuna: ""
+      comuna: "",
+      // esta_arrendado: true,
+      casa_depto: "",
     };
     // if (req.disponible !== undefined && req.disponible !== true) {
-    //   params += `disponible=${req.disponible}&`;
+    //   params += `esta_arrendado=${req.disponible}&`;
     // }
     if (req.region !== undefined) {
       params.region = req.region;
@@ -41,9 +42,9 @@ export class RoomService {
     if (req.comuna !== undefined) {
       params.comuna = req.comuna;
     }
-    // if (req.casa_depto !== undefined) {
-    //   params += `/${req.tipoVivienda}`;
-    // }
+    if (req.casa_depto !== undefined) {
+      params.casa_depto = req.casa_depto;
+    }
     console.log("Imprimir query:", params);
     return this.http.get<any[]>(`${this.URL_API}/filterRooms/`, { params });
   

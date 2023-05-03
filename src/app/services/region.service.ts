@@ -14,6 +14,7 @@ export class RegionService {
   constructor(private http: HttpClient) {
 
     this.selectedRegion = new Region();
+    this.regions = [];
 
   } 
 
