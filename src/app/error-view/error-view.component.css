@@ -1,0 +1,18 @@
+.error-message {
+    border: 2px solid red;
+    border-radius: 5px;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .error-message h2 {
+    margin-top: 0;
+    font-size: 24px;
+  }
+  
+  .error-message p {
+    margin-bottom: 0;
+  }
+  

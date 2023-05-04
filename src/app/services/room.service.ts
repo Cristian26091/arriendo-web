@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Room } from '../models/room';
 import { Observable } from 'rxjs';
+import { Region } from '../models/region.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +47,7 @@ export class RoomService {
       params.casa_depto = req.casa_depto;
     }
     // console.log("Imprimir query:", params);
+
     return this.http.get<any[]>(`${this.URL_API}/filterRooms/`, { params });
   
   }

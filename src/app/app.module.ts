@@ -47,6 +47,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FilterResultComponent } from './auxComponents/filter-result/filter-result.component';
 import { DimensionmodelComponent } from './dimensionmodel/dimensionmodel.component';
+import { ErrorViewComponent } from './error-view/error-view.component';
 
 
 
@@ -72,6 +73,7 @@ import { DimensionmodelComponent } from './dimensionmodel/dimensionmodel.compone
     MapComponent,
     FilterResultComponent,
     DimensionmodelComponent,
+    ErrorViewComponent,
 
   ],
   imports: [

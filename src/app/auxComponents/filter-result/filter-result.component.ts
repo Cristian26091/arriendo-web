@@ -3,15 +3,6 @@ import { MatSelectChange } from '@angular/material/select';
 import { RegionService } from '../../services/region.service';
 import { Region } from '../../models/region.model';
 
-
-// interface Region {
-//   numero: String,
-//   nombre_region: string,
-//   comunas: {
-//       nombre_comuna: string,
-//   }[],
-// }
-
 @Component({
   selector: 'app-filter-result',
   templateUrl: './filter-result.component.html',
@@ -45,7 +36,10 @@ export class FilterResultComponent implements OnInit {
   }
 
   onComunaSelected(event: MatSelectChange){
-    
+   
   }
 
+  applyFilter() {
+   
+  }
 }

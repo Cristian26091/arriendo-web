@@ -73,6 +73,7 @@ export class SearcherComponent{
     }
     this.getRoomByFilterFront(queryParams);
     this.router.navigate(['/results']);
+    console.log(this.RoomService.rooms);
   }
 
   // Funcion que obtiene las habitaciones segun los filtros seleccionados
