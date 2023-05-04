@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const RegionSchema = new Schema({
     numero: { type: String, required: true },
+    id_region: { type: String, required: true },
     nombre_region: { type: String, required: true },
     comunas: [{
         nombre_comuna: { type: String, required: true }

@@ -15,7 +15,6 @@ import { Room } from '../../models/room';
 export class SearcherComponent{
   
   selectedRegion: string;
-  selectedRegionNumber: number;
   selectedComuna: string;
   selectedTipoVivienda: string;
   comunasOptions: string[];
@@ -23,7 +22,6 @@ export class SearcherComponent{
   
   constructor(public RegionService: RegionService, private router: Router, private RoomService: RoomService){
     this.comunasOptions = [];
-    this.selectedRegionNumber = 0;
     this.selectedRegion = "";
     this.selectedComuna = "";
     this.selectedTipoVivienda = "";
@@ -43,9 +41,7 @@ export class SearcherComponent{
 
   // Evento accionado cuando se seleciona una region
   onRegionSelected(event: any){
-    this.selectedRegion = event.target.value;
-
-    //AL MOMENTO DE COMPARAR, HACERLO POR NUMERO Y NO POR NOMBRE
+    this.selectedRegion = event.target.value;//obtengo el nombre de la region seleccionada
     const region = this.RegionService.regions.find(r => r.nombre_region === this.selectedRegion);
     
     if (region) {
@@ -65,6 +61,7 @@ export class SearcherComponent{
   // Evento accionado cuando se seleciona un tipo de vivienda 
   onTipoViviendaSelected(event: any){
     this.selectedTipoVivienda = event.target.value;
+    console.log(this.selectedTipoVivienda)
   }
 
   // Funcion que se ejecuta cuando se presiona el boton buscar
@@ -72,10 +69,9 @@ export class SearcherComponent{
     const queryParams = {
       region: this.selectedRegion,
       comuna: this.selectedComuna,
-      tipoVivienda: this.selectedTipoVivienda
+      casa_depto: this.selectedTipoVivienda
     }
     this.getRoomByFilterFront(queryParams);
-    //CAMIBAR EL NAVIGATE DE FORMA QUE RETORNE A LA VISTA MOSTRANDO LOS RESULTADOS (RESULTS)
     this.router.navigate(['/results']);
   }
 

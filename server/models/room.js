@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
  const RoomSchema = new Schema({
-    num_region : {type: Number, required: true},
+    id_region : {type: String, required: true},
     latitude: {type: Number, required: true},
     longitud: {type: Number, required: true},
     banio_compartido: { type: Boolean, required: true },

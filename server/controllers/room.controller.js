@@ -15,7 +15,6 @@ roomCtrl.getRoom = async (req, res) => {
 
 // Devolver infomarción filtrada respecto a la requests (en desarrollo)
 roomCtrl.getRoomByFilter = async (req, res) => {
-    // console.log("Room controller metodo getRoomByFilter", req.body);
     const { region, comuna, casa_depto} = req.query;
   
     let query = {};
@@ -32,7 +31,6 @@ roomCtrl.getRoomByFilter = async (req, res) => {
 
     try {
       const rooms = await Room.find(query);
-      // console.log("Datos filtrados desde el controller:",rooms);
       res.json(rooms);
     } catch (error) {
       console.error(error);
