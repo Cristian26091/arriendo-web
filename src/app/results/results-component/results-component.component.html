@@ -11,13 +11,13 @@
         </div>
 
         <div class="col-9">
-            <div class="container" *ngFor="let room of roomService.rooms" >
-    
-                <app-card-room [room] = "room"></app-card-room>
-
-                <span class="salto-linea"> - </span>
-                
-            </div>
+            
+            <div *ngIf="isRoomServiceVoid">
+                <div class="container" *ngFor="let room of roomService.rooms" >
+                    <app-card-room [room] = "room"></app-card-room>
+                    <span class="salto-linea"> - </span>
+                </div>
+            </div>  
         </div>
 
     </div>

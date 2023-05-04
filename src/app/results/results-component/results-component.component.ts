@@ -10,10 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ResultsComponentComponent {
 
+  isRoomServiceVoid: boolean = false;
+
   constructor( public roomService: RoomService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
-   
+    this.isRoomServiceVoid = this.roomService.roomsIsVoid();
+    console.log(this.isRoomServiceVoid);
   }
 
 }

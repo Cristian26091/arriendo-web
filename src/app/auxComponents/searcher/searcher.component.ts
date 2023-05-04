@@ -50,7 +50,7 @@ export class SearcherComponent{
       this.comunasOptions = [];
     }
 
-    console.log(this.RegionService.regions);
+    // console.log(this.RegionService.regions);
   }
 
   // Evento accionado cuando se seleciona una comuna
@@ -61,7 +61,7 @@ export class SearcherComponent{
   // Evento accionado cuando se seleciona un tipo de vivienda 
   onTipoViviendaSelected(event: any){
     this.selectedTipoVivienda = event.target.value;
-    console.log(this.selectedTipoVivienda)
+    // console.log(this.selectedTipoVivienda)
   }
 
   // Funcion que se ejecuta cuando se presiona el boton buscar

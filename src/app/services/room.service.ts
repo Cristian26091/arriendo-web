@@ -15,6 +15,7 @@ export class RoomService {
   constructor(private http: HttpClient){
     
     this.selectedRoom = new Room();
+    this.rooms = [];
 
   }
 
@@ -44,7 +45,7 @@ export class RoomService {
     if (req.casa_depto !== undefined) {
       params.casa_depto = req.casa_depto;
     }
-    console.log("Imprimir query:", params);
+    // console.log("Imprimir query:", params);
     return this.http.get<any[]>(`${this.URL_API}/filterRooms/`, { params });
   
   }
@@ -59,6 +60,10 @@ export class RoomService {
 
   deleteRoom(_id : string){
     
+  }
+
+  roomsIsVoid(){
+    return this.rooms.length === 0;
   }
 
 }
