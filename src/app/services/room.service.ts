@@ -30,7 +30,6 @@ export class RoomService {
     let params = {
       region: "",
       comuna: "",
-      // esta_arrendado: true,
       casa_depto: "",
     };
     // if (req.disponible !== undefined && req.disponible !== true) {
