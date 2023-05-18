@@ -22,14 +22,12 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 // LOGICA DEL PROYECTO
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ContactComponent } from './contact&support/contact/contact.component';
-import { IndexComponentComponent } from './Index/index-component/index-component.component';
-import { RentComponentComponent } from './rent/rent-component/rent-component.component';
-import { ResultsComponentComponent } from './results/results-component/results-component.component';
-import { RoomComponentComponent } from './room/room-component/room-component.component';
+import { ContactComponent } from './pages/help/contact/contact.component';
+import { IndexComponentComponent } from './pages/index/index-component/index-component.component';
+import { ResultsComponentComponent } from './pages/results/results-component/results-component.component';
+import { RoomComponentComponent } from './pages/information/room-component/room-component.component';
 import { ToolbarComponent } from './auxComponents/toolbar/toolbar.component';
 import { LoginComponent } from './pages/login/login.component';
-import { StepperComponent } from './rent/rent-component/stepper/stepper/stepper.component';
 import { FAQComponent } from './auxComponents/faq/faq.component';
 import {MatGridListModule} from '@angular/material/grid-list'; 
 import {MatListModule} from '@angular/material/list'; 
@@ -46,7 +44,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FilterResultComponent } from './auxComponents/filter-result/filter-result.component';
-import { DimensionmodelComponent } from './dimensionmodel/dimensionmodel.component';
+import { DimensionmodelComponent } from './pages/information/dimensionmodel/dimensionmodel.component';
 import { ErrorViewComponent } from './error-view/error-view.component';
 
 
@@ -57,12 +55,10 @@ import { ErrorViewComponent } from './error-view/error-view.component';
     AppComponent,
     ContactComponent,
     IndexComponentComponent,
-    RentComponentComponent,
     ResultsComponentComponent,
     RoomComponentComponent,
     ToolbarComponent,
     LoginComponent,
-    StepperComponent,
     FAQComponent,
     SearcherComponent,
     ImageSliderComponent,
