@@ -2,37 +2,28 @@
 
     <div class="select-group">
 
-        <select class="form-select" >
-            <option selected>Región</option>
-            <option value="1">Opción 1</option>
-            <option value="2">Opción 2</option>
-            <option value="3">Opción 3</option>
+        <!-- Region -->
+        <select class="form-select" [(ngModel)]="selectedRegion" (change)="onRegionSelected($event)" >
+            <option selected disabled="true">Ingrese una region</option>
+            <option *ngFor="let region of RegionService.regions" [value]="region.nombre_region">{{ region.numero + '-' +region.nombre_region}}</option>
         </select>
         
-        <select class="form-select">
-            <option selected>Comuna</option>
-            <option value="1">Opción 1</option>
-            <option value="2">Opción 2</option>
-            <option value="3">Opción 3</option>
+        <!-- Ciudad o Comuna -->
+        <select class="form-select" [(ngModel)]="selectedComuna" (change)="onComunaSelected($event)">
+            <option selected disabled="true">Ingrese una comuna</option>
+            <option *ngFor="let comuna of comunasOptions" [value]="comuna">{{comuna}}</option>
         </select>      
     
-        <select class="form-select">
-            <option selected>Tipo de vivienda</option>
-            <option value="1">Opción 1</option>
-            <option value="2">Opción 2</option>
-            <option value="3">Opción 3</option>
+        <!-- Tipo vivienda -->
+        <select class="form-select" [(ngModel)]="selectedTipoVivienda" (change)="onTipoViviendaSelected($event)"> 
+            <option selected disabled="true">Ingrese tipo de vivienda</option>
+            <option value="depto">Departamento</option>
+            <option value="casa">Casa</option>
         </select>          
     
-        <button type="button" class="btn btn-primary" routerLink="/results">Buscar</button>
+        <!-- Boton buscar  -->
+        <button type="button" class="btn btn-primary" (click)="buscar()">Buscar</button>
     
     </div>
     
 </div>
-
-
-  
-
-
-
-
-

@@ -11,13 +11,22 @@
         </div>
 
         <div class="col-9">
-            <div class="container" *ngFor="let room of roomService.rooms" >
-    
-                <app-card-room [room] = "room"></app-card-room>
-
-                <span class="salto-linea"> - </span>
-                
+            <!-- SI HAY RESUSLTADOS -->
+            <div *ngIf="!isRoomServiceVoid; else noRooms">
+                <div class="container" *ngFor="let room of roomService.rooms" >
+                    <app-card-room [room] = "room"></app-card-room>
+                    <span class="salto-linea"> - </span>
+                </div>
             </div>
+
+            <!-- SI NO HAY RESULTADOS -->
+            <ng-template #noRooms>
+                <app-error-view 
+                    title="No se encontraron resultados" 
+                    message="Pruebe con otra busqueda">
+                </app-error-view>
+            </ng-template>
+
         </div>
 
     </div>

@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { Room } from 'src/app/models/room';
 import { RoomService } from '../../services/room.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-results-component',
@@ -9,18 +10,13 @@ import { RoomService } from '../../services/room.service';
 })
 export class ResultsComponentComponent {
 
-  constructor( public roomService: RoomService ) { }
+  isRoomServiceVoid: boolean = false;
+
+  constructor( public roomService: RoomService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
-    this.getRooms();
-  }
-
-  getRooms(){
-    this.roomService.getRooms()
-      .subscribe( res =>{
-        this.roomService.rooms = res as Room[];
-        console.log(res);
-    });
+    this.isRoomServiceVoid = this.roomService.roomsIsVoid();
+    console.log(this.isRoomServiceVoid);
   }
 
 }

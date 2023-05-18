@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
  const RoomSchema = new Schema({
+    id_region : {type: String, required: true},
     latitude: {type: Number, required: true},
     longitud: {type: Number, required: true},
     banio_compartido: { type: Boolean, required: true },
@@ -15,6 +16,7 @@ const { Schema } = mongoose;
     numero: {type: String, required: true},
     casa_depto: {type: String, required: true},
     precio: {type: Number, required: true},
+    esta_arrendado: {type: Boolean, required: true},
 });
 
 module.exports =  mongoose.model('room', RoomSchema);
