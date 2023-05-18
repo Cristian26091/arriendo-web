@@ -5,7 +5,7 @@ import { ResultsComponentComponent } from './results/results-component/results-c
 import { RoomComponentComponent } from './room/room-component/room-component.component';
 import { ContactComponent } from './contact&support/contact/contact.component';
 import { RentComponentComponent } from './rent/rent-component/rent-component.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   {

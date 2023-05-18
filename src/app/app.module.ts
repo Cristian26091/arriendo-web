@@ -28,7 +28,7 @@ import { RentComponentComponent } from './rent/rent-component/rent-component.com
 import { ResultsComponentComponent } from './results/results-component/results-component.component';
 import { RoomComponentComponent } from './room/room-component/room-component.component';
 import { ToolbarComponent } from './auxComponents/toolbar/toolbar.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 import { StepperComponent } from './rent/rent-component/stepper/stepper/stepper.component';
 import { FAQComponent } from './auxComponents/faq/faq.component';
 import {MatGridListModule} from '@angular/material/grid-list'; 
