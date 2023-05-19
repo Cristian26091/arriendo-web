@@ -1,11 +1,11 @@
 import { Component, OnInit} from '@angular/core';
-import { RegionService } from '../../services/region.service';
-import { Region } from '../../models/region.model';
+import { RegionService } from '../../../services/region.service';
+import { Region } from '../../../models/region.model';
 
 import { Router } from '@angular/router';
 
-import { RoomService } from '../../services/room.service';
-import { Room } from '../../models/room';
+import { RoomService } from '../../../services/room.service';
+import { Room } from '../../../models/room';
 
 @Component({
   selector: 'app-searcher',

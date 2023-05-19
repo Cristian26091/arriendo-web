@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
-import { RegionService } from '../../services/region.service';
-import { Region } from '../../models/region.model';
+import { RegionService } from '../../../services/region.service';
+import { Region } from '../../../models/region.model';
 
 @Component({
   selector: 'app-filter-result',

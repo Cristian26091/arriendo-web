@@ -9,13 +9,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card'; 
 import {MatIconModule} from '@angular/material/icon';
-import { SearcherComponent } from './auxComponents/searcher/searcher.component';
-import { ImageSliderComponent } from './auxComponents/image-slider/image-slider.component';
-import { CardRoomComponent } from './auxComponents/card-room/card-room.component';
+import { SearcherComponent } from './pages/index/searcher/searcher.component';
+import { CardRoomComponent } from './pages/results/card-room/card-room.component';
 import { CalendarComponent } from './auxComponents/calendar/calendar/calendar.component';
-import { DataRoomContainerComponent } from './auxComponents/data-room-container/data-room-container/data-room-container.component';
-import { RoomImageSliderComponent } from './auxComponents/room-image-slider/room-image-slider/room-image-slider.component';
-import { MapComponent } from './auxComponents/map/map/map.component';
+import { DataRoomContainerComponent } from './pages/information/data-room-container/data-room-container.component';
+import { MapComponent } from './pages/information/map/map.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle'; 
 
 
@@ -28,7 +26,7 @@ import { ResultsComponentComponent } from './pages/results/results-component/res
 import { RoomComponentComponent } from './pages/information/room-component/room-component.component';
 import { ToolbarComponent } from './auxComponents/toolbar/toolbar.component';
 import { LoginComponent } from './pages/login/login.component';
-import { FAQComponent } from './auxComponents/faq/faq.component';
+import { FAQComponent } from './pages/help/faq/faq.component';
 import {MatGridListModule} from '@angular/material/grid-list'; 
 import {MatListModule} from '@angular/material/list'; 
 import {MatDatepickerModule} from '@angular/material/datepicker'; 
@@ -43,7 +41,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { FilterResultComponent } from './auxComponents/filter-result/filter-result.component';
+import { FilterResultComponent } from './pages/results/filter-result/filter-result.component';
 import { DimensionmodelComponent } from './pages/information/dimensionmodel/dimensionmodel.component';
 import { ErrorViewComponent } from './error-view/error-view.component';
 
@@ -61,11 +59,9 @@ import { ErrorViewComponent } from './error-view/error-view.component';
     LoginComponent,
     FAQComponent,
     SearcherComponent,
-    ImageSliderComponent,
     CardRoomComponent,
     CalendarComponent,
     DataRoomContainerComponent,
-    RoomImageSliderComponent,
     MapComponent,
     FilterResultComponent,
     DimensionmodelComponent,
