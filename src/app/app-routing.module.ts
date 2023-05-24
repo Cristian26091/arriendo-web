@@ -1,11 +1,10 @@
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IndexComponentComponent } from './Index/index-component/index-component.component';
-import { ResultsComponentComponent } from './results/results-component/results-component.component';
-import { RoomComponentComponent } from './room/room-component/room-component.component';
-import { ContactComponent } from './contact&support/contact/contact.component';
-import { RentComponentComponent } from './rent/rent-component/rent-component.component';
-import { LoginComponent } from './login/login.component';
+import { IndexComponentComponent } from './pages/index/index-component/index-component.component';
+import { ResultsComponentComponent } from './pages/results/results-component/results-component.component';
+import { RoomComponentComponent } from './pages/information/room-component/room-component.component';
+import { ContactComponent } from './pages/help/contact/contact.component';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   {
@@ -25,10 +24,7 @@ const routes: Routes = [
     path: 'contact&support',
     component: ContactComponent
   },
-  {
-    path: 'rent',
-    component: RentComponentComponent
-  },
+
   {
     path: 'login',
     component: LoginComponent
