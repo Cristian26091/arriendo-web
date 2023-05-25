@@ -5,6 +5,7 @@ import { ResultsComponentComponent } from './pages/results/results-component/res
 import { RoomComponentComponent } from './pages/information/room-component/room-component.component';
 import { ContactComponent } from './pages/help/contact/contact.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register/register.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,12 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
+
   // Ruta inicial redirecciona al index
   {
     path: '', 

@@ -44,6 +44,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FilterResultComponent } from './pages/results/filter-result/filter-result.component';
 import { DimensionmodelComponent } from './pages/information/dimensionmodel/dimensionmodel.component';
 import { ErrorViewComponent } from './error-view/error-view.component';
+import { RegisterComponent } from './pages/register/register/register.component';
 
 
 
@@ -66,6 +67,7 @@ import { ErrorViewComponent } from './error-view/error-view.component';
     FilterResultComponent,
     DimensionmodelComponent,
     ErrorViewComponent,
+    RegisterComponent,
 
   ],
   imports: [
