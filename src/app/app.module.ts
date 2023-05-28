@@ -45,6 +45,8 @@ import { FilterResultComponent } from './pages/results/filter-result/filter-resu
 import { DimensionmodelComponent } from './pages/information/dimensionmodel/dimensionmodel.component';
 import { ErrorViewComponent } from './error-view/error-view.component';
 import { RegisterComponent } from './pages/register/register/register.component';
+import { IndexCarrouselComponent } from './pages/index/index-carrousel/index-carrousel.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 
@@ -68,6 +70,8 @@ import { RegisterComponent } from './pages/register/register/register.component'
     DimensionmodelComponent,
     ErrorViewComponent,
     RegisterComponent,
+    IndexCarrouselComponent,
+    FooterComponent,
 
   ],
   imports: [

@@ -1,15 +1,31 @@
-<section>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+        <a class="navbar-brand" routerLink="/index">
+            <img src="ruta-al-logo/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-top">
+        </a>
+        <!-- logotipo -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <mat-toolbar color="primary" class="mat-elevation-z8">
-        <!-- <img class="image-logo" src=".\assets\logo.png" routerLink="/index"> -->
-        <span routerLink="/index">RooMatch</span>
-        <div class="spacer"></div>
-        <a mat-button routerLink="/register">Crear Cuenta</a>
-        <a mat-button routerLink="/login">Ingresa</a>
-        <a mat-button routerLink="/contact&support">Ayuda y soporte</a>
-    </mat-toolbar>
-    
-</section>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+
+            <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/register">Registrarse</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/login">Ingresar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/contact&support">Ayuda</a>
+            </li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+</header>
 
 
 
