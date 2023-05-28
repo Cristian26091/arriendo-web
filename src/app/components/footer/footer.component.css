@@ -13,6 +13,7 @@
   border: none;
   color: #333; /* Cambia el color del texto aquí */
   margin-right: 10px;
+  font-size: 11px;
 }
 
 .btn-transparent:focus,
