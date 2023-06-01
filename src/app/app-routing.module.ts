@@ -5,6 +5,10 @@ import { ResultsComponentComponent } from './pages/results/results-component/res
 import { RoomComponentComponent } from './pages/information/room-component/room-component.component';
 import { ContactComponent } from './pages/help/contact/contact.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register/register.component';
+import { HelpComponentComponent } from './pages/help/help-component/help-component.component';
+import { FAQComponent } from './pages/help/faq/faq.component';
+
 
 const routes: Routes = [
   {
@@ -22,13 +26,30 @@ const routes: Routes = [
   },
   {
     path: 'contact&support',
-    component: ContactComponent
+    component: HelpComponentComponent
   },
 
   {
     path: 'login',
     component: LoginComponent
   },
+
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
+
+  {
+    path: 'help',
+    component: FAQComponent
+
+  },
+
+  {
+    path: 'claim',
+    component: ContactComponent
+  },
+
   // Ruta inicial redirecciona al index
   {
     path: '', 

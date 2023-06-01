@@ -1,13 +1,81 @@
-<section>
-    <mat-toolbar color="primary" class="mat-elevation-z8">
-        <!-- <img class="image-logo" src=".\assets\logo.png" routerLink="/index"> -->
-        <span routerLink="/index">RooMatch</span>
-        <div class="spacer"></div>
-        <a mat-button routerLink="/index">Crear Cuenta</a>
-        <a mat-button routerLink="/login">Ingresa</a>
-        <a mat-button routerLink="/contact&support">Ayuda y soporte</a>
-    </mat-toolbar>
-</section>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <img src="ruta-al-logo/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-top">
+            </a>
+            <!-- Título -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <!-- Menú de navegación -->
+                <ul class="navbar-nav">
+                <!-- Botón de ingreso (modal) -->
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginSignupModal">Ingresar</a>
+                </li>
+                <!-- Botón de ayuda -->
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/contact&support">Ayuda</a>
+                </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Modal -->
+<div class="modal fade" id="loginSignupModal" tabindex="-1" aria-labelledby="loginSignupModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <h5 class="modal-title" id="loginSignupModalLabel">Iniciar sesión o Registrarse</h5> -->
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Contenido del formulario de inicio de sesión y registro -->
+          <!-- Aquí puedes añadir los campos y elementos necesarios para el inicio de sesión y registro -->
+          <ul class="nav nav-tabs" id="loginSignupTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Iniciar sesión</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup" type="button" role="tab" aria-controls="signup" aria-selected="false">Registrarse</button>
+            </li>
+          </ul>
+
+          <div class="tab-content" id="loginSignupContent">
+            <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+              <!-- Contenido del formulario de inicio de sesión -->
+              <app-login></app-login>
+            </div>
+            <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+              <!-- Contenido del formulario de registro -->
+              <app-register></app-register>
+            </div>
+          </div>
+
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary">Iniciar sesión</button>
+          <button type="button" class="btn btn-primary">Registrarse</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  
+
+
+  
+  
+
+
 
 
 

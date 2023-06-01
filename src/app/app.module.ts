@@ -44,6 +44,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FilterResultComponent } from './pages/results/filter-result/filter-result.component';
 import { DimensionmodelComponent } from './pages/information/dimensionmodel/dimensionmodel.component';
 import { ErrorViewComponent } from './error-view/error-view.component';
+import { RegisterComponent } from './pages/register/register/register.component';
+import { IndexCarrouselComponent } from './pages/index/index-carrousel/index-carrousel.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { CardGridComponent } from './pages/help/card-grid/card-grid.component';
+import { HelpComponentComponent } from './pages/help/help-component/help-component.component';
 
 
 
@@ -66,6 +71,11 @@ import { ErrorViewComponent } from './error-view/error-view.component';
     FilterResultComponent,
     DimensionmodelComponent,
     ErrorViewComponent,
+    RegisterComponent,
+    IndexCarrouselComponent,
+    FooterComponent,
+    CardGridComponent,
+    HelpComponentComponent,
 
   ],
   imports: [

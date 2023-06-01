@@ -8,3 +8,9 @@
   width: 100%;
 }
 
+body {
+  background-image: url("src/assets/room-images/pieza 01.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
