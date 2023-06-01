@@ -6,6 +6,9 @@ import { RoomComponentComponent } from './pages/information/room-component/room-
 import { ContactComponent } from './pages/help/contact/contact.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register/register.component';
+import { HelpComponentComponent } from './pages/help/help-component/help-component.component';
+import { FAQComponent } from './pages/help/faq/faq.component';
+
 
 const routes: Routes = [
   {
@@ -23,7 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'contact&support',
-    component: ContactComponent
+    component: HelpComponentComponent
   },
 
   {
@@ -34,6 +37,17 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+
+  {
+    path: 'help',
+    component: FAQComponent
+
+  },
+
+  {
+    path: 'claim',
+    component: ContactComponent
   },
 
   // Ruta inicial redirecciona al index
