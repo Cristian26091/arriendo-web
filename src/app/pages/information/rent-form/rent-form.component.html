@@ -1,0 +1,67 @@
+<form>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" class="form-control" id="nombre">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="apellido">Apellido</label>
+          <input type="text" class="form-control" id="apellido">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="correo">Correo</label>
+          <input type="email" class="form-control" id="correo">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input type="tel" class="form-control" id="telefono">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="fecha-inicio">Fecha de inicio</label>
+          <input type="date" class="form-control" id="fecha-inicio">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="fecha-termino">Fecha de término</label>
+          <input type="date" class="form-control" id="fecha-termino">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+              <label for="rut">RUT</label>
+              <input type="text" class="form-control" id="rut">
+            </div>
+          </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="terminos">
+          <label class="form-check-label" for="terminos">Acepto los términos y condiciones y autorizo el uso de mis datos de acuerdo a la Declaración de Privacidad</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <!-- Luego de reservar reenviar a la vista de pago -->
+        <button type="submit" class="btn btn-primary" routerLink="/payment">Reservar arriendo</button>
+      </div>
+    </div>
+  </form>
+  

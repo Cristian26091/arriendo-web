@@ -23,7 +23,7 @@ import { AppComponent } from './app.component';
 import { ContactComponent } from './pages/help/contact/contact.component';
 import { IndexComponentComponent } from './pages/index/index-component/index-component.component';
 import { ResultsComponentComponent } from './pages/results/results-component/results-component.component';
-import { RoomComponentComponent } from './pages/information/room-component/room-component.component';
+import { RoomComponentComponent } from './pages/information/information-component/room-component.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { LoginComponent } from './pages/login/login.component';
 import { FAQComponent } from './pages/help/faq/faq.component';
@@ -49,6 +49,8 @@ import { IndexCarrouselComponent } from './pages/index/index-carrousel/index-car
 import { FooterComponent } from './components/footer/footer.component';
 import { CardGridComponent } from './pages/help/card-grid/card-grid.component';
 import { HelpComponentComponent } from './pages/help/help-component/help-component.component';
+import { RentFormComponent } from './pages/information/rent-form/rent-form.component';
+import { PaymentComponentComponent } from './pages/payment/payment-component/payment-component.component';
 
 
 
@@ -76,6 +78,8 @@ import { HelpComponentComponent } from './pages/help/help-component/help-compone
     FooterComponent,
     CardGridComponent,
     HelpComponentComponent,
+    RentFormComponent,
+    PaymentComponentComponent,
 
   ],
   imports: [

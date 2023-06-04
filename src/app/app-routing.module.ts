@@ -2,12 +2,13 @@ import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IndexComponentComponent } from './pages/index/index-component/index-component.component';
 import { ResultsComponentComponent } from './pages/results/results-component/results-component.component';
-import { RoomComponentComponent } from './pages/information/room-component/room-component.component';
+import { RoomComponentComponent } from './pages/information/information-component/room-component.component';
 import { ContactComponent } from './pages/help/contact/contact.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register/register.component';
 import { HelpComponentComponent } from './pages/help/help-component/help-component.component';
 import { FAQComponent } from './pages/help/faq/faq.component';
+import { PaymentComponentComponent } from './pages/payment/payment-component/payment-component.component';
 
 
 const routes: Routes = [
@@ -48,6 +49,11 @@ const routes: Routes = [
   {
     path: 'claim',
     component: ContactComponent
+  },
+
+  {
+    path: 'payment',
+    component: PaymentComponentComponent
   },
 
   // Ruta inicial redirecciona al index
