@@ -51,6 +51,9 @@ import { CardGridComponent } from './pages/help/card-grid/card-grid.component';
 import { HelpComponentComponent } from './pages/help/help-component/help-component.component';
 import { RentFormComponent } from './pages/information/rent-form/rent-form.component';
 import { PaymentComponentComponent } from './pages/payment/payment-component/payment-component.component';
+import { DetailsComponent } from './pages/payment/details/details.component';
+import { PaymentDataComponent } from './pages/payment/payment-data/payment-data.component';
+import { PaymentPaymentComponent } from './pages/payment/payment-payment/payment-payment.component';
 
 
 
@@ -80,6 +83,9 @@ import { PaymentComponentComponent } from './pages/payment/payment-component/pay
     HelpComponentComponent,
     RentFormComponent,
     PaymentComponentComponent,
+    DetailsComponent,
+    PaymentDataComponent,
+    PaymentPaymentComponent,
 
   ],
   imports: [

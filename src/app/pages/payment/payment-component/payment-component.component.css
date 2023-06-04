@@ -1,0 +1,38 @@
+.stepper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.step {
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 0;
+margin: 0;
+text-align: center;
+}
+
+.step-number {
+width: 30px;
+height: 30px;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: #f8f9fa;
+border-radius: 50%;
+margin-bottom: 5px;
+}
+
+.step-title {
+font-size: 14px;
+}
+
+.step.active .step-number {
+background-color: #007bff;
+color: #fff;
+}
+
