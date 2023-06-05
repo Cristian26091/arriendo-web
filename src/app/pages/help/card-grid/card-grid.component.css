@@ -1,3 +1,9 @@
 .card-column {
     margin-bottom: 20px;
 }
+
+.card:hover {
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño de la tarjeta */
+    transition: transform 0.3s ease; /* Agrega una transición suave al cambio de tamaño */
+    background-color: skyblue; /* Cambia el color de fondo al pasar el ratón por encima */
+}
