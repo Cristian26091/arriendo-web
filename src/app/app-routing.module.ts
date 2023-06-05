@@ -9,6 +9,7 @@ import { RegisterComponent } from './pages/register/register/register.component'
 import { HelpComponentComponent } from './pages/help/help-component/help-component.component';
 import { FAQComponent } from './pages/help/faq/faq.component';
 import { PaymentComponentComponent } from './pages/payment/payment-component/payment-component.component';
+import { AdminComponentComponent } from './pages/admin/admin-component/admin-component.component';
 
 
 const routes: Routes = [
@@ -54,6 +55,11 @@ const routes: Routes = [
   {
     path: 'payment',
     component: PaymentComponentComponent
+  },
+
+  {
+    path: 'admin',
+    component: AdminComponentComponent
   },
 
   // Ruta inicial redirecciona al index

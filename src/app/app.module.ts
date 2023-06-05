@@ -54,6 +54,8 @@ import { PaymentComponentComponent } from './pages/payment/payment-component/pay
 import { DetailsComponent } from './pages/payment/details/details.component';
 import { PaymentDataComponent } from './pages/payment/payment-data/payment-data.component';
 import { PaymentPaymentComponent } from './pages/payment/payment-payment/payment-payment.component';
+import { AdminComponentComponent } from './pages/admin/admin-component/admin-component.component';
+import { SidebarComponent } from './pages/admin/sidebar/sidebar/sidebar.component';
 
 
 
@@ -86,6 +88,8 @@ import { PaymentPaymentComponent } from './pages/payment/payment-payment/payment
     DetailsComponent,
     PaymentDataComponent,
     PaymentPaymentComponent,
+    AdminComponentComponent,
+    SidebarComponent,
 
   ],
   imports: [
