@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card-grid',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./card-grid.component.css']
 })
 export class CardGridComponent implements OnInit {
+
 
   cards = [
     { title: 'Card 1', content: 'This is the content of card 1.' },
@@ -17,10 +19,14 @@ export class CardGridComponent implements OnInit {
 
 
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  
+
+
+  
 
 }

@@ -27,7 +27,7 @@ const routes: Routes = [
     component: RoomComponentComponent
   },
   {
-    path: 'contact&support',
+    path: 'help',
     component: HelpComponentComponent
   },
 
@@ -42,7 +42,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'help',
+    path: 'faq',
     component: FAQComponent
 
   },
