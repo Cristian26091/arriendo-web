@@ -1,23 +1,42 @@
-<nav class="sidebar">
-    
-    <ul class="nav flex-column">
+<div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+  <!-- Logo y-->
+  <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <span class="fs-5 d-none d-sm-inline">Roomatch</span>
+  </a>
+  <!-- Listado de los botones -->
+  <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+      <!-- Home -->
       <li class="nav-item">
-        <a class="nav-link" routerLink="/">Inicio</a>
+          <a href="#" class="nav-link align-middle px-0">
+              <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+          </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/users">Gestionar usuarios</a>
+      <!-- Usuarios -->
+      <li>
+          <a href="#" class="nav-link px-0 align-middle">
+              <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Usuarios</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/rooms">Gestionar habitaciones </a>
+      <!-- Reservas -->
+      <li>
+        <a href="#" class="nav-link px-0 align-middle">
+            <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">Reservas</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/complaints">Gestionar reclamos </a>
+      <!-- Reclamos -->
+      <li>
+          <a href="#" class="nav-link px-0 align-middle">
+              <i class="fs-4 bi-megaphone"></i> <span class="ms-1 d-none d-sm-inline">Reclamos</span> </a>
       </li>
-    </ul>
+  </ul>
 
-    <ul class="nav flex-column mt-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/logout">Cerrar sesión</a>
-        </li>
+  <div class="dropdown pb-4">
+    <!-- Listado de los botones -->
+    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+      <!-- Botón salir -->
+      <li>
+          <a href="#" class="nav-link px-0 align-middle">
+              <i class="fs-4 bi-box-arrow-in-left"></i> <span class="ms-1 d-none d-sm-inline">Salir</span> </a>
+      </li>
     </ul>
-</nav>
+  </div>
+
+</div>
