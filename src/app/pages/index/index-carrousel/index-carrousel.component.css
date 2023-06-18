@@ -71,28 +71,27 @@
 @media (max-width: 575.98px) {
   /* Estilos para dispositivos móviles pequeños */
   .carousel {
-    height: 15vh; /* Ajusta la altura según tus necesidades */
+    height: 15%; /* Ajusta la altura según tus necesidades */
   }
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
   /* Estilos para dispositivos móviles medianos */
   .carousel {
-    height: 20vh; /* Ajusta la altura según tus necesidades */
+    height: 20%; /* Ajusta la altura según tus necesidades */
   }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
   /* Estilos para dispositivos móviles grandes y tabletas */
   .carousel {
-    height: 25vh; /* Ajusta la altura según tus necesidades */
+    height: 25%; /* Ajusta la altura según tus necesidades */
   }
 }
 
 @media (min-width: 992px) {
   /* Estilos para pantallas de escritorio */
   .carousel {
-    height: 50vh; /* Ajusta la altura según tus necesidades */
+    height: 50%; /* Ajusta la altura según tus necesidades */
   }
 }
-  

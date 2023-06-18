@@ -1,31 +1,64 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  max-width: 80%;
+  width: 80%;
+  height: 20%;
+  padding: 0 20px;
+  margin: 20px auto;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
 .select-group {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 60%;
-    align-items: center;
-    margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .form-select,
 .btn {
-  display: inline-block;
-  vertical-align: top;
   margin-right: 15px;
 }
 
-.container{
-    /* Centrar el contenido */
-    display: flex;
+@media (max-width: 576px) {
+  /* Estilos para dispositivos móviles pequeños y tabletas en orientación vertical */
+  .select-group {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* border: 1px solid black; */
-    border-radius: 10px;
-    padding: 20px;
-    background-color: #FFFFFF;
-    width: 80%;
-    height: 20%;
-    /* sombra del buscador */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Ajusta los valores según tus preferencias */
+    gap: 7%;
+  }
+  .btn {
+    width: 100%;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  /* Estilos para tabletas en orientación horizontal y pantallas de escritorio pequeñas */
+  .select-group {
+    flex-direction: column;
+    gap: 7%;
+  }
+  .btn {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  /* Estilos para pantallas de escritorio */
+  .select-group {
+    flex-direction: row;
+  }
+  .container{
+    height: 10%;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  /* Estilos para pantallas de escritorio */
+  .container {
+    height: 15%;
+  }
 }
