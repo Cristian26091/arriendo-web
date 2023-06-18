@@ -5,7 +5,6 @@
   margin: 0 auto;
   /* overflow: hidden; */
   position: relative; /* Agrega esta línea */
-  background-color: red;
 }
 
 .carousel-inner{

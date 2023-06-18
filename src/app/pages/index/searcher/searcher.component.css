@@ -17,11 +17,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
+
+
 
 .form-select,
 .btn {
   margin-right: 15px;
+}
+
+.start-input-text{
+  text-decoration-color: aqua;
 }
 
 @media (max-width: 576px) {
