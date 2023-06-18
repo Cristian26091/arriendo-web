@@ -1,10 +1,11 @@
 /* Ajustar altura del carrusel */
 .carousel {
-  height: 40%; /* Ajusta la altura según tus necesidades */
+  height: 30vh; /* Ajusta la altura según tus necesidades */
   width: 100%;
   margin: 0 auto;
   /* overflow: hidden; */
   position: relative; /* Agrega esta línea */
+  background-color: red;
 }
 
 .carousel-inner{
@@ -16,12 +17,17 @@
 .carousel-item {
   width: 100%;
   height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
 }
 
 .image-banner {
   width: 100%;
   height: auto;
   object-fit: cover;
+  object-position: center;
   position: relative;
 }
 
@@ -32,6 +38,9 @@
   background-color: rgba(0, 0, 0, 0.5); /* Color de fondo de los botones */
   opacity: 0.5;
   transition: opacity 0.3s ease;
+  top: 50%; /* Ajusta la posición vertical según tus necesidades */
+  transform: translateY(-50%);
+  transform-origin: center;
 }
 
 .carousel-control-prev:hover,
@@ -57,5 +66,33 @@
 .carousel-indicators .active {
   background-color: #000; /* Color de fondo del punto activo */
   border-color: #000; /* Color del borde del punto activo */
+}
+
+@media (max-width: 575.98px) {
+  /* Estilos para dispositivos móviles pequeños */
+  .carousel {
+    height: 15vh; /* Ajusta la altura según tus necesidades */
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  /* Estilos para dispositivos móviles medianos */
+  .carousel {
+    height: 20vh; /* Ajusta la altura según tus necesidades */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  /* Estilos para dispositivos móviles grandes y tabletas */
+  .carousel {
+    height: 25vh; /* Ajusta la altura según tus necesidades */
+  }
+}
+
+@media (min-width: 992px) {
+  /* Estilos para pantallas de escritorio */
+  .carousel {
+    height: 50vh; /* Ajusta la altura según tus necesidades */
+  }
 }
   
