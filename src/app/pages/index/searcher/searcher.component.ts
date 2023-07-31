@@ -31,7 +31,7 @@ export class SearcherComponent{
     this.getRegions();
   }
 
-  // Funcion que obtiene las regiones desde la base de datos
+  // Funcion que obtiene las regiones desde la base de datos para aplicarlas al filtro 
   getRegions(){
     this.RegionService.getRegions()
       .subscribe( res =>{
@@ -70,10 +70,23 @@ export class SearcherComponent{
       region: this.selectedRegion,
       comuna: this.selectedComuna,
       casa_depto: this.selectedTipoVivienda
-    }
-    this.getRoomByFilterFront(queryParams);
-    this.router.navigate(['/results']);
-    console.log(this.RoomService.rooms);
+    };
+
+    // Llamar al servicio para obtener los resultados de búsqueda
+    this.RoomService.getRoomByFilter(queryParams).subscribe(
+      (res) => {
+      // Manejar los resultados dentro de la suscripción
+      this.RoomService.rooms = res as Room[];
+
+      // Navegar a la página de resultados
+      this.router.navigate(['/results']);
+      console.log(this.RoomService.rooms);
+      },
+      (error) => {
+        // Manejar errores si los hay
+        console.error('Error al obtener los resultados de búsqueda:', error);
+      }
+    );
   }
 
   // Funcion que obtiene las habitaciones segun los filtros seleccionados
