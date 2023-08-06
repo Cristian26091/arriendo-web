@@ -55,7 +55,7 @@ export class DimensionmodelComponent implements OnInit{
 
   ngOnInit(): void {
     this.initscene();
-
+    console.log("holaaa");
     // Aquí puedes acceder al canvas utilizando la referencia container
     this.load3DObject('../assets/3d-models/room3/textured_output.obj');
 

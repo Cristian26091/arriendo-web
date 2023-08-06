@@ -2,7 +2,7 @@ export class Room {
 
     constructor(_id='', id_region='', latitud=0, longitud=0, banio_compartido=null, 
     descripcion='', fecha_publicacion = null, region = '', ciudad = '',
-    comuna = '', calle = '', numero = '', casa_depto = '', precio = 0){
+    comuna = '', calle = '', numero = '', casa_depto = '', precio = 0, url_img = ''){
         this._id = _id;
         this.id_region = id_region;
         this.latitud = latitud;
@@ -17,6 +17,7 @@ export class Room {
         this.numero = numero;
         this.casa_depto = casa_depto;
         this.precio = precio;
+        this.url_img = url_img;
     }
 
     _id: string;
@@ -33,4 +34,5 @@ export class Room {
     numero: String
     casa_depto: String
     precio: Number
+    url_img: String
 }

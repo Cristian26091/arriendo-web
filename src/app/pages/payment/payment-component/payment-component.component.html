@@ -1,0 +1,50 @@
+
+<!-- Stepper -->
+<div class="container mt-4">
+    
+    <div class="row">
+      <div class="col">
+        <ul class="stepper">
+          <li class="step" *ngFor="let step of steps; let i = index" [ngClass]="{ 'active': currentStep === i + 1 }">
+            <span class="step-number">{{ i + 1 }}</span>
+            <span class="step-title">{{ step.title }}</span>
+          </li>
+        </ul>
+      </div>
+</div>
+
+<!-- Container -->
+<div class="row">
+    <div class="col">
+      <div class="content-container">
+        <!-- Aquí puedes agregar el contenido adicional que deseas colocar entre el stepper y los botones -->
+        <div class="content-container">
+          <div *ngIf="currentContent === 'details'" class="slide-in">
+            <!-- DATOS -->
+            <app-payment-data></app-payment-data>
+          </div>
+          <div *ngIf="currentContent === 'data'" class="slide-in">
+            <!-- DETALLES -->
+            <app-details></app-details>
+          </div>
+          <div *ngIf="currentContent === 'payment'" class="slide-in">
+            <!-- PAYMENT -->
+            <app-payment-payment></app-payment-payment>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+</div>
+
+<!-- Buttons -->
+    <div class="row mt-4">
+      <div class="col">
+        <button class="btn btn-primary" (click)="previousStep()" *ngIf="!hidePreviousButton">Anterior</button>
+        <button class="btn btn-primary ml-2" (click)="nextStep()" *ngIf="!hideNextButton">Siguiente</button>
+
+
+      </div>
+    </div>
+  </div>
+  

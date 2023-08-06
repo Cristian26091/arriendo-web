@@ -11,55 +11,48 @@
     <!-- reclamo -->
     <div class="row justify-content-center">
 
-        <div class="col-md-8 card-column">
-            <div class="card">
+        <div class="col-md-8 card-column" >
+            <div class="card" data-bs-toggle="modal" data-bs-target="#contactModal">
               <div class="card-body">
-                <h5 class="card-title">Reclamo</h5>
+                <h5 class="card-title">Esribenos tu solicitud</h5>
                 <p class="card-text">This is the content of card 1.</p>
               </div>
             </div>
-          </div>
+        </div>
 
     </div>
     <!-- Categorías de ayuda -->
     <div class="row">
 
-      <div class="col-md-6 card-column">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Card 1</h5>
-            <p class="card-text">This is the content of card 1.</p>
+      <div class="row">
+        <div class="col-md-6 card-column" *ngFor="let card of cards">
+          <div class="card" routerLink="/faq"  >
+            <div class="card-body" >
+              <h5 class="card-title">{{ card.title }}</h5>
+              <p class="card-text">{{ card.content }}</p>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="col-md-6 card-column">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Card 2</h5>
-            <p class="card-text">This is the content of card 2.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 card-column">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Card 1</h5>
-            <p class="card-text">This is the content of card 1.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 card-column">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Card 2</h5>
-            <p class="card-text">This is the content of card 2.</p>
-          </div>
-        </div>
-      </div>
+      
 
     </div>
 </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="contactModal" aria-labelledby="contactModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <h5 class="modal-title" id="loginSignupModalLabel">Iniciar sesión o Registrarse</h5> -->
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Contenido del formulario de inicio de sesión y registro -->
+          <app-contact></app-contact>
+        </div>
+      
+      </div>
+    </div>
+  </div>
   
