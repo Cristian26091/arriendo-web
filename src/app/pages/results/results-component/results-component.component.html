@@ -1,0 +1,47 @@
+<body>
+
+    <app-toolbar></app-toolbar>
+
+<div class="container">
+    <!-- FILTRO -->
+    <div class="row">
+
+        <div class="col-3">
+            <app-filter-result></app-filter-result>
+        </div>
+
+        <div class="col-9">
+            <!-- SI HAY RESUSLTADOS -->
+            <div *ngIf="!isRoomServiceVoid; else noRooms">
+                <div class="container" *ngFor="let room of roomService.rooms" >
+                    <app-card-room [room] = "room"></app-card-room>
+                    <span class="salto-linea"> - </span>
+                </div>
+            </div>
+
+            <!-- SI NO HAY RESULTADOS -->
+            <ng-template #noRooms>
+                <app-error-view 
+                    title="No se encontraron resultados" 
+                    message="Pruebe con otra busqueda">
+                </app-error-view>
+            </ng-template>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+<footer>
+    <app-footer></app-footer>
+</footer>
+
+
+
+
+  
+  
+  

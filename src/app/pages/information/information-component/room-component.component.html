@@ -1,0 +1,56 @@
+<app-toolbar></app-toolbar>
+
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-9">
+      <app-dimensionmodel></app-dimensionmodel>
+    </div>
+
+    <div class="col-3">
+      <!-- Boton arrendar  -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rentModal">Buscar</button>
+      <app-data-room-container></app-data-room-container>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-9">
+      <!-- MAPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
+      <app-map></app-map> 
+    </div>
+
+    <div class="col-3">
+      <app-calendar></app-calendar>
+    </div>
+
+  </div>
+
+  </div>
+
+  <!-- modal -->
+  
+  <!-- Modal -->
+<div class="modal fade" id="rentModal" aria-labelledby="rentModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <h5 class="modal-title" id="loginSignupModalLabel">Iniciar sesión o Registrarse</h5> -->
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Contenido del formulario de inicio de sesión y registro -->
+        
+        <app-rent-form></app-rent-form>
+
+      </div>
+    
+    </div>
+  </div>
+</div>
+  
+  
+    

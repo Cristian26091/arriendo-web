@@ -1,0 +1,31 @@
+
+<div class="container">
+
+    <div class="select-group">
+
+        <!-- Region -->
+        <select class="form-select" [(ngModel)]="selectedRegion" (change)="onRegionSelected($event)">
+            <option class="start-input-text" value="" disabled selected>Seleccione una región</option>
+            <option *ngFor="let region of RegionService.regions" [value]="region.nombre_region">{{ region.numero + '-' +region.nombre_region}}</option>
+        </select>
+        
+        <!-- Ciudad o Comuna -->
+        <select class="form-select" [(ngModel)]="selectedComuna" (change)="onComunaSelected($event)">
+            <option class="start-input-text" value="" disabled selected>Seleccione una comuna</option>
+            <option *ngFor="let comuna of comunasOptions" [value]="comuna">{{comuna}}</option>
+        </select>      
+    
+        <!-- Tipo vivienda -->
+        <select class="form-select" [(ngModel)]="selectedTipoVivienda" (change)="onTipoViviendaSelected($event)"> 
+            <option class="start-input-text" value="" disabled selected>Seleccione un tipo de vivienda</option>
+            <option value="depto">Departamento</option>
+            <option value="casa">Casa</option>
+        </select>          
+    
+        <!-- Boton buscar  -->
+        <button type="button" class="btn btn-primary" (click)="buscar()">Buscar</button>
+    
+    </div>
+    
+</div> 
+
