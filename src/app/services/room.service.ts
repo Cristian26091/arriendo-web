@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Room } from '../models/room';
 import { Observable } from 'rxjs';
 import { Region } from '../models/region.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class RoomService {
   selectedRoom: Room;
   rooms: Room[];
 
-  readonly URL_API = 'http://127.0.0.1:3000/api'
+  readonly URL_API = environment.uri+'/api'
 
   constructor(private http: HttpClient){
     
