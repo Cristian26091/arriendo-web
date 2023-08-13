@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Contact } from '../models/contact';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ContactService {
   selectedContact: Contact;
   contacts: Contact[];
 
-  readonly URL_API = 'http://127.0.0.1:3000/api/contact'
+  readonly URL_API = environment.uri+'/api/contact'
 
   constructor(private http: HttpClient){
     

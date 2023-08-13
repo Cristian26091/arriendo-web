@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Region } from '../models/region.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ export class RegionService {
   selectedRegion: Region;
   regions: Region[];
 
-  readonly URL_API = 'http://127.0.0.1:3000/api/region'
+  // readonly URL_API = 'http://127.0.0.1:3000/api/region';
+  readonly URL_API = environment.uri+'/api/region';
 
   constructor(private http: HttpClient) {
 
