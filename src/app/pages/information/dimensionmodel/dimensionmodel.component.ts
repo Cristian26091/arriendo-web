@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef,  } from '@angular/core';
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { RoomService } from 'src/app/services/room.service';
 
 @Component({
   selector: 'app-dimensionmodel',
@@ -24,7 +25,7 @@ export class DimensionmodelComponent implements OnInit{
 
   public modelLoaded: boolean = false;
 
-  constructor() {
+  constructor(public roomService: RoomService) {
   }
 
   private initscene() {
@@ -57,7 +58,8 @@ export class DimensionmodelComponent implements OnInit{
     this.initscene();
     console.log("holaaa");
     // Aquí puedes acceder al canvas utilizando la referencia container
-    this.load3DObject('../assets/3d-models/room3/textured_output.obj');
+    console.log("url modelo:"+(this.roomService.selectedRoom.url_model).toString());
+    this.load3DObject((this.roomService.selectedRoom.url_model).toString());
 
     // this.renderer.setSize(this.container.nativeElement.clientWidth, this.container.nativeElement.clientHeight);
     // this.container.nativeElement.appendChild(this.renderer.domElement);
@@ -78,7 +80,7 @@ export class DimensionmodelComponent implements OnInit{
     this.scene.dispose();
   }
 
-   private animate(): void {
+  private animate(): void {
     requestAnimationFrame(() => this.animate());
     this.renderer.render(this.scene, this.camera);
   }
@@ -96,7 +98,7 @@ export class DimensionmodelComponent implements OnInit{
               this.scene.add(object);
               // Cargar la textura y asignarla al material
               const textureLoader = new THREE.TextureLoader();
-              const texture = textureLoader.load('../assets/3d-models/room3/textured_output.jpg');
+              const texture = textureLoader.load((this.roomService.selectedRoom.url_texture).toString());
               child.material = new THREE.MeshBasicMaterial({ map: texture });
               this.modelLoaded = true;// set on true when the model is loaded
             }

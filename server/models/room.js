@@ -18,6 +18,8 @@ const { Schema } = mongoose;
     precio: {type: Number, required: true},
     esta_arrendado: {type: Boolean, required: true},
     url_img_cover: {type: String, required: true},
+    url_model: {type: String, required: true},
+    url_texture: {type: String, required: true},
 });
 
 module.exports =  mongoose.model('room', RoomSchema);
