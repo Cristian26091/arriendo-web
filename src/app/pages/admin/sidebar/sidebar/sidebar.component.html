@@ -7,24 +7,25 @@
   <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
       <!-- Home -->
       <li class="nav-item">
-          <a href="#" class="nav-link align-middle px-0">
-              <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
-          </a>
+        <a (click)="mostrarHome()" class="nav-link align-middle px-0">
+            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+        </a>
       </li>
       <!-- Usuarios -->
       <li>
-          <a href="#" class="nav-link px-0 align-middle">
-              <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Usuarios</span></a>
+        <a (click)="mostrarUsuarios()" class="nav-link px-0 align-middle">
+            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Usuarios</span>
+        </a>
       </li>
       <!-- Reservas -->
       <li>
-        <a href="#" class="nav-link px-0 align-middle">
-            <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">Reservas</span></a>
+        <a (click)="mostrarReservas()" class="nav-link px-0 align-middle">
+          <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">Reservas</span></a>
       </li>
       <!-- Reclamos -->
       <li>
-          <a href="#" class="nav-link px-0 align-middle">
-              <i class="fs-4 bi-megaphone"></i> <span class="ms-1 d-none d-sm-inline">Reclamos</span> </a>
+        <a (click)="mostrarReclamos()" class="nav-link px-0 align-middle">
+          <i class="fs-4 bi-megaphone"></i> <span class="ms-1 d-none d-sm-inline">Reclamos</span> </a>
       </li>
   </ul>
 
