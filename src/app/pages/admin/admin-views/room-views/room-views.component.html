@@ -56,8 +56,8 @@
                 <td>{{ item.precio }}</td>
                 <td>{{ item.estado }}</td>
                 <td>
-                    <button (click)="editarItem(item)">Editar</button>
-                    <button (click)="eliminarItem(item)">Eliminar</button>
+                    <button type="button" class="btn btn-primary" (click)="editarItem(item)"> Editar </button>
+                    <button type="button" class="btn btn-danger" (click)="eliminarItem(item)"> Eliminar</button>
                 </td>
             </tr>
         </tbody>
