@@ -60,6 +60,7 @@ import { UserViewsComponent } from './pages/admin/admin-views/user-views/user-vi
 import { ReservationViewsComponent } from './pages/admin/admin-views/reservation-views/reservation-views.component';
 import { ClaimsViewsComponent } from './pages/admin/admin-views/claims-views/claims-views.component';
 import { RoomViewsComponent } from './pages/admin/admin-views/room-views/room-views.component';
+import { DateFormatPipe } from './pipes/date-format.pipe';
 
 
 
@@ -98,6 +99,7 @@ import { RoomViewsComponent } from './pages/admin/admin-views/room-views/room-vi
     ReservationViewsComponent,
     ClaimsViewsComponent,
     RoomViewsComponent,
+    DateFormatPipe,
 
   ],
   imports: [
