@@ -5,6 +5,7 @@ const faq = require('../controllers/faq.controller');
 const room = require('../controllers/room.controller');
 const contact = require('../controllers/contact.controller');
 const region = require('../controllers/region.controller');
+const user = require('../controllers/user.controller');
 
 //ROUTES
 //----------FAQ ROUTES-----------
@@ -33,6 +34,10 @@ router.post('/contact/', contact.createContact);
 
 //----------REGION ROUTES-----------
 router.get('/region', region.getRegions);
+
+//----------USER ROUTES-----------
+router.get('/user', user.getUsers);
+
 
 
 module.exports = router;
