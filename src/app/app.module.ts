@@ -56,6 +56,10 @@ import { PaymentDataComponent } from './pages/payment/payment-data/payment-data.
 import { PaymentPaymentComponent } from './pages/payment/payment-payment/payment-payment.component';
 import { AdminComponentComponent } from './pages/admin/admin-component/admin-component.component';
 import { SidebarComponent } from './pages/admin/sidebar/sidebar/sidebar.component';
+import { UserViewsComponent } from './pages/admin/admin-views/user-views/user-views.component';
+import { ReservationViewsComponent } from './pages/admin/admin-views/reservation-views/reservation-views.component';
+import { ClaimsViewsComponent } from './pages/admin/admin-views/claims-views/claims-views.component';
+import { RoomViewsComponent } from './pages/admin/admin-views/room-views/room-views.component';
 
 
 
@@ -90,6 +94,10 @@ import { SidebarComponent } from './pages/admin/sidebar/sidebar/sidebar.componen
     PaymentPaymentComponent,
     AdminComponentComponent,
     SidebarComponent,
+    UserViewsComponent,
+    ReservationViewsComponent,
+    ClaimsViewsComponent,
+    RoomViewsComponent,
 
   ],
   imports: [

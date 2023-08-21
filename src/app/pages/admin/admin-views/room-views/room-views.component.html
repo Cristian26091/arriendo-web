@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Habitaciones</title>
+    <!-- <link rel="stylesheet" href="styles.css"> Asegúrate de que la ruta sea correcta -->
+</head>
+<body>
+  <header>
+    <h1>GESTIÓN DE HABITACIONES</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
+            <li class="breadcrumb-item" *ngFor="let part of currentRouteParts; let last = last" [ngClass]="{ 'active': last }">{{ part }}</li>
+        </ol>
+    </nav>
+  </header>
+    
+<!-- FILTROS -->
+  <div class="container filter-container">
+    <div class="row">
+        <div class="col-md-4">
+            <button class="btn btn-primary add-button">Agregar Habitación</button>
+        </div>
+        <div class="col-md-4">
+            <select class="form-select sort-select">
+                <option value="precio">Ordenar por Precio</option>
+                <option value="fecha">Ordenar por Fecha</option>
+                <!-- Agrega más opciones según sea necesario -->
+            </select>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group">
+                <input type="text" class="form-control search-input" placeholder="Buscar habitación...">
+                <button class="btn btn-primary search-button">
+                  <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+<!-- TABLA -->
+    <table class="table-responsive" >
+        <thead>
+            <tr>
+                <th scope="col" *ngFor="let headName of headTableContent">{{ headName }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of data">
+                <th scope="row">{{ item.id }}</th>
+                <td>{{ item.direccion }}</td>
+                <td>{{ item.fechaPublicacion }}</td>
+                <td>{{ item.precio }}</td>
+                <td>{{ item.estado }}</td>
+                <td>
+                    <button (click)="editarItem(item)">Editar</button>
+                    <button (click)="eliminarItem(item)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+<!-- PAGINACIÓN -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
+
+    <footer>&copy; 2023 Tu Compañía</footer>
+</body>
+</html>
