@@ -1,9 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { RegionService } from '../../../services/region.service';
 import { Region } from '../../../models/region.model';
-
 import { Router } from '@angular/router';
-
 import { RoomService } from '../../../services/room.service';
 import { Room } from '../../../models/room';
 
@@ -87,13 +85,6 @@ export class SearcherComponent{
         console.error('Error al obtener los resultados de búsqueda:', error);
       }
     );
-  }
-
-  // Funcion que obtiene las habitaciones segun los filtros seleccionados
-  getRoomByFilterFront(req: any){
-    this.RoomService.getRoomByFilter(req).subscribe( (res) =>{
-      this.RoomService.rooms = res as Room[];
-    });
   }
 
 }

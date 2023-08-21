@@ -2,7 +2,9 @@ export class Room {
 
     constructor(_id='', id_region='', latitud=0, longitud=0, banio_compartido=null, 
     descripcion='', fecha_publicacion = null, region = '', ciudad = '',
-    comuna = '', calle = '', numero = '', casa_depto = '', precio = 0, url_image_cover = ''){
+    comuna = '', calle = '', numero = '', casa_depto = '', precio = '', url_image_cover = '', esta_arrendado = '',
+    url_model = '', url_texture = ''
+    ){
         this._id = _id;
         this.id_region = id_region;
         this.latitud = latitud;
@@ -18,6 +20,9 @@ export class Room {
         this.casa_depto = casa_depto;
         this.precio = precio;
         this.url_image_cover = url_image_cover;
+        this.url_model = url_model;
+        this.url_texture = url_texture;
+        this.esta_arrendado = esta_arrendado;
     }
 
     _id: string;
@@ -33,6 +38,9 @@ export class Room {
     calle: String
     numero: String
     casa_depto: String
-    precio: Number
+    precio: String
     url_image_cover: String
+    url_model: String
+    url_texture: String
+    esta_arrendado: String
 }

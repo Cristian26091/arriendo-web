@@ -2,7 +2,6 @@ import { Component, AfterViewInit,OnInit, Input} from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import * as Mapboxgl from 'mapbox-gl';
 import { RoomService } from 'src/app/services/room.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -15,8 +14,7 @@ export class MapComponent implements AfterViewInit, OnInit {
   longitud: Number = 0;
   latitud: Number = 0;
 
-  constructor(private activaterouter: ActivatedRoute, public roomService: RoomService){
-  }
+  constructor(public roomService: RoomService){}
 
   ngOnInit(): void {
     //console.log("caca");

@@ -49,15 +49,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of data">
-                <th scope="row">{{ item.id }}</th>
-                <td>{{ item.nombre }}</td>
-                <td>{{ item.email }}</td>
-                <td>{{ item.telefono }}</td>
-                <td>{{ item.rut }}</td>
+            <tr *ngFor="let user of UserService.users">
+                <th scope="row">{{ user._id }}</th>
+                <td>{{ user.nombre }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.telefono }}</td>
+                <td>{{ user.rut }}</td>
                 <td>
-                    <button type="button" class="btn btn-primary" (click)="editarItem(item)"> Editar </button>
-                    <button type="button" class="btn btn-danger" (click)="eliminarItem(item)"> Eliminar</button>
+                    <button type="button" class="btn btn-primary" (click)="editarItem(user)"> Editar </button>
+                    <button type="button" class="btn btn-danger" (click)="eliminarItem(user)"> Eliminar</button>
                 </td>
             </tr>
         </tbody>

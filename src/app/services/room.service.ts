@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Room } from '../models/room';
 import { Observable } from 'rxjs';
-import { Region } from '../models/region.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -12,7 +11,8 @@ export class RoomService {
   selectedRoom: Room;
   rooms: Room[];
 
-  readonly URL_API = environment.uri+'/api'
+  readonly URL_API = environment.uri+'/api/room'
+  readonly URL_FILTER_ROOM = environment.uri+'/api'
 
   constructor(private http: HttpClient){
     
@@ -49,7 +49,7 @@ export class RoomService {
     }
     // console.log("Imprimir query:", params);
 
-    return this.http.get<any[]>(`${this.URL_API}/filterRooms/`, { params });
+    return this.http.get<any[]>(`${this.URL_FILTER_ROOM}/filterRooms/`, { params });
   
   }
 
