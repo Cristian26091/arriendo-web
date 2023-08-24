@@ -75,9 +75,18 @@ export class DimensionmodelComponent implements OnInit{
   } 
 
   ngOnDestroy() {
+    while (this.scene.children.length > 0) {
+      const child = this.scene.children[0];
+      if (child instanceof THREE.Mesh) {
+        // Si es un Mesh, elimina su material para liberar recursos
+        if (child.material instanceof THREE.Material) {
+          child.material.dispose();
+        }
+      }
+      this.scene.remove(child);
+    }
     this.controls.dispose();
     this.renderer.dispose();
-    this.scene.dispose();
   }
 
   private animate(): void {

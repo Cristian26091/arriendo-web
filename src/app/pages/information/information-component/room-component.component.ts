@@ -3,6 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router'
 import { Room } from 'src/app/models/room';
 import { RoomService } from 'src/app/services/room.service';
 
+
 @Component({
   selector: 'app-room-component',
   templateUrl: './room-component.component.html',
@@ -27,6 +28,11 @@ export class RoomComponentComponent implements OnInit {
       this.room = res as Room;
       //console.log(res);
     });
+  }
+
+  reserveRoom(){
+    console.log("hola")
+    this.router.navigate(['/payment']);
   }
 
 }

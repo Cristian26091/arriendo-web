@@ -10,6 +10,7 @@ import { HelpComponentComponent } from './pages/help/help-component/help-compone
 import { FAQComponent } from './pages/help/faq/faq.component';
 import { PaymentComponentComponent } from './pages/payment/payment-component/payment-component.component';
 import { AdminComponentComponent } from './pages/admin/admin-component/admin-component.component';
+import { RoomViewsAddComponent } from './pages/admin/admin-views/room-views/room-views-add/room-views-add/room-views-add.component';
 
 
 const routes: Routes = [
@@ -62,11 +63,16 @@ const routes: Routes = [
     component: AdminComponentComponent
   },
 
+  {
+    path: 'admin/room/add',
+    component: RoomViewsAddComponent
+  },
   // Ruta inicial redirecciona al index
   {
     path: '', 
     redirectTo: '/index', pathMatch: 'full'
   },
+  
 ];
 
 @NgModule({
