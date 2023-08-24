@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Habitaciones</title>
-    <!-- <link rel="stylesheet" href="styles.css"> Asegúrate de que la ruta sea correcta -->
-</head>
 <body>
   <header>
-    <h1>GESTIÓN DE HABITACIONES</h1>
+    <h1>GESTIÓN DE RESERVAS</h1>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
@@ -21,7 +13,6 @@
   <div class="container filter-container">
     <div class="row">
         <div class="col-md-4">
-            <button class="btn btn-primary add-button">Agregar Habitación</button>
         </div>
         <div class="col-md-4">
             <select class="form-select sort-select">
@@ -54,7 +45,6 @@
                 <td>{{ item.fechaReserva }}</td>
                 <td>{{ item.estado }}</td>
                 <td>
-                    <button type="button" class="btn btn-primary" (click)="editarItem(item)"> Editar </button>
                     <button type="button" class="btn btn-danger" (click)="eliminarItem(item)"> Eliminar</button>
                 </td>
             </tr>
@@ -71,7 +61,5 @@
         </ul>
     </nav>
 
-    <footer>&copy; 2023 Tu Compañía</footer>
 </body>
-</html>
 

@@ -30,44 +30,36 @@
 </header>
 
 <!-- Modal -->
-<div class="modal fade" id="loginSignupModal" tabindex="-1" aria-labelledby="loginSignupModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="loginSignupModal"  aria-labelledby="loginSignupModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <!-- <h5 class="modal-title" id="loginSignupModalLabel">Iniciar sesión o Registrarse</h5> -->
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <!-- Aquí puedes añadir los campos y elementos necesarios para el inicio de sesión y registro -->
-          <ul class="nav nav-tabs" id="loginSignupTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Iniciar sesión</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup" type="button" role="tab" aria-controls="signup" aria-selected="false">Registrarse</button>
-            </li>
-          </ul>
-
-          <div class="tab-content" id="loginSignupContent">
-            <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-              <!-- Contenido del formulario de inicio de sesión -->
-              <app-login></app-login>
-            </div>
-            <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
-              <!-- Contenido del formulario de registro -->
-              <app-register></app-register>
-            </div>
+          <div class="modal-header">
+              <!-- <h5 class="modal-title" id="loginSignupModalLabel">Iniciar sesión o Registrarse</h5> -->
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
+          <div class="modal-body">
 
-        </div>
-        <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Iniciar sesión</button>
-          <button type="button" class="btn btn-primary">Registrarse</button>
-        </div> -->
+              <div id="loginForm" *ngIf="showLoginForm" >
+                  <!-- Contenido del formulario de inicio de sesión -->
+                  <app-login></app-login>
+              </div>
+
+              <div id="registerForm" *ngIf="!showLoginForm">
+                  <!-- Contenido del formulario de registro -->
+                  <app-register></app-register>
+              </div>
+              <div class="modal-footer">
+                <p> {{showLoginForm ? '¿Aún no tienes una cuenta?': '¿Ya tienes una?'}}        
+                  <a (click)="toggleForms()" style="cursor: pointer; color: skyblue;">
+                    {{ showLoginForm ? 'Crea una' : 'Iniciar sesión' }}
+                  </a>
+                </p>
+              </div>
+              </div>
+          </div>
       </div>
-    </div>
   </div>
+
   
 
 
