@@ -43,10 +43,12 @@
       </div>
       <div class="modal-body">
         <!-- Contenido del formulario de inicio de sesión y registro -->
-        
         <app-rent-form></app-rent-form>
-
       </div>
+      <!-- Pie del Modal -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"  (click)="reserveRoom()" data-bs-dismiss="modal" >Reservar</button>
+    </div>
     
     </div>
   </div>

@@ -13,9 +13,4 @@ export class RentFormComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  reservarArriendo(){
-    this.router.navigate(['/payment']);
-  }
-
 }
