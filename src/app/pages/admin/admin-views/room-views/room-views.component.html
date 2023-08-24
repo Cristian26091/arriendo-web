@@ -8,21 +8,21 @@
             </ol>
         </nav>
     </header>
-        
+ 
     <!-- FILTROS -->
-    <div class="container filter-container">
+    <div class="container filter-container align-items-center justify-content-center">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-2 mx-auto my-auto text-center">  
                 <button class="btn btn-primary add-button" data-bs-toggle="modal" data-bs-target="#addRoomModal">Agregar Habitación</button>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 text-center">
                 <select class="form-select sort-select">
                     <option value="precio">Ordenar por Precio</option>
                     <option value="fecha">Ordenar por Fecha</option>
                     <!-- Agrega más opciones según sea necesario -->
                 </select>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 text-center">
                 <div class="input-group">
                     <input type="text" class="form-control search-input" placeholder="Buscar habitación...">
                     <button class="btn btn-primary search-button">
@@ -33,66 +33,63 @@
         </div>
     </div>
 
-    <!-- TABLA -->
-        <table class="table-responsive" >
-            <thead>
-                <tr>
-                    <th scope="col" *ngFor="let headName of headTableContent">{{ headName }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let room of RoomService.rooms">
-                    <th scope="row">{{ room._id }}</th>
-                    <td>{{ room.numero + ' ' + room.calle + ' ' + room.comuna + ' ' + room.region }}</td>
-                    <td>{{ room.fecha_publicacion | dateFormat }}</td>
-                    <td>{{ formatPrice(room.precio) | currency:'CLP':'symbol-narrow' }}</td>
-                    <td>{{ room.esta_arrendado }}</td>
-                    <td>
-                        <button (click)="editarItem(room)">Editar</button>
-                        <button (click)="eliminarItem(room)">Eliminar</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    <!-- PAGINACIÓN -->
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
-    
+        <!-- TABLA -->
+            <table class="table-responsive" >
+                <thead>
+                    <tr>
+                        <th scope="col" *ngFor="let headName of headTableContent">{{ headName }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let room of RoomService.rooms">
+                        <th scope="row">{{ room._id }}</th>
+                        <td>{{ room.numero + ' ' + room.calle + ' ' + room.comuna + ' ' + room.region }}</td>
+                        <td>{{ room.fecha_publicacion | dateFormat }}</td>
+                        <td>{{ formatPrice(room.precio) | currency:'CLP':'symbol-narrow' }}</td>
+                        <td>{{ room.esta_arrendado }}</td>
+                        <td>
+                            <button class="btn btn-primary" (click)="editarItem(room)">Editar</button>
+                            <button class="btn btn-danger"(click)="eliminarItem(room)">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        <!-- PAGINACIÓN -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        
 
-        <!-- MODAL -->
-        <div class="modal fade" id="addRoomModal" tabindex="-1" aria-labelledby="addRoomModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered mx-auto">
-                <div class="modal-content">
+            <!-- MODAL -->
+            <div class="modal fade" id="addRoomModal" tabindex="-1" aria-labelledby="addRoomModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered mx-auto">
+                    <div class="modal-content">
 
-                    <!-- Encabezado del Modal -->
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <!-- Cuerpo del Modal -->
-                    <div class="modal-body text-center">
-                        <div class="drop-area" id="dropArea">
-                            <i class="bi bi-cloud-upload fs-2"></i>
-                            <p class="fs-5">Arrastra tu modelo 3D aquí</p>
+                        <!-- Encabezado del Modal -->
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    </div>
 
-                    <!-- Pie del Modal -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="addRoom()">Continuar</button>
-                    </div>
+                        <!-- Cuerpo del Modal -->
+                        <div class="modal-body text-center">
+                            <div class="drop-area" id="dropArea">
+                                <i class="bi bi-cloud-upload fs-2"></i>
+                                <p class="fs-5">Arrastra tu modelo 3D aquí</p>
+                            </div>
+                        </div>
 
+                        <!-- Pie del Modal -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="addRoom()">Continuar</button>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
-
-
-        <footer>&copy; 2023 Tu Compañía</footer>
 

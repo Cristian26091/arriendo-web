@@ -45,42 +45,11 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-/* Estilos para el filtro */
-.add-button {
-    background-color: #17a2b8;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-.add-button:hover, .search-button:hover {
-    background-color: #138496;
-}
-
 .sort-select, .search-input {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
-}
-
-.search-button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
-}
-
-.search-button:hover {
-    background-color: #0056b3;
 }
 
 /* Estilos para la paginación */
@@ -108,16 +77,6 @@ tr:nth-child(even) {
     color: white;
     transition: 0.3s;
 }
-
-/* Estilos para el footer */
-footer {
-    text-align: center;
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    font-size: 14px;
-}
-
 /* Estilos para el modal */
 .modal-dialog-centered {
     display: flex;
@@ -142,3 +101,9 @@ footer {
     font-size: 18px;
     color: #777;
 }
+
+.filter-container{
+    padding: 2%;
+
+}
+
