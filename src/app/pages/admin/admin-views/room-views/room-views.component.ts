@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Room } from '../../../../models/room';
 import { RoomService } from '../../../../services/room.service';
-import { CommonModule , CurrencyPipe } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -18,7 +20,7 @@ export class RoomViewsComponent implements OnInit {
   currentRouteParts: string[] = ["primero", "segundo"];
   headTableContent: string[];
 
-  constructor(public RoomService: RoomService, private currencyPipe: CurrencyPipe) { 
+  constructor(public RoomService: RoomService, private currencyPipe: CurrencyPipe, private router: Router, ) { 
     this.headTableContent = ["ID", "Dirección", "Fecha publicación", "Precio", "Estado", "Acción"];
     this.getrooms();
   }
@@ -48,5 +50,12 @@ export class RoomViewsComponent implements OnInit {
     // Formatea el número como moneda
     return priceAsNumber;
   }
+
+  addRoom(){
+    console.log("add");
+    this.router.navigate(['/admin/room/add']);
+  }
+
+  
 
 }

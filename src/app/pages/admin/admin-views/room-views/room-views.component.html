@@ -1,12 +1,4 @@
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Gestión de Habitaciones</title>
-        <!-- <link rel="stylesheet" href="styles.css"> Asegúrate de que la ruta sea correcta -->
-    </head>
-    <body>
+
     <header>
         <h1>GESTIÓN DE HABITACIONES</h1>
         <nav aria-label="breadcrumb">
@@ -21,7 +13,7 @@
     <div class="container filter-container">
         <div class="row">
             <div class="col-md-4">
-                <button class="btn btn-primary add-button">Agregar Habitación</button>
+                <button class="btn btn-primary add-button" data-bs-toggle="modal" data-bs-target="#addRoomModal">Agregar Habitación</button>
             </div>
             <div class="col-md-4">
                 <select class="form-select sort-select">
@@ -72,7 +64,35 @@
                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
             </ul>
         </nav>
+    
+
+        <!-- MODAL -->
+        <div class="modal fade" id="addRoomModal" tabindex="-1" aria-labelledby="addRoomModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered mx-auto">
+                <div class="modal-content">
+
+                    <!-- Encabezado del Modal -->
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <!-- Cuerpo del Modal -->
+                    <div class="modal-body text-center">
+                        <div class="drop-area" id="dropArea">
+                            <i class="bi bi-cloud-upload fs-2"></i>
+                            <p class="fs-5">Arrastra tu modelo 3D aquí</p>
+                        </div>
+                    </div>
+
+                    <!-- Pie del Modal -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="addRoom()">Continuar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
 
         <footer>&copy; 2023 Tu Compañía</footer>
-    </body>
-    </html>
+
