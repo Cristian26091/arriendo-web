@@ -26,7 +26,19 @@ export class UserService {
     return this.http.get(this.URL_API+`/${_id}`);
   }
 
-  postUser(user: User){}
+  postUser(user: User){
+    return this.http.post(this.URL_API, user);
+  }
+
+  // Método para verificar si el correo ya está registrado
+  checkEmailExistence(email: string) {
+    return this.http.get<boolean>(`${this.URL_API}/check-email-existence?email=${email}`);
+  }
+
+  // Método para verificar si el RUT ya está registrado
+  checkRutExistence(rut: string) {
+    return this.http.get<boolean>(`${this.URL_API}/check-rut-existence?rut=${rut}`);
+  }
 
   putUser(user: User){}
 

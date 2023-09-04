@@ -37,6 +37,11 @@ router.get('/region', region.getRegions);
 
 //----------USER ROUTES-----------
 router.get('/user', user.getUsers);
+router.get('/user/check-email-existence', user.checkEmailExistence);
+router.get('/user/check-rut-existence', user.checkRutExistence);
+router.post('/user', user.createUser);
+
+
 
 
 

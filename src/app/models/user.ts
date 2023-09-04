@@ -1,11 +1,11 @@
 
 export class User {
     constructor(
-      _id = '', nombre = '', rut = '', fecha_nacimiento = null, 
+      nombre = '', apellido = '', rut = '', fecha_nacimiento = '', 
       telefono = '', email= '', pass = ''
     ) {
-        this._id = _id;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.rut = rut;
         this.fecha_nacimiento = fecha_nacimiento;
         this.telefono = telefono;
@@ -13,8 +13,8 @@ export class User {
         this.pass = pass;
     }
   
-    _id: string;
     nombre: string;
+    apellido: string;
     rut: string;
     fecha_nacimiento: string;
     telefono: string;
