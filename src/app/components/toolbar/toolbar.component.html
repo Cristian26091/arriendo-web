@@ -30,35 +30,45 @@
 </header>
 
 <!-- Modal -->
-<div class="modal fade" id="loginSignupModal"  aria-labelledby="loginSignupModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
+<div class="modal fade custom-modal"  id="loginSignupModal"  #loginSignupModal aria-labelledby="loginSignupModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
           <div class="modal-header">
               <!-- <h5 class="modal-title" id="loginSignupModalLabel">Iniciar sesión o Registrarse</h5> -->
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
+        </div>
 
-              <div id="loginForm" *ngIf="showLoginForm" >
-                  <!-- Contenido del formulario de inicio de sesión -->
-                  <app-login></app-login>
-              </div>
+        <div class="modal-body">
 
-              <div id="registerForm" *ngIf="!showLoginForm">
-                  <!-- Contenido del formulario de registro -->
-                  <app-register></app-register>
-              </div>
-              <div class="modal-footer">
-                <p> {{showLoginForm ? '¿Aún no tienes una cuenta?': '¿Ya tienes una?'}}        
-                  <a (click)="toggleForms()" style="cursor: pointer; color: skyblue;">
-                    {{ showLoginForm ? 'Crea una' : 'Iniciar sesión' }}
-                  </a>
-                </p>
-              </div>
-              </div>
-          </div>
-      </div>
-  </div>
+            <div *ngIf="showSuccessAlert" class="alert alert-success">
+                Registro exitoso. Por favor, inicia sesión.
+            </div>
+
+            <div id="loginForm" *ngIf="showLoginForm" >
+                <!-- Contenido del formulario de inicio de sesión -->
+                <app-login></app-login>
+            </div>
+
+            <div id="registerForm" *ngIf="!showLoginForm" >
+                <!-- Contenido del formulario de registro -->
+                <app-register ></app-register>
+            </div>
+
+            <div class="modal-footer">
+            <p> {{showLoginForm ? '¿Aún no tienes una cuenta?': '¿Ya tienes una?'}}        
+                <a (click)="toggleForms()" style="cursor: pointer; color: skyblue;">
+                {{ showLoginForm ? 'Crea una' : 'Iniciar sesión' }}
+                </a>
+            </p>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+  
 
   
 

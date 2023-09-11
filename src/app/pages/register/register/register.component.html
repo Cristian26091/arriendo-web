@@ -51,10 +51,10 @@
       <input type="date" id="fechaNacimiento" name="fechaNacimiento" [(ngModel)]="registro.fecha_nacimiento" required>
     </div>
 
-    <div class="error-message" style="color: red;"  *ngIf="errorMessage">
-      {{ errorMessage }}
-    </div>
+    <div class="error-message" style="color: red;"  *ngIf="errorMessage">{{ errorMessage }}</div>
+    
 
     <button type="submit">Registrarse</button>
+    
   </form>
 </div>

@@ -13,7 +13,7 @@ export class UserViewsComponent implements OnInit {
   headTableContent: string[];
   
   constructor(public UserService: UserService) { 
-    this.headTableContent = ["ID", "Nombre", "Email", "Telefono", "Rut", "Acción"];
+    this.headTableContent = ["Nombre", "Email", "Telefono", "Rut", "Acción"];
     this.getUsers();
     // console.log(this.UserService.users);
   }
