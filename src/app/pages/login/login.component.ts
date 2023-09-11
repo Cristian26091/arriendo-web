@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -8,28 +9,37 @@ import { UserService } from '../../services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  username: string;
+  email: string;
   password: string;
   errorMessage: string;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private loginService: LoginService) { }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    if (this.username && this.password) {
-      const credentials = {
-        email: this.username,
-        password: this.password
-      };
-
-      console.log(credentials)
+    if (this.email && this.password) {
+      this.userService.login(this.email, this.password).subscribe(
+        (response) => {
+          // Manejar la respuesta del servidor (token de autenticación, redireccionar, etc.)
+          // this.tokenService.storeToken(response['accessToken']);
+          this.loginService.loginSuccess();
+          this.clearForm();
+        },
+        (error) => {
+          // Manejar errores de inicio de sesión
+          this.errorMessage = error.error.message;
+        }
+      );
     }
   }
 
-  clearErrorMessage() {
+  clearForm() {
+    this.email = '';
+    this.password = '';
     this.errorMessage = '';
   }
+
 
 }

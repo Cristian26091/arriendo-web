@@ -2,7 +2,7 @@
 export class User {
     constructor(
       nombre = '', apellido = '', rut = '', fecha_nacimiento = '', 
-      telefono = '', email= '', pass = ''
+      telefono = '', email= '', pass = '', role = '', token = ''
     ) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -11,6 +11,8 @@ export class User {
         this.telefono = telefono;
         this.email = email;
         this.pass = pass;
+        this.role = role;
+        this.token = token;
     }
   
     nombre: string;
@@ -20,4 +22,6 @@ export class User {
     telefono: string;
     email: string;
     pass: string;
+    role: string;
+    token: string;
   }
