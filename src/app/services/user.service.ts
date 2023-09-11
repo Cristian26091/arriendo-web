@@ -26,7 +26,19 @@ export class UserService {
     return this.http.get(this.URL_API+`/${_id}`);
   }
 
-  postUser(user: User){}
+  postUser(user: User){
+    return this.http.post(this.URL_API, user);
+  }
+
+  // Nuevo método para manejar el inicio de sesión
+  login(email: string, password: string) {
+    const credentials = {
+      email: email,
+      password: password
+  };
+
+    return this.http.post(`${this.URL_API}/login`, credentials);
+  }
 
   putUser(user: User){}
 

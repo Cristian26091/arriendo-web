@@ -1,23 +1,27 @@
 
 export class User {
     constructor(
-      _id = '', nombre = '', rut = '', fecha_nacimiento = null, 
-      telefono = '', email= '', pass = ''
+      nombre = '', apellido = '', rut = '', fecha_nacimiento = '', 
+      telefono = '', email= '', pass = '', role = '', token = ''
     ) {
-        this._id = _id;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.rut = rut;
         this.fecha_nacimiento = fecha_nacimiento;
         this.telefono = telefono;
         this.email = email;
         this.pass = pass;
+        this.role = role;
+        this.token = token;
     }
   
-    _id: string;
     nombre: string;
+    apellido: string;
     rut: string;
     fecha_nacimiento: string;
     telefono: string;
     email: string;
     pass: string;
+    role: string;
+    token: string;
   }

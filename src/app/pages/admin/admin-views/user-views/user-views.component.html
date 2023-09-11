@@ -43,8 +43,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let user of UserService.users">
-                <th scope="row">{{ user._id }}</th>
-                <td>{{ user.nombre }}</td>
+                <th scope="row">{{ user.nombre }}</th>
                 <td>{{ user.email }}</td>
                 <td>{{ user.telefono }}</td>
                 <td>{{ user.rut }}</td>
