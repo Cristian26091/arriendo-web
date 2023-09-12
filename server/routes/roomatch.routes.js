@@ -37,6 +37,7 @@ router.get('/region', region.getRegions);
 
 //----------USER ROUTES-----------
 router.get('/user', user.getUsers);
+router.get('/user/:idUser', user.getUser);  
 router.post('/user', user.createUser);
 router.post('/user/login', user.login);
 

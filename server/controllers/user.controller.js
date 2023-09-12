@@ -4,15 +4,15 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10; // El número de rondas de sal que se utilizará
 
-// Devolver todas las habitaciones
+// Devolver todas los usuarios
 userCtrl.getUsers = async (req, res) => {
     const users = await User.find();
     res.json(users);
 }
 
-// Devolver una habitación por su id
+// Devolver un usuario por su id
 userCtrl.getUser = async (req, res) => {
-    const user = await Room.findById(req.params.idUser);
+    const user = await User.findById(req.params.idUser);
     res.json(user);
 }
 
@@ -69,7 +69,7 @@ userCtrl.login = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({ message: 'Nombre de usuario incorrecto.' });
+      return res.status(401).json({ message: 'Correo no registrado!.' });
     }
 
     const passwordMatch = await bcrypt.compare(password, user.pass);
@@ -81,7 +81,7 @@ userCtrl.login = async (req, res) => {
     // Generar un token de autenticación
     const token = jwt.sign({ userId: user._id }, 'secreto_acceso', { expiresIn: '1h' });
 
-    res.status(200).json({ token });
+    res.status(200).json({ token, user});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error en el servidor.' });
