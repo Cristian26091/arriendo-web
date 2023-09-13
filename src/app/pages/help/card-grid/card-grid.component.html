@@ -1,5 +1,3 @@
-
-
 <!-- Listar todas las categorias de ayuda desde la BD -->
 <div class="container">
 
@@ -25,11 +23,15 @@
     <div class="row">
 
       <div class="row">
-        <div class="col-md-6 card-column" *ngFor="let card of cards">
+        <div class="col-md-6 card-column" *ngFor="let help of heelpService.helps">
           <div class="card" routerLink="/faq"  >
+            <!-- Agregar un icono de Bootstrap a la izquierda -->
+            <div class="card-icon">
+              <span [ngClass]="help.url_image"></span> <!-- Utiliza ngClass para aplicar la clase del icono dinámicamente -->
+            </div>
             <div class="card-body" >
-              <h5 class="card-title">{{ card.title }}</h5>
-              <p class="card-text">{{ card.content }}</p>
+              <h5 class="card-title">{{ help.nombre }}</h5>
+              <p class="card-text">{{ help.descripcion }}</p>
             </div>
           </div>
         </div>

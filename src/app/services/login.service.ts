@@ -30,6 +30,7 @@ export class LoginService {
   logout() {
     // Elimina la cookie de autenticación llamada 'secreto_acceso'
     this.cookieService.delete('accessToken');
+    this.cookieService.delete('user_id');
   }
 
   
