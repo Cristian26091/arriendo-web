@@ -45,7 +45,7 @@
                 </li>
 
                 <!-- Botón de ingreso (modal) -->
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="!loggedIn" >
                     <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginSignupModal">Ingresar</a>
                 </li>
 
