@@ -15,4 +15,9 @@ export class CardGridComponent implements OnInit {
   
   }
 
+  seleccionarCategoria(categoria: any) {
+    this.heelpService.selectedHelp = categoria; // Almacena la categoría seleccionada en el servicio
+    this.router.navigate(['/faq']); // Navega a la página de ayuda
+  }
+
 }

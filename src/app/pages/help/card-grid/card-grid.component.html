@@ -24,7 +24,7 @@
 
       <div class="row">
         <div class="col-md-6 card-column" *ngFor="let help of heelpService.helps">
-          <div class="card" routerLink="/faq"  >
+          <div class="card" (click)="seleccionarCategoria(help)" >
             <!-- Agregar un icono de Bootstrap a la izquierda -->
             <div class="card-icon">
               <span [ngClass]="help.url_image"></span> <!-- Utiliza ngClass para aplicar la clase del icono dinámicamente -->

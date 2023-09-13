@@ -1,21 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const faq = require('../controllers/faq.controller');
 const room = require('../controllers/room.controller');
 const contact = require('../controllers/contact.controller');
 const region = require('../controllers/region.controller');
 const user = require('../controllers/user.controller');
 const help = require('../controllers/help.controller');
-
-//ROUTES
-//----------FAQ ROUTES-----------
-router.get('/faq', faq.getFaqs);
-// router.post('faq/', faq.createFaq);
-// router.get('/faq/:id', faq.getFaq);
-// router.get('/faq', faq.createFaq);
-// router.put('/faq/:id', faq.editFaq);
-// router.delete('faq/:id', faq.deleteFaq);
 
 // ----------- HELP ROUTES -----------
 router.get('/help', help.getHelps);
@@ -44,9 +34,6 @@ router.get('/user', user.getUsers);
 router.get('/user/:idUser', user.getUser);  
 router.post('/user', user.createUser);
 router.post('/user/login', user.login);
-
-
-
 
 
 module.exports = router;
