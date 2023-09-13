@@ -31,5 +31,6 @@ export class TokenService {
   // Elimina el token de localStorage o sessionStorage
   removeToken() {
     this.cookieService.delete(this.TOKEN_KEY);
+    this.cookieService.delete(this.TOKEN_USER);
   }
 }
