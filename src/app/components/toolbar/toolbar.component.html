@@ -14,13 +14,39 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <!-- Menú de navegación -->
                 <ul class="navbar-nav">
-                <!-- Botón de ingreso (modal) -->
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginSignupModal">Ingresar</a>
+            
+                <!-- Dropdown de cuenta -->
+                <li class="nav-item dropdown" *ngIf="loggedIn">
+                    <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{username}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                    <a class="dropdown-item" href="#">Mi cuenta</a>
+                    <a class="dropdown-item" href="#" (click)="logout()">Cerrar sesión</a>
+                    </div>
                 </li>
+
+                <!-- Dropdown de reservas -->
+                <li class="nav-item dropdown" *ngIf="loggedIn">
+                    <a class="nav-link dropdown-toggle" href="#" id="reservationsDropdown" role="button"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    [Mis Reservas]
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="reservationsDropdown">
+                    <a class="dropdown-item" href="#">Ver mis reservas</a>
+                    <a class="dropdown-item" href="#">Historial de reservas</a>
+                    </div>
+                </li>
+
                 <!-- Botón de ayuda -->
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/help">Ayuda</a>
+                </li>
+
+                <!-- Botón de ingreso (modal) -->
+                <li class="nav-item" *ngIf="!loggedIn" >
+                    <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginSignupModal">Ingresar</a>
                 </li>
 
                 </ul>

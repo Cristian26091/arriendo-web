@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HeelpService } from '../../..//services/heelp.service';
+import { Help } from '../../../models/heelp';
 
 @Component({
   selector: 'app-help-component',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HelpComponentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private heelpService : HeelpService) { }
 
   ngOnInit(): void {
+    this.getHelps();
   }
+
+  getHelps(){
+    this.heelpService.getHelps().subscribe(
+      (response) => {
+        this.heelpService.helps = response as Help[];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+
+
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HeelpService } from 'src/app/services/heelp.service';
 
 @Component({
   selector: 'app-card-grid',
@@ -8,25 +9,15 @@ import { Router } from '@angular/router';
 })
 export class CardGridComponent implements OnInit {
 
-
-  cards = [
-    { title: 'Card 1', content: 'This is the content of card 1.' },
-    { title: 'Card 2', content: 'This is the content of card 2.' },
-    { title: 'Card 3', content: 'This is the content of card 3.' },
-    { title: 'Card 4', content: 'This is the content of card 4.' },
-    // Agrega más tarjetas si es necesario
-  ];
-
-
-
-  constructor(private router: Router) { }
+  constructor(private router: Router, public heelpService : HeelpService) { }
 
   ngOnInit(): void {
+  
   }
 
-  
-
-
-  
+  seleccionarCategoria(categoria: any) {
+    this.heelpService.selectedHelp = categoria; // Almacena la categoría seleccionada en el servicio
+    this.router.navigate(['/faq']); // Navega a la página de ayuda
+  }
 
 }

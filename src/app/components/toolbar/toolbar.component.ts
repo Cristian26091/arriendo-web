@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { SignupService } from '../../services/signup.service';
-
-
-
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/user';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -14,8 +14,12 @@ export class ToolbarComponent implements OnInit {
   showLoginForm = true; // Inicialmente mostramos el formulario de inicio de sesión
   showSuccessAlert: boolean = false;
   @ViewChild('loginSignupModal') loginSignupModal: ElementRef;
+  loggedIn: boolean = false; // Variable para controlar si el usuario está autenticado o no
+  username: String = ''; // Variable para almacenar el nombre de usuario autenticado
 
-  constructor(private loginService: LoginService, private signupService: SignupService) { 
+
+  constructor(private loginService: LoginService, private signupService: SignupService,
+     private userService: UserService, private TokenService: TokenService ) {
   }
 
   ngOnInit(): void {
@@ -25,9 +29,11 @@ export class ToolbarComponent implements OnInit {
       if (success) {
         console.log('Login success');
         this.closeModal();
+        this.checkAuthentication(); // Verifica la autenticación después del inicio de sesión
       }
     });
 
+    // Suscríbete para escuchar cuando se registra un nuevo usuario con éxito
     this.signupService.signupSuccess$.subscribe((success) => {
       if (success) {
         console.log('Signup success');
@@ -39,6 +45,9 @@ export class ToolbarComponent implements OnInit {
         }, 4000); // 5000 milisegundos (5 segundos)
       }
     });
+
+    // Verificar la autenticación cuando se carga la página
+    this.checkAuthentication();
 
   }
 
@@ -54,6 +63,24 @@ export class ToolbarComponent implements OnInit {
       backdropElement.remove();
     }
     this.loginSignupModal.nativeElement.classList.remove('show');
+  }
+
+  checkAuthentication() {
+    this.loggedIn = this.loginService.isAuthenticated();
+    if (this.loggedIn) {
+    this.userService.getUser(this.TokenService.getUserID()).subscribe((res : User) =>{
+      this.username = res.nombre; 
+    }); 
+    // console.log("token", this.TokenService.getToken());
+    // console.log("user_id", this.TokenService.getUserID());
+      
+    }
+  }
+
+
+  logout() {
+    this.loginService.logout(); // Debes implementar logout en tu servicio
+    this.checkAuthentication(); // Verifica la autenticación después de cerrar la sesión
   }
 
 }
