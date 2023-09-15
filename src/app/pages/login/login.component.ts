@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { LoginService } from '../../services/login.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   password: string;
   errorMessage: string;
 
-  constructor(private userService: UserService, private loginService: LoginService) { }
+  constructor(private userService: UserService, private loginService: LoginService, private tokenService: TokenService ) { }
 
   ngOnInit(): void {
   }
@@ -23,8 +24,9 @@ export class LoginComponent implements OnInit {
       this.userService.login(this.email, this.password).subscribe(
         (response) => {
           // Manejar la respuesta del servidor (token de autenticación, redireccionar, etc.)
-          // this.tokenService.storeToken(response['accessToken']);
+          this.tokenService.storeToken(response['token'], response['user']);
           this.loginService.loginSuccess();
+
           this.clearForm();
         },
         (error) => {

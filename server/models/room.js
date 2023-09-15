@@ -20,6 +20,14 @@ const { Schema } = mongoose;
     url_img_cover: {type: String, required: true},
     url_model: {type: String, required: true},
     url_texture: {type: String, required: true},
+    //campo para gestion de reservas
+    reservas: [
+        {
+            fecha_inicio: { type: Date, required: true },
+            fecha_fin: { type: Date, required: true },
+            usuario_id: { type: String, required: true }, // ID del usuario que hizo la reserva
+        }
+    ]
 });
 
 module.exports =  mongoose.model('room', RoomSchema);

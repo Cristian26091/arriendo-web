@@ -62,6 +62,7 @@ import { ClaimsViewsComponent } from './pages/admin/admin-views/claims-views/cla
 import { RoomViewsComponent } from './pages/admin/admin-views/room-views/room-views.component';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { RoomViewsAddComponent } from './pages/admin/admin-views/room-views/room-views-add/room-views-add/room-views-add.component';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -129,8 +130,9 @@ import { RoomViewsAddComponent } from './pages/admin/admin-views/room-views/room
     MatSliderModule,
     MatSlideToggleModule,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
+  
   schemas: [ 
     CUSTOM_ELEMENTS_SCHEMA 
   ],
