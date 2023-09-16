@@ -1,41 +1,51 @@
 <!-- Listar todas las categorias de ayuda desde la BD -->
 <div class="container">
 
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h1 class="text-center">Elige la categoría disponible para la pregunta que tengas</h1>
-        </div>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="text-center">Elige la categoría disponible para la pregunta que tengas</h1>
+    </div>
+  </div>
 
-    <!-- reclamo -->
-    <div class="row justify-content-center">
-
-        <div class="col-md-8 card-column" >
-            <div class="card" data-bs-toggle="modal" data-bs-target="#contactModal">
-              <div class="card-body">
-                <h5 class="card-title">Esribenos tu solicitud</h5>
+  <!-- reclamo -->
+  <div class="row justify-content-center">
+    <div class="col-md-8 card-column">
+        <div class="card" data-bs-toggle="modal" data-bs-target="#contactModal">
+            <div class="card-body">
+                <h5 class="card-title">Escríbenos tu solicitud</h5>
                 <p class="card-text">This is the content of card 1.</p>
-              </div>
             </div>
         </div>
-
     </div>
+  </div>
+
     <!-- Categorías de ayuda -->
     <div class="row">
 
       <div class="row">
         <div class="col-md-6 card-column" *ngFor="let help of heelpService.helps">
-          <div class="card" (click)="seleccionarCategoria(help)" >
-            <!-- Agregar un icono de Bootstrap a la izquierda -->
-            <div class="card-icon">
-              <span [ngClass]="help.url_image"></span> <!-- Utiliza ngClass para aplicar la clase del icono dinámicamente -->
+            <div class="card mb-3" (click)="seleccionarCategoria(help)">
+                <div class="row g-0">
+                    <div class="col-2 d-flex align-items-center justify-content-center">
+                        <!-- Agregar un icono de Bootstrap centrado y que ocupe todo el espacio -->
+                        <div class="card-icon w-100 text-center">
+                            <!-- Utiliza estilos personalizados para aumentar el tamaño del icono -->
+                            <span [ngClass]="help.url_image" style="font-size: 200%;"></span>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ help.nombre }}</h5>
+                            <p class="card-text">{{ help.descripcion }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-body" >
-              <h5 class="card-title">{{ help.nombre }}</h5>
-              <p class="card-text">{{ help.descripcion }}</p>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
+    
+    
+    
       
 
     </div>

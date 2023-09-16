@@ -16,6 +16,9 @@ export class DimensionmodelComponent implements OnInit{
 
   private scene: THREE.Scene = new THREE.Scene();
 
+  public loadingProgress: number = 0;
+
+
   private camera: THREE.PerspectiveCamera;
   private renderer: THREE.WebGLRenderer;
   private controls: THREE.OrbitControls;
@@ -31,7 +34,7 @@ export class DimensionmodelComponent implements OnInit{
   private initscene() {
 
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.camera.position.set(0, 0, 5);
+    this.camera.position.set(0, 0, 1);
     this.renderer = new THREE.WebGLRenderer({antialias : true});
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.container.nativeElement.appendChild(this.renderer.domElement);
@@ -56,22 +59,35 @@ export class DimensionmodelComponent implements OnInit{
 
   ngOnInit(): void {
     this.initscene();
-    console.log("holaaa");
     // Aquí puedes acceder al canvas utilizando la referencia container
     console.log("url modelo:"+(this.roomService.selectedRoom.url_model).toString());
     this.load3DObject((this.roomService.selectedRoom.url_model).toString());
 
-    // this.renderer.setSize(this.container.nativeElement.clientWidth, this.container.nativeElement.clientHeight);
-    // this.container.nativeElement.appendChild(this.renderer.domElement);
+    // Escucha el evento de cambio de tamaño de la ventana y ajusta el renderizador
+    window.addEventListener('resize', () => {
+      const containerElement = this.container.nativeElement;
+      const newWidth = containerElement.clientWidth;
+      const newHeight = containerElement.clientHeight;
 
+      this.camera.aspect = newWidth / newHeight;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(newWidth, newHeight);
+
+      this.controls.update(); // Actualiza los controles
+    });
+
+    // Inicialmente, configura el tamaño del renderizador según el tamaño del contenedor
     const containerElement = this.container.nativeElement;
-    this.renderer.setSize(containerElement.clientWidth, containerElement.clientHeight);
+    const initialWidth = containerElement.clientWidth;
+    const initialHeight = containerElement.clientHeight;
 
+    this.camera.aspect = initialWidth / initialHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(initialWidth, initialHeight);
 
-    this.camera.lookAt(0,0,0);//apunta la camaara hacia el orijen
+    this.camera.lookAt(0, 0, 0);
 
-
-    this.animate();    
+    this.animate();
   } 
 
   ngOnDestroy() {
@@ -110,12 +126,15 @@ export class DimensionmodelComponent implements OnInit{
               const texture = textureLoader.load((this.roomService.selectedRoom.url_texture).toString());
               child.material = new THREE.MeshBasicMaterial({ map: texture });
               this.modelLoaded = true;// set on true when the model is loaded
+              this.loadingProgress = 100; // Modelo completamente cargado
             }
           });
           resolve(object);
         },
         (xhr) => {
-          console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+          // console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+          const percentComplete = (xhr.loaded / xhr.total) * 100;
+          this.loadingProgress =  Math.trunc(percentComplete);
         },
         (error) => {
           console.error(`Error al cargar el objeto 3D: ${error}`);
@@ -125,4 +144,6 @@ export class DimensionmodelComponent implements OnInit{
 
     });
   }
+
+  
 }

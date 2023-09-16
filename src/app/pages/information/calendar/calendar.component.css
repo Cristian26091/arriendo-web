@@ -1,13 +1,6 @@
-.demo-inline-calendar-card {
-    width: 100%;
-}
-
-.mat-raised-button{
-    width: 100%;
-
-}
-
-.salto-linea {
-    font-size: 0;
-    display: block;
+.mat-calendar .custom-marked-date {
+    background-color: #CCCCCC; /* Color gris suave de fondo */
+    color: white !important;
+    border-radius: 100% !important;
+    pointer-events: none; /* Evita que las fechas marcadas sean seleccionables */
 }
