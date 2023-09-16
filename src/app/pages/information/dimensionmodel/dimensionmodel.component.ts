@@ -16,6 +16,9 @@ export class DimensionmodelComponent implements OnInit{
 
   private scene: THREE.Scene = new THREE.Scene();
 
+  public loadingProgress: number = 0;
+
+
   private camera: THREE.PerspectiveCamera;
   private renderer: THREE.WebGLRenderer;
   private controls: THREE.OrbitControls;
@@ -123,12 +126,15 @@ export class DimensionmodelComponent implements OnInit{
               const texture = textureLoader.load((this.roomService.selectedRoom.url_texture).toString());
               child.material = new THREE.MeshBasicMaterial({ map: texture });
               this.modelLoaded = true;// set on true when the model is loaded
+              this.loadingProgress = 100; // Modelo completamente cargado
             }
           });
           resolve(object);
         },
         (xhr) => {
-          console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+          // console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+          const percentComplete = (xhr.loaded / xhr.total) * 100;
+          this.loadingProgress =  Math.trunc(percentComplete);
         },
         (error) => {
           console.error(`Error al cargar el objeto 3D: ${error}`);
