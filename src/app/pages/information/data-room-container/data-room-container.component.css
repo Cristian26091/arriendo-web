@@ -2,13 +2,8 @@
     width: 100%;
 }
 
-.salto-linea {
-    font-size: 0;
-    display: block;
-}
-
 .mat-card-content{
-    padding: 7%;
+
 }
 
 .icon-card{

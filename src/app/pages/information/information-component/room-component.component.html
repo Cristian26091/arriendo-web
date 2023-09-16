@@ -1,35 +1,30 @@
-<div class="container">
+<div class="container bg-light ">
+  <div class="row row-cols-2">
 
-  <div class="row">
-
-    <div class="col-9">
+    <div class="col-md-8 col-sm-12">
       <app-dimensionmodel></app-dimensionmodel>
     </div>
 
-    <div class="col-3">
+    <div class="col-md-4 col-sm-12">
       <!-- Boton arrendar  -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rentModal">Buscar</button>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rentModal">Reservar</button>
       <app-data-room-container></app-data-room-container>
     </div>
 
-  </div>
-
-  <div class="row">
-
-    <div class="col-9">
-      <!-- MAPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
+    <div class="col-md-8 col-sm-12">
       <app-map></app-map> 
     </div>
 
-    <div class="col-3">
+    <div class="col-md-4 col-sm-12">
       <app-calendar></app-calendar>
     </div>
 
   </div>
 
-  </div>
+  
+      
 
-  <!-- modal -->
+
   
   <!-- Modal -->
 <div class="modal fade" id="rentModal" aria-labelledby="rentModal" aria-hidden="true">
