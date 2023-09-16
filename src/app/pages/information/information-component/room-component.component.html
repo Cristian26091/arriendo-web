@@ -1,5 +1,5 @@
 <div class="container bg-light ">
-  <div class="row mb-4">
+  <div class="row row-cols-2">
 
     <div class="col-md-8 col-sm-12">
       <app-dimensionmodel></app-dimensionmodel>
@@ -11,19 +11,20 @@
       <app-data-room-container></app-data-room-container>
     </div>
 
-  </div>
+    <div class="col-md-8 col-sm-12">
+      <app-map></app-map> 
+    </div>
 
-  <div class="row mb-4"> 
-
-      <div class="col-md-8 col-sm-12">
-        <app-map></app-map> 
-      </div>
-
-      <div class="col-md-4 col-sm-12">
-        <app-calendar></app-calendar>
-      </div>
+    <div class="col-md-4 col-sm-12">
+      <app-calendar></app-calendar>
+    </div>
 
   </div>
+
+  
+      
+
+
   
   <!-- Modal -->
 <div class="modal fade" id="rentModal" aria-labelledby="rentModal" aria-hidden="true">
