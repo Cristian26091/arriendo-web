@@ -1,40 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
 import { RoomService } from 'src/app/services/room.service';
+import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+  styleUrls: ['./calendar.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CalendarComponent implements OnInit{
   selected = null;
-
+  tooltip: string = ''; // Inicialmente, el tooltip está vacío
 
   constructor(private roomService: RoomService) { }
   
 
-  ngOnInit(): void{
-    console.log(this.roomService.selectedRoom.reservas)
+  ngOnInit(): void{}
 
-  }
-
-  dateClass = (date: Date): string => {
-    const formattedDate = this.formatDate(date);
-  
+  dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
     // Verifica si la fecha está en alguna reserva
+    const formattedDate = this.formatDate(cellDate);
     const isDateInReservation = this.roomService.selectedRoom.reservas.some(reserva => {
       const reservaInicio = this.formatDate(new Date(reserva.fecha_inicio));
       const reservaFin = this.formatDate(new Date(reserva.fecha_fin));
-      console.log("Fecha formateada", formattedDate)
-      console.log("in - fin:", reservaInicio, reservaFin);
       return formattedDate >= reservaInicio && formattedDate <= reservaFin;
-
     });
     if (isDateInReservation) {
-      console.log("isDateInReservation true");
+      this.tooltip = 'Reservado'; // Puedes personalizar este mensaje
       return "custom-marked-date";
     } else {
-      console.log("isDateInReservation false");
+      this.tooltip = ''; // Puedes personalizar este mensaje
       return '';
     }
   };

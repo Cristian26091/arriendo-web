@@ -1,6 +1,6 @@
-button.custom-marked-date{
-    background-color: red; /* Cambia el color de fondo a tu elección */
-    /* color: #ff0000; Cambia el color del texto a tu elección */
-    font-weight: bold; /* Puedes aplicar otros estilos según tus preferencias */
-    border-radius: 100%;
+.mat-calendar .custom-marked-date {
+    background-color: #CCCCCC; /* Color gris suave de fondo */
+    color: white !important;
+    border-radius: 100% !important;
+    pointer-events: none; /* Evita que las fechas marcadas sean seleccionables */
 }
