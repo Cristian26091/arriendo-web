@@ -1,13 +1,13 @@
 .demo-inline-calendar-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
 }
 
-.mat-raised-button{
+.mat-calendar {
     width: 100%;
-
+    max-width: 600px; /* Opcional: Limita el ancho máximo si lo deseas */
 }
 
-.salto-linea {
-    font-size: 0;
-    display: block;
-}
+  
