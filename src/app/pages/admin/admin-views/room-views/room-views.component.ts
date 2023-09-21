@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { Room } from '../../../../models/room';
 import { RoomService } from '../../../../services/room.service';
 import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
+
 
 
 
@@ -15,7 +16,6 @@ import { Router } from '@angular/router';
 
 
 export class RoomViewsComponent implements OnInit {
-
   currentRoute: string = "";
   currentRouteParts: string[] = ["primero", "segundo"];
   headTableContent: string[];
@@ -29,13 +29,30 @@ export class RoomViewsComponent implements OnInit {
 
   }
 
-  editarItem(item){
-    console.log(item);
+  seletcToEdit(item){
+    this.RoomService.selectedRoom = item;
   }
 
-  eliminarItem(item){
-    console.log(item);
+  selectToDelete(item){
+    this.RoomService.selectedRoom = item;
   }
+
+  editRoom(){
+
+  }
+
+  deleteRoom(){
+    this.RoomService.deleteRoom(this.RoomService.selectedRoom._id)
+    .subscribe(() => {
+      // La habitación se eliminó correctamente, puedes actualizar la lista de habitaciones si es necesario.
+      this.getrooms(); // Otra vez, obtén las habitaciones actualizadas.
+      // Cierra el modal de confirmación de eliminación
+      // $('#confirmDeleteModal').modal('hide');
+    });
+
+  }
+
+
 
   getrooms(){
     this.RoomService.getRooms()
