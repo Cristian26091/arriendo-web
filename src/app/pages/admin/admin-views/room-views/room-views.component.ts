@@ -1,9 +1,12 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { Room } from '../../../../models/room';
 import { RoomService } from '../../../../services/room.service';
 import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import * as $ from 'jquery';
 
+
+declare var $: any; // Declaración de jQuery
 
 
 
@@ -20,13 +23,17 @@ export class RoomViewsComponent implements OnInit {
   currentRouteParts: string[] = ["primero", "segundo"];
   headTableContent: string[];
 
-  constructor(public RoomService: RoomService, private currencyPipe: CurrencyPipe, private router: Router, ) { 
+  constructor(public RoomService: RoomService, private currencyPipe: CurrencyPipe, private router: Router, private el: ElementRef ) { 
     this.headTableContent = ["ID", "Dirección", "Fecha publicación", "Precio", "Estado", "Acción"];
     this.getrooms();
   }
 
   ngOnInit(): void {
+   
+  }
 
+  ngAfterViewInit() {
+    
   }
 
   seletcToEdit(item){
@@ -49,10 +56,7 @@ export class RoomViewsComponent implements OnInit {
       // Cierra el modal de confirmación de eliminación
       // $('#confirmDeleteModal').modal('hide');
     });
-
   }
-
-
 
   getrooms(){
     this.RoomService.getRooms()
@@ -71,6 +75,37 @@ export class RoomViewsComponent implements OnInit {
   addRoom(){
     console.log("add");
     this.router.navigate(['/admin/room/add']);
+  }
+
+  // En tu componente
+  handleDragOver(event: DragEvent) {
+    event.preventDefault();//previene comportamiento default
+  }
+
+  handleDrop(event: DragEvent) {
+    event.preventDefault(); //previene comportamiento default
+    const file = event.dataTransfer.files[0]; //se asume es un solo archivo
+    if (file) {
+      // Obtiene la extensión del archivo
+      const fileExtension = file.name.split('.').pop().toLowerCase();
+      if (['obj', 'mtl', 'zip'].includes(fileExtension)) {
+        // Cierra el modal de carga de modelo
+        $('#addRoomModal').modal('hide');
+        // Redirige a la ruta del formulario de registro habitación
+        this.router.navigate(['/admin/room/add']);
+        // Inicia la carga del modelo aquí utilizando una función o servicio adecuado.
+        this.loadModelInBackground(file);
+      } else {
+        // Muestra un mensaje de error al usuario
+        alert('La extensión del archivo no es válida. Las extensiones permitidas son: obj, mtl, zip.');
+      }
+    }
+  }
+
+  loadModelInBackground(file: File) {
+    // Aquí debes implementar la carga del modelo 3D en segundo plano.
+    // Puedes utilizar una biblioteca o herramientas como Three.js si estás trabajando con modelos 3D en la web.
+    // Mientras se carga el modelo, el usuario puede completar el formulario.
   }
 
   

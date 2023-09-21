@@ -77,7 +77,7 @@
                         </div>
 
                         <!-- Cuerpo del Modal -->
-                        <div class="modal-body text-center">
+                        <div class="modal-body text-center" (dragover)="handleDragOver($event)" (drop)="handleDrop($event)">
                             <div class="drop-area" id="dropArea">
                                 <i class="bi bi-cloud-upload fs-2"></i>
                                 <p class="fs-5">Arrastra tu modelo 3D aquí</p>
