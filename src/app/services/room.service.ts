@@ -61,8 +61,8 @@ export class RoomService {
     
   }
 
-  deleteRoom(_id : string){
-    
+  deleteRoom(_id: string): Observable<any> {
+    return this.http.delete(`${this.URL_API}/${_id}`);
   }
 
   roomsIsVoid(){
