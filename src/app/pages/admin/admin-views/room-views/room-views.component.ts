@@ -1,11 +1,11 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { Room } from '../../../../models/room';
 import { RoomService } from '../../../../services/room.service';
 import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import * as $ from 'jquery';
 
-
-
+declare var $: any; // Declaración de jQuery
 
 @Component({
   selector: 'app-room-views',
@@ -20,13 +20,17 @@ export class RoomViewsComponent implements OnInit {
   currentRouteParts: string[] = ["primero", "segundo"];
   headTableContent: string[];
 
-  constructor(public RoomService: RoomService, private currencyPipe: CurrencyPipe, private router: Router, ) { 
+  constructor(public RoomService: RoomService, private currencyPipe: CurrencyPipe, private router: Router, private el: ElementRef ) { 
     this.headTableContent = ["ID", "Dirección", "Fecha publicación", "Precio", "Estado", "Acción"];
     this.getrooms();
   }
 
   ngOnInit(): void {
+   
+  }
 
+  ngAfterViewInit() {
+    
   }
 
   seletcToEdit(item){
@@ -49,10 +53,7 @@ export class RoomViewsComponent implements OnInit {
       // Cierra el modal de confirmación de eliminación
       // $('#confirmDeleteModal').modal('hide');
     });
-
   }
-
-
 
   getrooms(){
     this.RoomService.getRooms()
@@ -68,11 +69,8 @@ export class RoomViewsComponent implements OnInit {
     return priceAsNumber;
   }
 
-  addRoom(){
-    console.log("add");
+  goToAddRoom(){
     this.router.navigate(['/admin/room/add']);
   }
-
-  
 
 }
