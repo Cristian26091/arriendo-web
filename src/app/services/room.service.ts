@@ -53,8 +53,8 @@ export class RoomService {
   
   }
 
-  postRoom(room: Room){
-   
+  postRoom(room: Room): Observable<any> {
+    return this.http.post(`${this.URL_API}`, room);
   }
 
   putRoom(room: Room){
