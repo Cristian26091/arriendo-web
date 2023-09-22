@@ -9,3 +9,25 @@
     font-size: 18px;
     color: #777;
 }
+
+.drop-zone {
+    width: 100%;
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.drop-zone:hover {
+background-color: #e8e8e8;
+}
+
+.drop-zone p {
+margin: 0;
+font-size: 16px;
+}
+  
+  /* Resto de estilos según tus preferencias */
+  
