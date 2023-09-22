@@ -1,85 +1,117 @@
 
+<body>
+    
     <div class="container mt-5">
-        <h2 class="text-center">Registro de habitación</h2>
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" 
-            role="progressbar" aria-label="Animated striped example" aria-valuenow="75" 
-            aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+        <h1 class="text-center">Registro de habitación</h1>
+        
+        <div class="form-section">
+            <h2>Información del Modelo</h2>
+            <hr>
+            <div class="row mb-3">
+                <div class="col md-6">
+                    <!-- Modelo 3D: Zona de arrastre (Drop Zone) -->
+                    <div id="dropZone" class="drop-zone" *ngIf="!isUploadModel" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                        <!-- Icono de carga centrado arriba del texto -->
+                        <div class="d-flex flex-column align-items-center" style="position: relative; height: 50%;">
+                            <i class="bi bi-upload h1 mb-3"></i>
+                            <p class="mb-0">Arrastra y suelta archivos aquí</p>
+                        </div>
+                        <input type="file" id="fileInput" accept=".fbx, .obj, .dae, .blend, .stl, .zip, .rar" (change)="onFileSelected($event)" style="display:none">
+                    </div>
+
+                    <!-- Barra de carga -->
+                    <div class="progress" *ngIf="isUploadModel">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                        role="progressbar" aria-label="Animated striped example" aria-valuenow="75" 
+                        aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                    </div>
+                </div>
+            </div>
         </div>
+        
+        
+        
         <form>
+            <h2>Información de Ubicación</h2>
+            <hr>
+
+            <div class="form-section">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="ciudad" class="form-label">Ingrese una ciudad</label>
+                        <select class="form-select" id="ciudad" name="ciudad">
+                            <!-- Opciones del dropdown de ciudad -->
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="comuna" class="form-label">Seleccione una comuna</label>
+                        <select class="form-select" id="comuna" name="comuna">
+                            <!-- Opciones del dropdown de comuna -->
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="region" class="form-label">Seleccione una región</label>
+                        <select class="form-select" id="region" name="region">
+                            <!-- Opciones del dropdown de región -->
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="provincia" class="form-label">Seleccione una provincia</label>
+                        <select class="form-select" id="provincia" name="provincia">
+                            <!-- Opciones del dropdown de provincia -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Información de la habitación</h2>
+            <hr>
+
+            <div class="form-section">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="tipo-habitacion" class="form-label"> Seleccione un tipo de habitación</label>
+                        <select class="form-select" id="tipo-habitacion" name="tipo-habitacion">
+                            <!-- Opciones del dropdown de tipo de habitación -->
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="num-habitacion" class="form-label">Ingrese el número de Habitación</label>
+                        <input type="text" class="form-control" id="num-habitacion" name="num-habitacion">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="num-bano" class="form-label">Seleccione el tipo de Baño</label>
+                        <select class="form-select" id="num-bano" name="num-bano">
+                            <!-- Opciones del dropdown de número de baño -->
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="precio" class="form-label">Ingrese el precio mensual</label>
+                        <input type="text" class="form-control" id="precio" name="precio">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="calle" class="form-label">Ingrese la calle</label>
+                    <input type="text" class="form-control" id="calle" name="calle">
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Ingrese una descripción</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="4"></textarea>
+                </div>
+            </div>
+            
             <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="ciudad" class="form-label">Ingrese una ciudad</label>
-                    <select class="form-select" id="ciudad" name="ciudad">
-                        <!-- Opciones del dropdown de ciudad -->
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="comuna" class="form-label">Seleccione una comuna</label>
-                    <select class="form-select" id="comuna" name="comuna">
-                        <!-- Opciones del dropdown de comuna -->
-                    </select>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="region" class="form-label">Seleccione una región</label>
-                    <select class="form-select" id="region" name="region">
-                        <!-- Opciones del dropdown de región -->
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="provincia" class="form-label">Seleccione una provincia</label>
-                    <select class="form-select" id="provincia" name="provincia">
-                        <!-- Opciones del dropdown de provincia -->
-                    </select>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="tipo-habitacion" class="form-label"> Seleccione un tipo de habitación</label>
-                    <select class="form-select" id="tipo-habitacion" name="tipo-habitacion">
-                        <!-- Opciones del dropdown de tipo de habitación -->
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="num-habitacion" class="form-label">Ingrese el número de Habitación</label>
-                    <input type="text" class="form-control" id="num-habitacion" name="num-habitacion">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="num-bano" class="form-label">Seleccione el tipo de Baño</label>
-                    <select class="form-select" id="num-bano" name="num-bano">
-                        <!-- Opciones del dropdown de número de baño -->
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="precio" class="form-label">Ingrese el precio mensual</label>
-                    <input type="text" class="form-control" id="precio" name="precio">
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="calle" class="form-label">Ingrese la calle</label>
-                <input type="text" class="form-control" id="calle" name="calle">
-            </div>
-            <div class="mb-3">
-                <label for="descripcion" class="form-label">Ingrese una descripción</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="4"></textarea>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <div class="drop-area" id="dropArea">
-                        <i class="bi bi-card-image"></i>
-                        <p class="fs-5">Arrastra el cover aquí</p>
+                <div class="col-md-">
+                    <label for="descripcion" class="form-label">Ingresa la imagen del cover</label>
+                    <div class="drop-zone" id="dropArea">
+                        <i class="bi bi-card-image h1"></i>
+                        <p class="fs-5">Arrastra y suelta el cover aquí</p>
                     </div>
                     
-                </div>
-                <div class="col-md-6">
-                    <div class="drop-area" id="dropArea">
-                        <i class="bi bi-card-image"></i>
-                        <p class="fs-5">Arrastra la textura aquí</p>
-                    </div>
                 </div>
             </div>
 
@@ -88,3 +120,5 @@
             </div>
         </form>
     </div>
+
+</body>
