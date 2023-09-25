@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomService } from 'src/app/services/room.service';
+import { RegionService } from 'src/app/services/region.service';
+import { Region } from 'src/app/models/region.model';
+import { Room } from 'src/app/models/room';
 
 @Component({
   selector: 'app-room-views-add',
@@ -7,15 +10,29 @@ import { RoomService } from 'src/app/services/room.service';
   styleUrls: ['./room-views-add.component.css']
 })
 export class RoomViewsAddComponent implements OnInit {
-
+  //opciones
+  homeTypes = ['casa','depto'];
+  bathRoomTypes = ['privado','compartido'];
+  //Campos para ubicación
+  selectedRegion: string = '';
+  selectedComuna: string = '';
+  roomStreet: string = '';
+  //Campos de la habitación
+  selectedHome: string = '';
+  isShareBathroom = false;
+  roomNumber: string = '';
+  roomPrice: string = '';
+  roomDescription: string = '';
+  //Campos del modelo 3D
   isUploadModel: boolean = false;
+  //mensaje de error
+  errorMessage: string = '';
 
-  constructor(private roomService: RoomService) { }
+
+  constructor(private roomService:RoomService, public regionService:RegionService) { }
 
   ngOnInit(): void {
-    // subir a la base de datos la habitación creada
-    // al subir debo updatear la lista roomService.rooms
-    
+    this.getRegions();
   }
 
   onDragOver(event: DragEvent) {
@@ -44,6 +61,71 @@ export class RoomViewsAddComponent implements OnInit {
       this.isUploadModel = true;
     }
   }
+
+  private async getRegions(){
+    this.regionService.getRegions().subscribe(
+    (res) => {
+      this.regionService.regions = res as Region[];
+    },
+    (error) => {
+      console.error('Error al obtener las regiones:', error);
+    }
+  );
+  }
+
+  onRegionSelect(event : Event){
+    console.log(this.selectedRegion);
+    const region = this.regionService.regions.find(r => r.nombre_region === this.selectedRegion);
+    if (region) {
+      this.regionService.selectedRegion = region;
+    }
+  }
+
+  onComunaSelect(event : Event){
+    console.log(this.selectedComuna);
+  }
+
+  onSelectHome(event : Event){
+    console.log(this.selectedHome)
+  }
+
+  onBathroomTypeSelect(event: Event) {
+    const selectedType = (event.target as HTMLSelectElement).value;
+  
+    // Actualiza isShareBathroom en función de la selección
+    this.isShareBathroom = selectedType === 'compartido';
+
+    console.log(this.isShareBathroom);
+  }
+
+  onSubmit(){
+    const room = new Room();
+    //asignar valores a la habitación
+    room.region = this.selectedRegion;
+    room.comuna = this.selectedComuna;
+    room.casa_depto = this.selectedHome;
+    room.banio_compartido = this.isShareBathroom;
+    room.numero = this.roomNumber;
+    room.calle = this.roomStreet;
+    room.precio = this.roomPrice;
+    room.descripcion = this.roomDescription;
+    
+    //campos genericos
+    room.esta_arrendado = "false";
+    room.reservas = [];
+
+    //campos modelo 3D
+    room.url_image_cover='';
+    room.url_model= '';
+    room.url_image_cover= '';
+
+    console.log(room);
+
+
+  }
+
+
+
 
 
 }

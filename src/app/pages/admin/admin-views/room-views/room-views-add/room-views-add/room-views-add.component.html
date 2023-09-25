@@ -29,41 +29,43 @@
             </div>
         </div>
         
-        
-        
         <form>
             <h2>Información de Ubicación</h2>
             <hr>
 
             <div class="form-section">
                 <div class="row mb-3">
+                    <!-- seleccionar region -->
                     <div class="col-md-6">
-                        <label for="ciudad" class="form-label">Ingrese una ciudad</label>
-                        <select class="form-select" id="ciudad" name="ciudad">
-                            <!-- Opciones del dropdown de ciudad -->
+                        <label for="region" class="form-label">Seleccione una región</label>
+                        <select class="form-select" [(ngModel)]="selectedRegion" (change)="onRegionSelect($event)" name="region">
+                            <option disabled value="">Selecciona una region</option>
+                            <option *ngFor="let region of regionService.regions" [value]="region.nombre_region">{{ region.nombre_region }}</option>
+
                         </select>
                     </div>
+                    <!-- seleccionar comuna -->
                     <div class="col-md-6">
                         <label for="comuna" class="form-label">Seleccione una comuna</label>
-                        <select class="form-select" id="comuna" name="comuna">
-                            <!-- Opciones del dropdown de comuna -->
+                        <select class="form-select" [(ngModel)]="selectedComuna" (change)="onComunaSelect($event)" name="comuna">
+                            <option disabled selected>Seleccione una comuna</option>
+                            <option *ngFor="let comuna of regionService.selectedRegion.comunas" [value]="comuna.nombre_comuna">{{comuna.nombre_comuna}}</option>
                         </select>
                     </div>
                 </div>
-                <div class="row mb-3">
+                <!-- <div class="row mb-3"> 
                     <div class="col-md-6">
-                        <label for="region" class="form-label">Seleccione una región</label>
-                        <select class="form-select" id="region" name="region">
-                            <!-- Opciones del dropdown de región -->
+                        <label for="ciudad" class="form-label">Ingrese una ciudad</label>
+                        <select class="form-select" id="ciudad" name="ciudad">
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label for="provincia" class="form-label">Seleccione una provincia</label>
                         <select class="form-select" id="provincia" name="provincia">
-                            <!-- Opciones del dropdown de provincia -->
+
                         </select>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <h2>Información de la habitación</h2>
@@ -71,36 +73,42 @@
 
             <div class="form-section">
                 <div class="row mb-3">
+                    <!-- tipo de casa -->
                     <div class="col-md-6">
-                        <label for="tipo-habitacion" class="form-label"> Seleccione un tipo de habitación</label>
-                        <select class="form-select" id="tipo-habitacion" name="tipo-habitacion">
-                            <!-- Opciones del dropdown de tipo de habitación -->
+                        <label for="tipo-casa" class="form-label"> Seleccione un tipo de Casa</label>
+                        <select class="form-select" name="tipo-casa" [(ngModel)]="selectedHome" (change)="onSelectHome($event)">
+                            <option disabled value="">Seleccione un tipo de casa</option>
+                            <option *ngFor="let tipo of homeTypes" [value]="tipo">{{tipo}}</option>
                         </select>
                     </div>
+                    <!-- numero de habitacion -->
                     <div class="col-md-6">
                         <label for="num-habitacion" class="form-label">Ingrese el número de Habitación</label>
-                        <input type="text" class="form-control" id="num-habitacion" name="num-habitacion">
+                        <input type="text" class="form-control" name="num-habitacion" [(ngModel)]="roomNumber">
                     </div>
                 </div>
                 <div class="row mb-3">
+                    <!-- tipo de baño -->
                     <div class="col-md-6">
                         <label for="num-bano" class="form-label">Seleccione el tipo de Baño</label>
-                        <select class="form-select" id="num-bano" name="num-bano">
-                            <!-- Opciones del dropdown de número de baño -->
+                        <select class="form-select" name="num-bano"  (change)="onBathroomTypeSelect($event)">
+                            <option disabled value="">Selecciona un tipo de baño</option>
+                            <option *ngFor="let type of bathRoomTypes" [value]="type">{{ type }}</option>
                         </select>
                     </div>
+                    <!-- precio mensual -->
                     <div class="col-md-6">
-                        <label for="precio" class="form-label">Ingrese el precio mensual</label>
-                        <input type="text" class="form-control" id="precio" name="precio">
+                        <label for="precio" class="form-label">Ingrese el precio mensual de la habitación (en CLP)</label>
+                        <input type="text" class="form-control" name="precio" [(ngModel)]="roomPrice">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="calle" class="form-label">Ingrese la calle</label>
-                    <input type="text" class="form-control" id="calle" name="calle">
+                    <input type="text" class="form-control" name="calle" [(ngModel)]="roomStreet">
                 </div>
                 <div class="mb-3">
                     <label for="descripcion" class="form-label">Ingrese una descripción</label>
-                    <textarea class="form-control" id="descripcion" name="descripcion" rows="4"></textarea>
+                    <textarea class="form-control" name="descripcion" [(ngModel)]="roomDescription" rows="4"></textarea>
                 </div>
             </div>
             
@@ -116,7 +124,7 @@
             </div>
 
             <div class="text-center">
-                <button type="submit" class="btn btn-primary">Cargar habitación</button>
+                <button type="submit" class="btn btn-primary" (click)="onSubmit()">Cargar habitación</button>
             </div>
         </form>
     </div>
