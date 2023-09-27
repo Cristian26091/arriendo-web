@@ -1,6 +1,44 @@
 const Room = require('../models/room');
 const roomCtrl = {};
 
+const path = require('path');
+
+const {Storage} = require('@google-cloud/storage');
+
+gc = new Storage({
+    keyFilename: path.join(__dirname, '../key_gcs.json'),
+    projectId: 'arriendo-web-395104',
+});
+
+const bucketName = 'bucket-arriendo-web';
+//bucket para carga de archivos.
+const gcBucket = gc.bucket(bucketName);
+
+//impresión de buckets
+//gc.getBuckets().then(x => console.log(x));
+
+// Función para cargar el modelo 3D en el bucket de GCS
+roomCtrl.uploadModelToBucket = async (ModelData) => {
+  try {
+    
+    const file = gcBucket.file(fileName);
+
+    // Subir el archivo al bucket
+    await file.save(fileBuffer, {
+      metadata: {
+        contentType: 'application/octet-stream', // Tipo de contenido para modelos 3D
+        resumable: true, // permitir reanudar la carga del archivo
+      },
+    });
+
+    console.log(`Modelo 3D ${fileName} cargado con éxito.`);
+    return fileName; // Devuelve el nombre del archivo cargado
+  } catch (error) {
+    console.error('Error al cargar el modelo 3D:', error);
+    throw error;
+  }
+};
+
 // Devolver todas las habitaciones
 roomCtrl.getRooms = async (req, res) => {
     const rooms = await Room.find();

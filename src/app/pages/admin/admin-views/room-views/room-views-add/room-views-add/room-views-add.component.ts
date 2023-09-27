@@ -51,14 +51,28 @@ export class RoomViewsAddComponent implements OnInit {
       const files = inputElement.files;
       this.handleFiles(files);
     }
-  }
+  }   
 
+  //manejo de archivos
   private handleFiles(files: FileList) {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       // Validar el tipo y tamaño del archivo aquí antes de cargarlo
-      // Procesar el archivo (por ejemplo, mostrar una previsualización)
+
+      //Cargar el archivo
+      this.roomService.uploadModelFile(file).subscribe(
+        (res) => {
+          // Maneja la respuesta del servidor (por ejemplo, actualiza la URL del modelo en tu formulario)
+          console.log('Archivo cargado con éxito:', res);
+        },
+        (error) => {
+          console.error('Error al cargar el archivo:', error);
+        }
+      );
+
+      // Establece la bandera de carga del modelo
       this.isUploadModel = true;
+      
     }
   }
 
@@ -113,6 +127,7 @@ export class RoomViewsAddComponent implements OnInit {
     //campos genericos
     room.esta_arrendado = "false";
     room.reservas = [];
+    room.fecha_publicacion = new Date(); //fecha actual
 
     //campos modelo 3D
     room.url_image_cover='';

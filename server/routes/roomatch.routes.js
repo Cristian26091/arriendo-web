@@ -14,6 +14,7 @@ router.get('/help', help.getHelps);
 router.get('/room', room.getRooms);
 router.get('/room/:idRoom', room.getRoom);
 router.get('/filterRooms', room.getRoomByFilter);
+router.post('/uploadModel', room.uploadModelToBucket);
 // router.post('room/', room.createRoom);
 // router.put('/room/:id', room.editRoom);
 // router.delete('room/:id', room.deleteRoom);

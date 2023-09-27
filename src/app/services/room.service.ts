@@ -13,12 +13,21 @@ export class RoomService {
 
   readonly URL_API = environment.uri+'/api/room'
   readonly URL_FILTER_ROOM = environment.uri+'/api'
+  readonly URL_UPLOAD_MODEL = environment.uri + '/api/uploadModel';
 
   constructor(private http: HttpClient){
     
     this.selectedRoom = new Room();
     this.rooms = [];
 
+  }
+
+  //función para subir el modelo 3D
+  uploadModelFile(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('model', file);
+    console.log("formData:", formData);
+    return this.http.post(this.URL_UPLOAD_MODEL, formData);
   }
 
   getRooms(){
