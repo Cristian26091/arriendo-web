@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+const multer = require('multer');
+const upload = multer(); // Configuración básica de multer para procesar archivos
+
 const room = require('../controllers/room.controller');
 const contact = require('../controllers/contact.controller');
 const region = require('../controllers/region.controller');
@@ -14,7 +17,7 @@ router.get('/help', help.getHelps);
 router.get('/room', room.getRooms);
 router.get('/room/:idRoom', room.getRoom);
 router.get('/filterRooms', room.getRoomByFilter);
-router.post('/uploadModel', room.uploadModelToBucket);
+router.post('/uploadModel',upload.single('model'), room.uploadModelToBucket);
 // router.post('room/', room.createRoom);
 // router.put('/room/:id', room.editRoom);
 // router.delete('room/:id', room.deleteRoom);

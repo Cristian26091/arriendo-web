@@ -18,24 +18,53 @@ const gcBucket = gc.bucket(bucketName);
 //gc.getBuckets().then(x => console.log(x));
 
 // Función para cargar el modelo 3D en el bucket de GCS
-roomCtrl.uploadModelToBucket = async (ModelData) => {
+roomCtrl.uploadModelToBucket = async (req, res) => {
+  // console.log(req);
   try {
-    
-    const file = gcBucket.file(fileName);
+    if (!req.file) {
+        // console.log("golaaa");
+        return res.status(400).json({ message: 'No se proporcionó ningún archivo.' });
+    }
 
-    // Subir el archivo al bucket
-    await file.save(fileBuffer, {
+    const file = req.file; // El archivo que recibes de la solicitud
+
+    // Obtener la fecha actual en formato ISO para crear un nombre de carpeta única
+    const currentDate = new Date().toISOString();
+    // ruta base en el bucket en la carpeta models
+    const baseFolder = 'models'; 
+    // Genera un nombre de carpeta única para el modelo utilizando la fecha actual
+    const modelFolder = `${baseFolder}/${currentDate}`;
+    // Genera un nombre de archivo único para el objeto en el bucket
+    const fileName = `${modelFolder}/${Date.now()}-${file.originalname}`;
+
+    const gcsFile = gcBucket.file(fileName);
+
+    // Crear un flujo de escritura para el archivo en GCS
+    const writeStream = gcsFile.createWriteStream({
       metadata: {
-        contentType: 'application/octet-stream', // Tipo de contenido para modelos 3D
-        resumable: true, // permitir reanudar la carga del archivo
+        contentType: file.mimetype, // Establecer el tipo de contenido del archivo
       },
+      resumable: false, // Opcional: desactivar la carga resumible
     });
 
-    console.log(`Modelo 3D ${fileName} cargado con éxito.`);
-    return fileName; // Devuelve el nombre del archivo cargado
+
+    // Manejar eventos para el flujo de escritura
+    writeStream
+      .on('error', (error) => {
+        console.error('Error al cargar el archivo en el bucket:', error);
+        return res.status(500).json({ message: 'Error al cargar el archivo en el bucket' });
+      })
+      .on('finish', () => {
+        console.log(`Archivo ${fileName} cargado con éxito en el bucket.`);
+        return res.status(200).json({ message: 'Archivo cargado con éxito en el bucket.' });
+      });
+
+    // Leer el archivo del buffer y escribirlo en GCS
+    writeStream.end(file.buffer);
+
   } catch (error) {
     console.error('Error al cargar el modelo 3D:', error);
-    throw error;
+    return res.status(500).json({ message: 'Error al cargar el modelo 3D' });
   }
 };
 

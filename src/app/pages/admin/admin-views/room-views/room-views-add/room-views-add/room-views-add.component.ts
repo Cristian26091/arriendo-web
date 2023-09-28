@@ -58,7 +58,7 @@ export class RoomViewsAddComponent implements OnInit {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       // Validar el tipo y tamaño del archivo aquí antes de cargarlo
-
+      // console.log('Archivo:', file);
       //Cargar el archivo
       this.roomService.uploadModelFile(file).subscribe(
         (res) => {

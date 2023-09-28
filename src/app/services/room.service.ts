@@ -24,9 +24,9 @@ export class RoomService {
 
   //función para subir el modelo 3D
   uploadModelFile(file: File): Observable<any> {
+    // console.log('Archivo:', file);
     const formData = new FormData();
     formData.append('model', file);
-    console.log("formData:", formData);
     return this.http.post(this.URL_UPLOAD_MODEL, formData);
   }
 

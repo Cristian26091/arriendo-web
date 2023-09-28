@@ -10,7 +10,7 @@
             <div class="row mb-3">
                 <div class="col md-6">
                     <!-- Modelo 3D: Zona de arrastre (Drop Zone) -->
-                    <div id="dropZone" class="drop-zone" *ngIf="!isUploadModel" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                    <div id="dropZone" class="drop-zone form-control" *ngIf="!isUploadModel" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
                         <!-- Icono de carga centrado arriba del texto -->
                         <div class="d-flex flex-column align-items-center" style="position: relative; height: 50%;">
                             <i class="bi bi-upload h1 mb-3"></i>
