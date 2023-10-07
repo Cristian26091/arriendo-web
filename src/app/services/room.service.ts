@@ -14,6 +14,11 @@ export class RoomService {
   readonly URL_API = environment.uri+'/api/room'
   readonly URL_FILTER_ROOM = environment.uri+'/api'
   readonly URL_UPLOAD_MODEL = environment.uri + '/api/uploadModel';
+  readonly URL_DELETE_MODEL = environment.uri + '/api/deleteModel';
+  readonly URL_UPLOAD_IMAGES = environment.uri + '/api/uploadImages';
+  readonly URL_DELETE_IMAGES = environment.uri + '/api/deleteImages';
+  readonly URL_UPLOAD_TEXTURE = environment.uri + '/api/uploadTexture';
+  readonly URL_DELETE_TEXTURE = environment.uri + '/api/deleteTexture';
 
   constructor(private http: HttpClient){
     
@@ -24,10 +29,40 @@ export class RoomService {
 
   //función para subir el modelo 3D
   uploadModelFile(file: File): Observable<any> {
-    // console.log('Archivo:', file);
     const formData = new FormData();
     formData.append('model', file);
+    console.log("formData",formData)
     return this.http.post(this.URL_UPLOAD_MODEL, formData);
+  }
+
+  //función para eliminar un modelo 3D del bucket
+  deleteModelFile(model_ref: string): Observable<any> {
+    // console.log("model_ref",model_ref)
+    return this.http.delete(this.URL_DELETE_MODEL + `/${model_ref}`);
+  }
+
+  //función para subir la imagen de portada
+  uploadImagesFiles(files: File[]): Observable<any> {
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append('images', files[i]); // Usamos un array para manejar múltiples archivos
+    }
+    // console.log("formData",formData)
+    return this.http.post(this.URL_UPLOAD_IMAGES, formData);
+  }
+
+  //función para subir la textura del modelo
+  uploadTextureFile(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('texture', file);
+    // console.log("formData",formData)
+    return this.http.post(this.URL_UPLOAD_TEXTURE, formData);
+  }
+
+  //función para eliminar una textura del bucket
+  deleteTextureFile(texture_ref: string): Observable<any> {
+    // console.log("texture_ref",texture_ref)
+    return this.http.delete(this.URL_DELETE_TEXTURE + `/${texture_ref}`);
   }
 
   getRooms(){

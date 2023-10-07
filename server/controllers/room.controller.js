@@ -5,6 +5,10 @@ const path = require('path');
 
 const {Storage} = require('@google-cloud/storage');
 
+const uuid = require('uuid'); // Importar el paquete uuid
+
+
+
 gc = new Storage({
     keyFilename: path.join(__dirname, '../key_gcs.json'),
     projectId: 'arriendo-web-395104',
@@ -19,24 +23,16 @@ const gcBucket = gc.bucket(bucketName);
 
 // Función para cargar el modelo 3D en el bucket de GCS
 roomCtrl.uploadModelToBucket = async (req, res) => {
-  // console.log(req);
   try {
     if (!req.file) {
-        // console.log("golaaa");
         return res.status(400).json({ message: 'No se proporcionó ningún archivo.' });
     }
 
     const file = req.file; // El archivo que recibes de la solicitud
-
-    // Obtener la fecha actual en formato ISO para crear un nombre de carpeta única
-    const currentDate = new Date().toISOString();
-    // ruta base en el bucket en la carpeta models
-    const baseFolder = 'models'; 
-    // Genera un nombre de carpeta única para el modelo utilizando la fecha actual
-    const modelFolder = `${baseFolder}/${currentDate}`;
-    // Genera un nombre de archivo único para el objeto en el bucket
-    const fileName = `${modelFolder}/${Date.now()}-${file.originalname}`;
-
+    const uniqueId = uuid.v4();
+    const baseFolder = 'models'; // ruta base en el bucket en la carpeta models
+    const modelFolder = `${baseFolder}/${uniqueId}`;// Genera un nombre de carpeta única para el modelo utilizando la fecha actual
+    const fileName = `${modelFolder}/${file.originalname}`;// Genera un nombre de archivo único para el objeto en el bucket
     const gcsFile = gcBucket.file(fileName);
 
     // Crear un flujo de escritura para el archivo en GCS
@@ -47,16 +43,24 @@ roomCtrl.uploadModelToBucket = async (req, res) => {
       resumable: false, // Opcional: desactivar la carga resumible
     });
 
-
     // Manejar eventos para el flujo de escritura
     writeStream
       .on('error', (error) => {
         console.error('Error al cargar el archivo en el bucket:', error);
         return res.status(500).json({ message: 'Error al cargar el archivo en el bucket' });
       })
-      .on('finish', () => {
+      .on('finish', async () => {
+        // Dar permisos públicos al archivo
+        await gcsFile.makePublic();
+
+        // Devuelve el enlace descargable y el nombre de archivo
+        const downloadLink = `https://storage.googleapis.com/bucket-arriendo-web/${fileName}`;
         console.log(`Archivo ${fileName} cargado con éxito en el bucket.`);
-        return res.status(200).json({ message: 'Archivo cargado con éxito en el bucket.' });
+        return res.status(200).json({ 
+          message: 'Archivo cargado con éxito en el bucket.',
+          downloadLink,
+          fileName,
+        });
       });
 
     // Leer el archivo del buffer y escribirlo en GCS
@@ -66,7 +70,178 @@ roomCtrl.uploadModelToBucket = async (req, res) => {
     console.error('Error al cargar el modelo 3D:', error);
     return res.status(500).json({ message: 'Error al cargar el modelo 3D' });
   }
-};
+}
+
+//función para eliminar el modelo 3D del bucket de GCS
+roomCtrl.deleteModelFromBucket = async (req, res) => {
+  console.log(req.params);
+  try {
+    const { folder } = req.params;
+
+    if (!folder) {
+      return res.status(400).json({ message: 'No se proporcionó ningún nombre de archivo.' });
+    }
+    const bucket = gcBucket; // Obtén el bucket de GCS
+    const baseFolder = 'models'
+    const folderPath = `${baseFolder}/${folder}/`; // Genera la ruta de la carpeta en el bucket
+    console.log(folderPath);
+    // Obtén una lista de objetos en la carpeta
+    const [files] = await bucket.getFiles({ prefix: folderPath });
+
+    // Elimina cada objeto en la carpeta, la carpeta se elimina sola cuando no quede nada en ella.
+    await Promise.all(files.map(file => file.delete()));
+
+    console.log(`Todos los objetos en la carpeta ${folder} eliminados con éxito.`);
+    return res.status(200).json({ message: 'Carpeta y objetos eliminados con éxito.' });
+  } catch (error) {
+    console.error('Error al eliminar la carpeta y objetos:', error);
+    return res.status(500).json({ message: 'Error al eliminar la carpeta y objetos.' });
+  }
+
+}
+
+// Función para cargar la imagen en el bucket de GCS
+roomCtrl.uploadImageToBucket = async (req, res) => {
+
+  const files = req.files;
+  console.log(files);
+
+  if (!files || files.length === 0) {
+    return res.status(400).json({ message: 'No se proporcionó ningún archivo.' });
+  }
+
+  const uniqueId = uuid.v4(); // Genera un ID único para la carpeta
+  const baseFolder = 'room-image-cover'; // Ruta base en el bucket en la carpeta models
+  const uploadedImages = [];
+
+  for (const file of files) {
+    try {
+      const blob = gcBucket.file(`${baseFolder}/${uniqueId}/${file.originalname}`);;
+
+      const blobStream = blob.createWriteStream({
+        resumable: false,
+        metadata: {
+          contentType: file.mimetype,
+        },
+      });
+
+      blobStream.on('error', (err) => {
+        console.error(err);
+        // Manejar el error de la carga aquí, tal vez devolver una respuesta de error al cliente
+      });
+
+      blobStream.on('finish', async () => {
+        try {
+          // La imagen se cargó exitosamente
+          console.log(`Imagen ${file.originalname} cargada en GCS.`);
+          // Dar permisos públicos al archivo
+          await blob.makePublic();
+          // Obtener el enlace descargable (URL) del archivo
+          const downloadLink = `https://storage.googleapis.com/${blob.bucket.name}/${blob.name}`;
+          // Agregar la información de la imagen al array de imágenes cargadas
+          uploadedImages.push({ downloadLink, fileName: blob.name });
+        
+          if (uploadedImages.length  === files.length) {
+            // Si todas las imágenes se han cargado, devuelve la respuesta
+            res.json({ message: 'Imágenes cargadas con éxito', images: uploadedImages });
+          }
+        } catch (error) {
+          console.error('Error al dar permisos públicos al archivo:', error);
+          res.status(500).json({ message: 'Error al cargar la imagen' });
+        }
+      
+      });
+
+      // Iniciar la carga del archivo
+      blobStream.end(file.buffer);
+
+    } catch (error) {
+      console.error('Error al cargar la imagen:', error);
+      return res.status(500).json({ message: 'Error al cargar la imagen' });
+    }
+  }
+
+}
+
+// Función para cargar la textura en el bucket de GCS
+roomCtrl.uploadTextureToBucket = async (req, res) => {
+  console.log(req.file);
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No se proporcionó ningún archivo.' });
+    }
+
+    const file = req.file; // El archivo que recibes de la solicitud
+    const uniqueId = uuid.v4();
+    const baseFolder = 'textures';
+    const fileName = `${baseFolder}/${uniqueId}_${file.originalname}`;
+    const gcsFile = gcBucket.file(fileName);
+
+    // Crear un flujo de escritura para el archivo en GCS
+    const writeStream = gcsFile.createWriteStream({
+      metadata: {
+        contentType: file.mimetype, // Establecer el tipo de contenido del archivo
+      },
+      resumable: false, // Opcional: desactivar la carga resumible
+    });
+    console.log("caca123");
+    // Manejar eventos para el flujo de escritura
+    writeStream
+      .on('error', (error) => {
+        console.error('Error al cargar el archivo en el bucket:', error);
+        return res.status(500).json({ message: 'Error al cargar el archivo en el bucket' });
+      })
+      .on('finish', async () => {
+        // Dar permisos públicos al archivo
+        console.log("entro al finish!");
+        await gcsFile.makePublic();
+
+        // Devuelve el enlace descargable y el nombre de archivo
+        const downloadLink = `https://storage.googleapis.com/bucket-arriendo-web/${fileName}`;
+        console.log(`Archivo ${fileName} cargado con éxito en el bucket.`);
+        return res.status(200).json({ 
+          message: 'Archivo cargado con éxito en el bucket.',
+          downloadLink,
+          fileName,
+        });
+      });
+    // Leer el archivo del buffer y escribirlo en GCS
+    writeStream.end(file.buffer);
+  } catch (error) {
+    console.error('Error al cargar la textura:', error);
+    return res.status(500).json({ message: 'Error al cargar la textura' });
+  }
+}
+
+roomCtrl.deleteTextureFromBucket = async (req, res) => {
+  try {
+    const { file } = req.params;
+
+    if (!file) {
+      return res.status(400).json({ message: 'No se proporcionó ningún nombre de archivo.' });
+    }
+    const bucket = gcBucket; // Obtén el bucket de GCS
+    const baseFolder = 'textures'
+    const filePath = `${baseFolder}/${file}`; // Genera la ruta del archivo en el bucket
+   
+    const gcsFile = bucket.file(filePath);
+
+    // Verificar si el archivo existe
+    const [exists] = await gcsFile.exists();
+
+    if (!exists) {
+      return res.status(404).json({ message: 'El archivo no existe.' });
+    }
+
+    // Eliminar el archivo específico
+    await gcsFile.delete();
+    console.log(`Archivo ${file} eliminado con éxito.`);
+    return res.status(200).json({ message: 'Archivo eliminado con éxito.' });
+  } catch (error) {
+    console.error('Error al eliminar la carpeta y objetos:', error);
+    return res.status(500).json({ message: 'Error al eliminar la carpeta y objetos.' });
+  }
+}
 
 // Devolver todas las habitaciones
 roomCtrl.getRooms = async (req, res) => {
@@ -106,7 +281,7 @@ roomCtrl.getRoomByFilter = async (req, res) => {
   };
 
 roomCtrl.createRoom = (req, res) =>{
-    
+  //crear logica del room
 }
 
 roomCtrl.editRoom = function () {

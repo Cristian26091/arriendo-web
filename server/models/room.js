@@ -20,6 +20,9 @@ const { Schema } = mongoose;
     url_img_cover: {type: String, required: true},
     url_model: {type: String, required: true},
     url_texture: {type: String, required: true},
+    model_ref_bucket: {type: String, required: true},
+    image_ref_bucket: {type: String, required: true},
+
     //campo para gestion de reservas
     reservas: [
         {

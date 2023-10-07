@@ -18,17 +18,15 @@ router.get('/room', room.getRooms);
 router.get('/room/:idRoom', room.getRoom);
 router.get('/filterRooms', room.getRoomByFilter);
 router.post('/uploadModel',upload.single('model'), room.uploadModelToBucket);
-// router.post('room/', room.createRoom);
-// router.put('/room/:id', room.editRoom);
-// router.delete('room/:id', room.deleteRoom);
+router.delete('/deleteModel/models/:folder/:file', room.deleteModelFromBucket);
+router.post('/uploadImages',upload.array('images'), room.uploadImageToBucket);
+router.post('/uploadTexture',upload.single('texture'), room.uploadTextureToBucket);
+router.delete('/deleteTexture/textures/:file', room.deleteTextureFromBucket);
+router.post('/uploadRoom',room.createRoom);
 
 //----------CONTACT ROUTES-----------
 router.get('/contact', contact.getContacts);
 router.post('/contact/', contact.createContact);
-// router.get('/contact/:id', room.getContact);
-// router.get('/contact', room.createContact);
-// router.put('/contact/:id', room.editContact);
-// router.delete('contact/:id', room.deleteContact);
 
 //----------REGION ROUTES-----------
 router.get('/region', region.getRegions);
