@@ -5,6 +5,7 @@ import { Region } from 'src/app/models/region.model';
 import { Room } from 'src/app/models/room';
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
+import { ImageRef } from 'src/app/models/image-ref';
 
 @Component({
   selector: 'app-room-views-add',
@@ -36,8 +37,10 @@ export class RoomViewsAddComponent implements OnInit {
   isUploadModel: boolean = false;
   url_model :string = '';
   model_ref: string = ''; //referencia del nombre del modelo en el bucket
-  uploadedImageUrls: string[] = []; //referencia de las imagenes en el bucket
-  uploadedImageNames: string[] = []; //referencia de los nombres de las imagenes en el bucket
+  //Campos de las imagenes
+  imagesRefs : ImageRef[] = [];
+  // uploadedImageUrls: string[] = []; //referencia de las imagenes en el bucket
+  // uploadedImageNames: string[] = []; //referencia de los nombres de las imagenes en el bucket
   texture_ref: string = ''; //referencia de la textura en el bucket
   texture_url: string = ''; //url de la textura en el bucket
   //mensajes de error
@@ -226,6 +229,7 @@ export class RoomViewsAddComponent implements OnInit {
     this.handleImagesFile(files); // Solo se espera un archivo de imagen
   }
 
+  // Función para manejar el evento 'change' de las imagenes del cover
   private handleImagesFile(files: FileList) {
     const fileArray: File[] = [];
 
@@ -238,15 +242,12 @@ export class RoomViewsAddComponent implements OnInit {
     this.roomService.uploadImagesFiles(fileArray).subscribe(
       (res) => {
         console.log('Archivo cargado con éxito:', res);
-        // this.url_image_cover = res.downloadLink;
-        // this.image_ref = res.fileName;
-        // console.log(this.url_image_cover, this.image_ref);
         const resImages = res.images;
         resImages.forEach((image: any) => {
-          this.uploadedImageUrls.push(image.downloadLink);
-          this.uploadedImageNames.push(image.fileName);
+          // this.uploadedImageUrls.push(image.downloadLink);
+          // this.uploadedImageNames.push(image.fileName);
+          this.imagesRefs.push(new ImageRef(image.fileName, image.downloadLink));
         }); 
-        // console.log("resimages",resImages);
       },
       (error) => {
         console.error('Error al cargar el archivo:', error);
@@ -255,9 +256,19 @@ export class RoomViewsAddComponent implements OnInit {
     
   }
 
+  // Método que se ejecutará antes de cerrar/cambiar la página
   onBeforeUnloadImages() {
-    console.log(this.uploadedImageNames);
-    console.log(this.uploadedImageUrls);
+    if(this.imagesRefs.length > 0){
+      // Elimina la imagen del bucket usando el nombre del archivo
+      this.roomService.deleteImagesFiles(this.imagesRefs).subscribe(
+        (res) => {
+          console.log('Imagen eliminada del bucket con éxito:', res.message);
+        },
+        (error) => {
+          console.error('Error al eliminar la imagen del bucket:', error);
+        }
+      );
+    }
   }
 
   // ---------------------- FORMULARIO ----------------------
@@ -348,7 +359,7 @@ export class RoomViewsAddComponent implements OnInit {
   private isValidTextureType(file: File): boolean {
     const fileExtension = file.name.split('.').pop().toLowerCase();
     // Verificar si la extensión es "jpg" o "png"
-    const allowedFileExtensions = ['jpg', 'png'];
+    const allowedFileExtensions = ['jpg', 'png', 'jpeg'];
     return allowedFileExtensions.includes(fileExtension);
   }
   

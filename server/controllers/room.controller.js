@@ -104,7 +104,7 @@ roomCtrl.deleteModelFromBucket = async (req, res) => {
 roomCtrl.uploadImageToBucket = async (req, res) => {
 
   const files = req.files;
-  console.log(files);
+  // console.log(files);
 
   if (!files || files.length === 0) {
     return res.status(400).json({ message: 'No se proporcionó ningún archivo.' });
@@ -163,6 +163,27 @@ roomCtrl.uploadImageToBucket = async (req, res) => {
 
 }
 
+roomCtrl.deleteImagesFromBucket = async (req, res) => {
+  const {folder, file} = req.params;
+
+  if(!folder || !file){
+    return res.status(400).json({ message: 'No se proporcionó ningún archivo.' });
+  }
+
+  try {
+    const baseFolder = 'room-image-cover'; // Ruta base en el bucket en la carpeta models
+    const bucket = gcBucket; // Obtén el bucket de GCS
+    const filePath = `${baseFolder}/${folder}/${file}`; // Genera la ruta del archivo en el bucket
+    // Elimina el archivo del bucket
+    await bucket.file(filePath).delete();
+    console.log(`Archivo ${file} eliminado con éxito.`);
+    return res.status(200).json({ message: 'Archivo eliminado con éxito.' });
+  } catch (error) {
+    console.error('Error al eliminar imágenes:', error);
+    return res.status(500).json({ message: 'Error al eliminar la carpeta y objetos.' });
+  }
+}
+
 // Función para cargar la textura en el bucket de GCS
 roomCtrl.uploadTextureToBucket = async (req, res) => {
   console.log(req.file);
@@ -184,7 +205,6 @@ roomCtrl.uploadTextureToBucket = async (req, res) => {
       },
       resumable: false, // Opcional: desactivar la carga resumible
     });
-    console.log("caca123");
     // Manejar eventos para el flujo de escritura
     writeStream
       .on('error', (error) => {

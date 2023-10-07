@@ -20,6 +20,7 @@ router.get('/filterRooms', room.getRoomByFilter);
 router.post('/uploadModel',upload.single('model'), room.uploadModelToBucket);
 router.delete('/deleteModel/models/:folder/:file', room.deleteModelFromBucket);
 router.post('/uploadImages',upload.array('images'), room.uploadImageToBucket);
+router.delete('/deleteImages/room-image-cover/:folder/:file', room.deleteImagesFromBucket);
 router.post('/uploadTexture',upload.single('texture'), room.uploadTextureToBucket);
 router.delete('/deleteTexture/textures/:file', room.deleteTextureFromBucket);
 router.post('/uploadRoom',room.createRoom);
