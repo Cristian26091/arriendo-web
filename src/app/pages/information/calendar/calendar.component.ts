@@ -18,18 +18,23 @@ export class CalendarComponent implements OnInit{
   ngOnInit(): void{}
 
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
-    // Verifica si la fecha está en alguna reserva
-    const formattedDate = this.formatDate(cellDate);
-    const isDateInReservation = this.roomService.selectedRoom.reservas.some(reserva => {
-      const reservaInicio = this.formatDate(new Date(reserva.fecha_inicio));
-      const reservaFin = this.formatDate(new Date(reserva.fecha_fin));
-      return formattedDate >= reservaInicio && formattedDate <= reservaFin;
-    });
-    if (isDateInReservation) {
-      this.tooltip = 'Reservado'; // Puedes personalizar este mensaje
-      return "custom-marked-date";
-    } else {
-      this.tooltip = ''; // Puedes personalizar este mensaje
+    if (this.roomService.selectedRoom && this.roomService.selectedRoom.reservas) {
+      // Verifica si la fecha está en alguna reserva
+      const formattedDate = this.formatDate(cellDate);
+      const isDateInReservation = this.roomService.selectedRoom.reservas.some(reserva => {
+        const reservaInicio = this.formatDate(new Date(reserva.fecha_inicio));
+        const reservaFin = this.formatDate(new Date(reserva.fecha_fin));
+        return formattedDate >= reservaInicio && formattedDate <= reservaFin;
+      });
+      if (isDateInReservation) {
+        this.tooltip = 'Reservado'; // Puedes personalizar este mensaje
+        return "custom-marked-date";
+      } else {
+        this.tooltip = ''; // Puedes personalizar este mensaje
+        return '';
+      }
+    }
+    else{
       return '';
     }
   };
