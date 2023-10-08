@@ -3,7 +3,7 @@ import { Booking } from './booking'; // Importamos el modelo de reserva
 import { ImageRef } from './image-ref'; // Importamos el modelo de referencia de imagen
 
 export class Room {
-    constructor(_id='', id_region='', latitud=0, longitud=0, banio_compartido=null, 
+    constructor(_id='', id_region='', latitude=0, longitud=0, banio_compartido=null, 
     descripcion='', fecha_publicacion = null, region = '', ciudad = '',
     comuna = '', calle = '', numero = '', casa_depto = '', precio = '', esta_arrendado = '',
     url_model = '', url_texture = '', model_ref_bucket = '', texture_ref_bucket = '', reservas = [],
@@ -11,7 +11,7 @@ export class Room {
     ){
         this._id = _id;
         this.id_region = id_region;
-        this.latitud = latitud;
+        this.latitude = latitude;
         this.longitud = longitud;
         this.banio_compartido = banio_compartido;
         this.descripcion = descripcion;
@@ -30,13 +30,13 @@ export class Room {
         this.esta_arrendado = esta_arrendado;
         this.reservas = reservas; // Campo para gestionar reservas
         this.bucket_ref_imgs = imgRefs; // Campo para gestionar imágenes
-        this.url_image_cover = url_image_cover;
+        this.url_img_cover = url_image_cover;
 
     }
 
     _id: string;
     id_region: String
-    latitud: Number
+    latitude: Number
     longitud: Number
     banio_compartido: Boolean
     descripcion: String
@@ -49,7 +49,7 @@ export class Room {
     casa_depto: String
     precio: String
     esta_arrendado: String
-    url_image_cover : String
+    url_img_cover: String
     url_model: String
     url_texture: String
     model_ref_bucket: String

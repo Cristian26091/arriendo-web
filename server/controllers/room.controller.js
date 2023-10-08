@@ -7,8 +7,6 @@ const {Storage} = require('@google-cloud/storage');
 
 const uuid = require('uuid'); // Importar el paquete uuid
 
-
-
 gc = new Storage({
     keyFilename: path.join(__dirname, '../key_gcs.json'),
     projectId: 'arriendo-web-395104',
@@ -17,9 +15,6 @@ gc = new Storage({
 const bucketName = 'bucket-arriendo-web';
 //bucket para carga de archivos.
 const gcBucket = gc.bucket(bucketName);
-
-//impresión de buckets
-//gc.getBuckets().then(x => console.log(x));
 
 // Función para cargar el modelo 3D en el bucket de GCS
 roomCtrl.uploadModelToBucket = async (req, res) => {
@@ -300,8 +295,40 @@ roomCtrl.getRoomByFilter = async (req, res) => {
     }
   };
 
-roomCtrl.createRoom = (req, res) =>{
-  //crear logica del room
+roomCtrl.createRoom = async (req, res) =>{
+  // console.log(req.body);
+  const roomDataFromClient = req.body;
+  const room = new Room({
+    _id: roomDataFromClient.id, // Asegúrate de que los nombres coincidan
+    id_region: roomDataFromClient.id_region,
+    latitude: roomDataFromClient.latitude,
+    longitud: roomDataFromClient.longitud,
+    banio_compartido: roomDataFromClient.banio_compartido,
+    descripcion: roomDataFromClient.descripcion,
+    fecha_publicacion: roomDataFromClient.fecha_publicacion,
+    region: roomDataFromClient.region,
+    ciudad: roomDataFromClient.ciudad,
+    comuna: roomDataFromClient.comuna,
+    calle: roomDataFromClient.calle,
+    numero: roomDataFromClient.numero,
+    casa_depto: roomDataFromClient.casa_depto,
+    precio: roomDataFromClient.precio,
+    esta_arrendado: roomDataFromClient.esta_arrendado,
+    url_img_cover: roomDataFromClient.url_img_cover,
+    url_model: roomDataFromClient.url_model,
+    url_texture: roomDataFromClient.url_texture,
+    model_ref_bucket: roomDataFromClient.model_ref_bucket,
+    image_ref_bucket: roomDataFromClient.image_ref_bucket,
+    texture_ref_bucket: roomDataFromClient.texture_ref_bucket,
+    reservas: roomDataFromClient.reservas,
+    bucket_ref_imgs: roomDataFromClient.bucket_ref_imgs
+  });
+  console.log(room);
+  await room.save();
+  res.json({
+    'status': 'Room saved'
+  });
+  
 }
 
 roomCtrl.editRoom = function () {

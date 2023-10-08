@@ -14,6 +14,7 @@
 
     readonly URL_API = environment.uri+'/api/room'
     readonly URL_FILTER_ROOM = environment.uri+'/api'
+    readonly URL_POST_ROOM = environment.uri+'/api/uploadRoom'
     readonly URL_UPLOAD_MODEL = environment.uri + '/api/uploadModel';
     readonly URL_DELETE_MODEL = environment.uri + '/api/deleteModel';
     readonly URL_UPLOAD_IMAGES = environment.uri + '/api/uploadImages';
@@ -111,7 +112,7 @@
     }
 
     postRoom(room: Room): Observable<any> {
-      return this.http.post(`${this.URL_API}`, room);
+      return this.http.post(`${this.URL_POST_ROOM}`, room);
     }
 
     putRoom(room: Room){

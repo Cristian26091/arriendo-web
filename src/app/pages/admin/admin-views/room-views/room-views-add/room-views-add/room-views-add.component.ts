@@ -461,6 +461,25 @@ export class RoomViewsAddComponent implements OnInit {
   
     return formularioValido;
   }
+
+  cleanForm(){
+    this.selectedRegion = '';
+    this.selectedComuna = '';
+    this.roomStreet = '';
+    this.selectedLatitude = 0;
+    this.selectedLongitude = 0;
+    this.selectedHome = '';
+    this.isShareBathroom = false;
+    this.roomNumber = '';
+    this.roomPrice = '';
+    this.roomDescription = '';
+    this.url_model = '';
+    this.model_ref = '';
+    this.imagesRefs = [];
+    this.texture_ref = '';
+    this.texture_url = '';
+    this.cover_image_url = '';
+  }
   
   onSubmit() {
     // Llama a la función para validar el formulario
@@ -478,7 +497,7 @@ export class RoomViewsAddComponent implements OnInit {
       room.calle = this.roomStreet;
       room.precio = this.roomPrice;
       room.descripcion = this.roomDescription;
-      room.latitud = this.selectedLatitude;
+      room.latitude = this.selectedLatitude;
       room.longitud = this.selectedLongitude;
       // Campos genéricos
       room.esta_arrendado = "false";
@@ -494,14 +513,22 @@ export class RoomViewsAddComponent implements OnInit {
 
       //Campo imagen de portada
       this.chooseCoverImage();
-      room.url_image_cover = this.cover_image_url;
-
-      console.log(room);
+      room.url_img_cover = this.cover_image_url;
       
       // Aquí puedes continuar con el proceso de envío de datos o realizar cualquier otra acción necesaria
+      this.roomService.postRoom(room).subscribe(
+        (res) => {
+          console.log('Habitación creada con éxito:', res);
+          this.cleanForm();
+        },
+        (error) => {
+          console.error('Error al crear la habitación:', error);
+        }
+      );
+
     } else {
       // Si el formulario no es válido, puedes mostrar un mensaje de error o realizar alguna otra acción
-      this.errorMessage = 'Por favor, completa todos los campos correctamente.';
+       this.errorMessage = 'Por favor, completa todos los campos correctamente.';
     }
   }
 }
