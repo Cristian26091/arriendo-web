@@ -83,8 +83,12 @@
       return this.http.get(this.URL_API);
     }
 
-    getRoom(_id: string){
+    getRoom(_id: string) : Observable<any>{
       return this.http.get(this.URL_API+`/${_id}`);
+    }
+
+    getRoomById(_id: string): Room {
+      return this.rooms.find(room => room._id === _id);
     }
 
     getRoomByFilter (req: any): Observable<any[]>{

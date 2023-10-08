@@ -3,6 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router'
 import { Room } from 'src/app/models/room';
 import { RoomService } from 'src/app/services/room.service';
 import { LoginService } from 'src/app/services/login.service';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -12,30 +13,28 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class RoomComponentComponent implements OnInit {
 
-  room: Room = null;
+ 
   showLoginForm = false;
   showSuccessAlert = false;
 
   constructor(private activaterouter: ActivatedRoute, private router: Router, 
-  public roomService: RoomService, public loginService: LoginService) { }
+  public roomService: RoomService, public loginService: LoginService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
-    let pacienteId = this.activaterouter.snapshot.paramMap.get('id');
-    this.getRoom(pacienteId);
+    // Obtén el ID de la habitación seleccionada desde la cookie
+    const selectedRoomId = this.cookieService.get('selectedRoomId');
+    // Si se encuentra el ID en la cookie, carga la habitación correspondiente
+    if (selectedRoomId) {
+      this.getRoom(selectedRoomId);
+    }
   }
 
   //aqui debo traer el room
   getRoom(id: string){
     this.roomService.getRoom(id)
     .subscribe(res =>{
-      this.room = res as Room;
-      //console.log(res);
+      this.roomService.selectedRoom = res as Room;
     });
-  }
-
-  reserveRoom(){
-    console.log("hola")
-    this.router.navigate(['/payment']);
   }
 
   toggleForms(){
