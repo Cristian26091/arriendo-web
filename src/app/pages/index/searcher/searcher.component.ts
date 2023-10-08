@@ -4,6 +4,7 @@ import { Region } from '../../../models/region.model';
 import { Router } from '@angular/router';
 import { RoomService } from '../../../services/room.service';
 import { Room } from '../../../models/room';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-searcher',
@@ -18,7 +19,7 @@ export class SearcherComponent{
   comunasOptions: string[];
 
   
-  constructor(public RegionService: RegionService, private router: Router, private RoomService: RoomService){
+  constructor(public RegionService: RegionService, private router: Router, private RoomService: RoomService, private cookieService: CookieService){
     this.comunasOptions = [];
     this.selectedRegion = "";
     this.selectedComuna = "";
@@ -27,6 +28,11 @@ export class SearcherComponent{
 
   ngOnInit(): void {
     this.getRegions();
+    // Recupera la búsqueda de las cookies (si existe)
+    const savedSearch = this.cookieService.get('busquedaResultados');
+    if (savedSearch) {
+      this.RoomService.rooms = JSON.parse(savedSearch) as Room[];
+    }
   }
 
   // Funcion que obtiene las regiones desde la base de datos para aplicarlas al filtro 
@@ -73,12 +79,13 @@ export class SearcherComponent{
     // Llamar al servicio para obtener los resultados de búsqueda
     this.RoomService.getRoomByFilter(queryParams).subscribe(
       (res) => {
-      // Manejar los resultados dentro de la suscripción
-      this.RoomService.rooms = res as Room[];
-
-      // Navegar a la página de resultados
-      this.router.navigate(['/results']);
-      console.log(this.RoomService.rooms);
+        // Manejar los resultados dentro de la suscripción
+        this.RoomService.rooms = res as Room[];
+        // Guarda los resultados en las cookies
+        this.cookieService.set('busquedaResultados', JSON.stringify(this.RoomService.rooms));
+        // Navegar a la página de resultados
+        this.router.navigate(['/results']);
+        // console.log(this.RoomService.rooms);
       },
       (error) => {
         // Manejar errores si los hay
