@@ -13,8 +13,10 @@
                     <div id="dropZone" class="drop-zone form-control" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
                         <!-- Icono de carga centrado arriba del texto -->
                         <div class="d-flex flex-column align-items-center">
-                            <i class="bi bi-upload h1 mb-3"></i>
-                            <p class="mb-0">Arrastra y suelta tu modelo 3D aquí</p>
+                            <i class="bi bi-badge-3d-fill h1 mb-3" *ngIf="getFileName(model_ref)"></i>
+                            <i class="bi bi-upload h1 mb-3" *ngIf="!getFileName(model_ref)"></i>
+                            <p class="mb-0" *ngIf="!getFileName(model_ref)">Arrastra y suelta tu modelo 3D aquí</p>
+                            <p *ngIf="getFileName(model_ref)" style="color: skyblue;"> Modelo cargado: {{getFileName(model_ref)}}</p>
                         </div>
                     </div>
                     <div *ngIf="ModelErrorMessage" class="text-danger"> {{ModelErrorMessage}}</div>
@@ -24,8 +26,10 @@
                     <div id="dropZone" class="drop-zone form-control" (drop)="onDropTexture($event)" (dragover)="onDragOver($event)">
                         <!-- Icono de carga centrado arriba del texto -->
                         <div class="d-flex flex-column align-items-center">
-                            <i class="bi bi-image h1 mb-3"></i>
-                            <p class="mb-0">Arrastra y suelta tu textura del modelo aquí</p>
+                            <i class="bi bi-image h1 mb-3" *ngIf="getFileName(texture_ref)"></i>
+                            <i class="bi bi-upload h1 mb-3" *ngIf="!getFileName(texture_ref)"></i>
+                            <p class="mb-0" *ngIf="!getFileName(texture_ref)">Arrastra y suelta tu textura del modelo aquí</p>
+                            <p *ngIf="getFileName(texture_ref)" style="color: skyblue;">Textura cargada:{{getFileName(texture_ref)}} </p>
                         </div>
                     </div>
                     <div *ngIf="textureErroMessage" class="text-danger">{{textureErroMessage}}</div>
@@ -45,8 +49,8 @@
                         <select class="form-select" [(ngModel)]="selectedRegion" (change)="onRegionSelect($event)" name="region">
                             <option disabled value="">Selecciona una region</option>
                             <option *ngFor="let region of regionService.regions" [value]="region.nombre_region">{{ region.nombre_region }}</option>
-
                         </select>
+                        <div *ngIf="regionErrorMessage" class="text-danger">{{ regionErrorMessage }}</div>
                     </div>
                     <!-- seleccionar comuna -->
                     <div class="col-md-6">
@@ -55,13 +59,14 @@
                             <option disabled selected>Seleccione una comuna</option>
                             <option *ngFor="let comuna of regionService.selectedRegion.comunas" [value]="comuna.nombre_comuna">{{comuna.nombre_comuna}}</option>
                         </select>
+                        <div *ngIf="comunaErrorMessage" class="text-danger">{{ comunaErrorMessage }}</div>
                     </div>
                 </div>
                 <!-- Mapa -->
                 <div class="row-12">
                     <label for="map" class="form-label">Seleccione una ubicación</label>
                     <div id="mapa"></div>
-                    
+                    <div *ngIf="locationErrorMessage" class="text-danger">{{ locationErrorMessage }}</div>
                 </div>
 
 
@@ -79,6 +84,7 @@
                             <option disabled value="">Seleccione un tipo de casa</option>
                             <option *ngFor="let tipo of homeTypes" [value]="tipo">{{tipo}}</option>
                         </select>
+                        <div *ngIf="homeErrorMessage" class="text-danger">{{ homeErrorMessage }}</div>
                     </div>
                     <!-- numero de habitacion -->
                     <div class="col-md-6">
@@ -95,6 +101,7 @@
                             <option disabled value="">Selecciona un tipo de baño</option>
                             <option *ngFor="let type of bathRoomTypes" [value]="type">{{ type }}</option>
                         </select>
+                        <div *ngIf="bathroomErrorMessage" class="text-danger">{{ bathroomErrorMessage }}</div>
                     </div>
                     <!-- precio mensual -->
                     <div class="col-md-6">
@@ -106,10 +113,12 @@
                 <div class="mb-3">
                     <label for="calle" class="form-label">Ingrese la calle</label>
                     <input type="text" class="form-control" name="calle" [(ngModel)]="roomStreet">
+                    <div *ngIf="streetErrorMessage" class="text-danger">{{ streetErrorMessage }}</div>
                 </div>
                 <div class="mb-3">
                     <label for="descripcion" class="form-label">Ingrese una descripción</label>
                     <textarea class="form-control" name="descripcion" [(ngModel)]="roomDescription" rows="4"></textarea>
+                    <div *ngIf="descriptionErrorMessage" class="text-danger">{{ descriptionErrorMessage }}</div>
                 </div>
             </div>
             
@@ -120,6 +129,7 @@
                         <i class="bi bi-card-image h1"></i>
                         <p class="fs-5">Arrastra y suelta las imagenes de la habitación aquí</p>
                     </div>
+                    <div *ngIf="imagesErrorMessage" class="text-danger">{{ imagesErrorMessage }}</div>
                     
                 </div>
             </div>

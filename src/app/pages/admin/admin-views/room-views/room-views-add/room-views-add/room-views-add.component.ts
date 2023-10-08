@@ -7,6 +7,7 @@ import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 import { ImageRef } from 'src/app/models/image-ref';
 
+
 @Component({
   selector: 'app-room-views-add',
   templateUrl: './room-views-add.component.html',
@@ -39,16 +40,24 @@ export class RoomViewsAddComponent implements OnInit {
   model_ref: string = ''; //referencia del nombre del modelo en el bucket
   //Campos de las imagenes
   imagesRefs : ImageRef[] = [];
-  // uploadedImageUrls: string[] = []; //referencia de las imagenes en el bucket
-  // uploadedImageNames: string[] = []; //referencia de los nombres de las imagenes en el bucket
   texture_ref: string = ''; //referencia de la textura en el bucket
   texture_url: string = ''; //url de la textura en el bucket
+  cover_image_url: String = ''; //url de la imagen de portada en el bucket
   //mensajes de error
-  errorMessage: string = '';
-  roomErrorMessage: string = '';
-  priceErrorMessage: string = '';
   ModelErrorMessage: string = '';
   textureErroMessage: string = '';
+  regionErrorMessage: string = '';
+  comunaErrorMessage: string = '';
+  locationErrorMessage: string = '';
+  homeErrorMessage: string = '';
+  roomErrorMessage: string = '';
+  bathroomErrorMessage: string = '';  
+  priceErrorMessage: string = '';
+  streetErrorMessage: string = '';
+  descriptionErrorMessage: string = '';
+  imagesErrorMessage: string = '';
+  errorMessage: string = '';
+  
 
 
   constructor(private roomService:RoomService, public regionService:RegionService) { }
@@ -136,7 +145,7 @@ export class RoomViewsAddComponent implements OnInit {
       this.roomService.uploadModelFile(file).subscribe(
         (res) => {
           // Maneja la respuesta del servidor (por ejemplo, actualiza la URL del modelo en tu formulario)
-          console.log('Archivo cargado con éxito:', res.message);
+          console.log('Archivo cargado con éxito:', res);
           this.url_model = res.downloadLink;
           this.model_ref = res.fileName;
         },
@@ -244,8 +253,6 @@ export class RoomViewsAddComponent implements OnInit {
         console.log('Archivo cargado con éxito:', res);
         const resImages = res.images;
         resImages.forEach((image: any) => {
-          // this.uploadedImageUrls.push(image.downloadLink);
-          // this.uploadedImageNames.push(image.fileName);
           this.imagesRefs.push(new ImageRef(image.fileName, image.downloadLink));
         }); 
       },
@@ -253,7 +260,6 @@ export class RoomViewsAddComponent implements OnInit {
         console.error('Error al cargar el archivo:', error);
       }
     );
-    
   }
 
   // Método que se ejecutará antes de cerrar/cambiar la página
@@ -269,6 +275,12 @@ export class RoomViewsAddComponent implements OnInit {
         }
       );
     }
+  }
+
+  //función para elegir la imagen de portada aleatoriamente
+  chooseCoverImage(){
+    const randomIndex = Math.floor(Math.random() * this.imagesRefs.length);
+    this.cover_image_url =  this.imagesRefs[randomIndex].url;
   }
 
   // ---------------------- FORMULARIO ----------------------
@@ -307,6 +319,14 @@ export class RoomViewsAddComponent implements OnInit {
     this.isShareBathroom = selectedType === 'compartido';
 
     console.log(this.isShareBathroom);
+  }
+
+  getFileName(ruta: string): string {
+    const partesRuta = ruta.split('/');
+    const nombreArchivoConExtension = partesRuta[partesRuta.length - 1];
+    const partesNombre = nombreArchivoConExtension.split('_');
+    const nombreArchivo = partesNombre[partesNombre.length - 1];
+    return nombreArchivo;
   }
 
   //------------------- VALIDACIONES -------------------  
@@ -362,12 +382,94 @@ export class RoomViewsAddComponent implements OnInit {
     const allowedFileExtensions = ['jpg', 'png', 'jpeg'];
     return allowedFileExtensions.includes(fileExtension);
   }
+
+  validarFormulario(): boolean {
+    // Inicializa todas las banderas de error a vacío
+    this.ModelErrorMessage = '';
+    this.textureErroMessage = '';
+    this.regionErrorMessage = '';
+    this.comunaErrorMessage = '';
+    this.locationErrorMessage = '';
+    this.homeErrorMessage = '';
+    this.roomErrorMessage = '';
+    this.bathroomErrorMessage = '';
+    this.priceErrorMessage = '';
+    this.streetErrorMessage = '';
+    this.descriptionErrorMessage = '';
+    this.imagesErrorMessage = '';
+    this.errorMessage = '';
   
-  onSubmit(){
-    if (this.selectedRegion || this.selectedComuna || this.selectedHome || this.roomNumber || 
-      this.roomStreet || this.roomPrice) {
+    let formularioValido = true; // Esta variable se establecerá en falso si algún campo no es válido
+  
+    // Valida cada campo individualmente y establece las banderas de error correspondientes
+    if (!this.model_ref) {
+      this.ModelErrorMessage = 'Por favor, sube un modelo 3D.';
+      formularioValido = false;
+    }
+  
+    if (!this.texture_ref) {
+      this.textureErroMessage = 'Por favor, sube una textura.';
+      formularioValido = false;
+    }
+
+    if (!this.selectedRegion) {
+      this.regionErrorMessage = 'Por favor, selecciona una región.';
+      formularioValido = false;
+    }
+  
+    if (!this.selectedComuna) {
+      this.comunaErrorMessage = 'Por favor, selecciona una comuna.';
+      formularioValido = false;
+    }
+  
+    if (this.selectedLatitude === 0 || this.selectedLongitude === 0) {
+      this.locationErrorMessage = 'Por favor, selecciona una ubicación en el mapa.';
+      formularioValido = false;
+    }
+  
+    if (!this.selectedHome) {
+      this.homeErrorMessage = 'Por favor, selecciona un tipo de vivienda.';
+      formularioValido = false;
+    }
+  
+    if (!this.roomNumber || parseInt(this.roomNumber) <= 0) {
+      this.roomErrorMessage = 'Por favor, ingresa un número de habitación válido.';
+      formularioValido = false;
+    }
+  
+    if (!this.roomPrice || !/^[1-9]\d*$/.test(this.roomPrice)) {
+      this.priceErrorMessage = 'Por favor, ingresa un precio mensual válido en CLP.';
+      formularioValido = false;
+    }
+  
+    if (!this.roomStreet) {
+      this.streetErrorMessage = 'Por favor, ingresa una dirección.';
+      formularioValido = false;
+    }
+  
+    if (!this.roomDescription) {
+      this.descriptionErrorMessage = 'Por favor, ingresa una descripción.';
+      formularioValido = false;
+    }
+  
+    if (this.imagesRefs.length === 0) {
+      this.imagesErrorMessage = 'Por favor, sube al menos una imagen.';
+      formularioValido = false;
+    }
+  
+    // Puedes agregar más validaciones según tus requerimientos
+  
+    return formularioValido;
+  }
+  
+  onSubmit() {
+    // Llama a la función para validar el formulario
+    const formularioValido = this.validarFormulario();
+  
+    if (formularioValido) {
+      // Si el formulario es válido, puedes continuar con la lógica de envío de datos o lo que sea necesario
       const room = new Room();
-      //asignar valores a la habitación
+      // Asignar valores a la habitación
       room.region = this.selectedRegion;
       room.comuna = this.selectedComuna;
       room.casa_depto = this.selectedHome;
@@ -376,26 +478,30 @@ export class RoomViewsAddComponent implements OnInit {
       room.calle = this.roomStreet;
       room.precio = this.roomPrice;
       room.descripcion = this.roomDescription;
-      
-      //campos genericos
+      room.latitud = this.selectedLatitude;
+      room.longitud = this.selectedLongitude;
+      // Campos genéricos
       room.esta_arrendado = "false";
       room.reservas = [];
-      room.fecha_publicacion = new Date(); //fecha actual
+      room.fecha_publicacion = new Date(); // Fecha actual
+  
+      // Campos modelo 3D
+      room.url_model = this.url_model; // URL del modelo
+      room.model_ref_bucket = this.model_ref; // Nombre del archivo del modelo en el bucket
+      room.url_texture = this.texture_url; // URL de la textura
+      room.texture_ref_bucket = this.texture_ref; // Nombre del archivo de la textura en el bucket
+      room.bucket_ref_imgs = this.imagesRefs; // Referencia de las imágenes en el bucket (nombre, url)
 
-      //campos modelo 3D
-      // room.url_image_cover=this.url_image_cover;
-      // room.image_ref_bucket = this.image_ref;
-      room.url_model= this.url_model;
-      room.model_ref_bucket = this.model_ref;
+      //Campo imagen de portada
+      this.chooseCoverImage();
+      room.url_image_cover = this.cover_image_url;
 
       console.log(room);
+      
+      // Aquí puedes continuar con el proceso de envío de datos o realizar cualquier otra acción necesaria
+    } else {
+      // Si el formulario no es válido, puedes mostrar un mensaje de error o realizar alguna otra acción
+      this.errorMessage = 'Por favor, completa todos los campos correctamente.';
     }
-    // Muestra un mensaje de error o alerta al usuario indicando que los campos requeridos están vacíos.
-    this.errorMessage = 'Por favor, completa todos los campos obligatorios.';
-    return;
-
-    
-
-
   }
 }
