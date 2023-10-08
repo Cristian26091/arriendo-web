@@ -1,76 +1,41 @@
-<form>
+<form (ngSubmit)="submitForm()">
 
   <h2>Formulario de reserva</h2>
 
     <div class="row">
-      <div class="col-md-6 mb-2">
-        <div class="form-group">
-          <label for="nombre">Nombre</label>
-          <input type="text" class="form-control" id="nombre">
-        </div>
-      </div>
-
-      <div class="col-md-6 mb-2">
-        <div class="form-group">
-          <label for="apellido">Apellido</label>
-          <input type="text" class="form-control" id="apellido">
-        </div>
-      </div>
-
-    </div>
-    <div class="row">
-      <div class="col-md-6 mb-2">
-        <div class="form-group">
-          <label for="correo">Correo</label>
-          <input type="email" class="form-control" id="correo">
-        </div>
-      </div>
-
-      <div class="col-md-6 mb-2">
-        <div class="form-group">
-          <label for="telefono">Teléfono</label>
-          <input type="tel" class="form-control" id="telefono">
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-
+      <!-- Campos de fecha de inicio y fecha de término -->
       <div class="col-md-6 mb-2">
         <div class="form-group">
           <label for="fecha-inicio">Fecha de inicio</label>
-          <input type="date" class="form-control" id="fecha-inicio">
+          <input type="date" class="form-control" id="fecha-inicio" name="fecha-inicio" [(ngModel)]="fechaInicio">
+          <div class="text-danger">{{ errorMessages.fechaInicio }}</div>
         </div>
       </div>
 
       <div class="col-md-6 mb-2">
         <div class="form-group">
           <label for="fecha-termino">Fecha de término</label>
-          <input type="date" class="form-control" id="fecha-termino">
+          <input type="date" class="form-control" id="fecha-termino" name="fecha-termino" [(ngModel)]="fechaTermino">
+          <div class="text-danger">{{ errorMessages.fechaTermino }}</div>
         </div>
       </div>
 
     </div>
 
     <div class="row">
-
-        <div class="col-md-6 mb-2">
-            <div class="form-group">
-              <label for="rut">RUT</label>
-              <input type="text" class="form-control" id="rut">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-
+      <!-- Campo de aceptación de términos y condiciones -->
       <div class="col-md-12 mb-2">
         <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="terminos">
+          <input type="checkbox" class="form-check-input" id="terminos" name="terminos" [(ngModel)]="aceptaTerminos">
           <label class="form-check-label" for="terminos">Acepto los términos y condiciones y autorizo el uso de mis datos de acuerdo a la Declaración de Privacidad</label>
+          <div class="text-danger">{{ errorMessages.aceptaTerminos }}</div>
         </div>
       </div>
     </div>
+
+    <!-- Botón de envío del formulario -->
+  <button type="submit" class="btn btn-primary">Agenda una reserva</button>
+  
 
   </form>
   

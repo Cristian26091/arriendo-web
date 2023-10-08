@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router'
 import { Room } from 'src/app/models/room';
 import { RoomService } from 'src/app/services/room.service';
+import { LoginService } from 'src/app/services/login.service';
 
 
 @Component({
@@ -12,13 +13,15 @@ import { RoomService } from 'src/app/services/room.service';
 export class RoomComponentComponent implements OnInit {
 
   room: Room = null;
+  showLoginForm = false;
+  showSuccessAlert = false;
 
-  constructor(private activaterouter: ActivatedRoute, private router: Router, public roomService: RoomService) { }
+  constructor(private activaterouter: ActivatedRoute, private router: Router, 
+  public roomService: RoomService, public loginService: LoginService) { }
 
   ngOnInit(): void {
     let pacienteId = this.activaterouter.snapshot.paramMap.get('id');
     this.getRoom(pacienteId);
-
   }
 
   //aqui debo traer el room
@@ -33,6 +36,10 @@ export class RoomComponentComponent implements OnInit {
   reserveRoom(){
     console.log("hola")
     this.router.navigate(['/payment']);
+  }
+
+  toggleForms(){
+    this.showLoginForm = !this.showLoginForm;
   }
 
 }
