@@ -4,6 +4,7 @@ import { SignupService } from '../../services/signup.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { TokenService } from '../../services/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -19,7 +20,7 @@ export class ToolbarComponent implements OnInit {
 
 
   constructor(private loginService: LoginService, private signupService: SignupService,
-     private userService: UserService, private TokenService: TokenService ) {
+     private userService: UserService, private TokenService: TokenService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -81,6 +82,10 @@ export class ToolbarComponent implements OnInit {
   logout() {
     this.loginService.logout(); // Debes implementar logout en tu servicio
     this.checkAuthentication(); // Verifica la autenticación después de cerrar la sesión
+  }
+
+  goToBookings() {
+    this.router.navigate(['/bookings']);
   }
 
 }

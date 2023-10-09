@@ -11,6 +11,13 @@ bookingCtrl.getBooking = async (req, res) => {
     res.json(booking);
 }
 
+bookingCtrl.getBookingByUser = async (req, res) => {
+    // console.log(req.params)
+    const booking = await Booking.find({userId: req.params.idUser});
+    console.log(booking);
+    res.json(booking);
+}
+
 bookingCtrl.createBooking = async (req, res) => {
     const booking = new Booking({
         userId: req.body.userId,

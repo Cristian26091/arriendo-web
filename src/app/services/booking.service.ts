@@ -22,6 +22,11 @@ export class BookingService {
     return this.http.get(this.URL_API + `/${_id}`);
   }
 
+  getBookingByUser(_id: string) {
+    console.log(_id);
+    return this.http.get(this.URL_API + `/user/${_id}`);
+  }
+
   postBooking(booking: Booking) {
     return this.http.post(this.URL_API, booking);
   }

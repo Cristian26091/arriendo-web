@@ -25,7 +25,7 @@ export class AppComponent {
   
   shouldShowToolbar(url: string): boolean {
     // Define un patrón de expresión regular para las rutas que deseas mostrar la barra de herramientas
-    const rutaPatron = /^\/(index|results|room\/\d+|help|faq|claim|payment)/;
+    const rutaPatron = /^\/(index|results|room\/\d+|help|faq|claim|payment|bookings)/;
 
     // Verifica si la ruta actual coincide con el patrón
     return rutaPatron.test(url);
