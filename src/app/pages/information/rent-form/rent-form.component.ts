@@ -5,6 +5,7 @@ import { BookingService } from 'src/app/services/booking.service';
 import { RoomService } from 'src/app/services/room.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -55,6 +56,26 @@ export class RentFormComponent implements OnInit {
   submitForm(){
     //además debo validar las fechas que ya tienen reserva
     if(this.validateInputs()){  
+      const bookingData = {
+        _id: '',
+        userId : this.userService.selectedUser._id,
+        roomId : this.roomService.selectedRoom._id,
+        fecha_inicio : this.fechaInicio,
+        fecha_fin : this.fechaTermino,
+        fecha_creacion: new Date(),
+        estado : environment.estado.pendiente,
+      }
+      
+      this.bookingService.postBooking(bookingData).subscribe(
+        (res) => {
+          console.log(res);
+          // this.router.navigate(['/information']);
+          alert("Reserva realizada con éxito");
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
       //extraer información del usuario
       console.log(this.userService.selectedUser);
       //extrer información de la habitación

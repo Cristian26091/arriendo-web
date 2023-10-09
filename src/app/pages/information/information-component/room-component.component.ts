@@ -13,7 +13,6 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class RoomComponentComponent implements OnInit {
 
- 
   showLoginForm = false;
   showSuccessAlert = false;
 
@@ -23,18 +22,15 @@ export class RoomComponentComponent implements OnInit {
   ngOnInit(): void {
     // Obtén el ID de la habitación seleccionada desde la cookie
     const selectedRoomId = this.cookieService.get('selectedRoomId');
+  
     // Si se encuentra el ID en la cookie, carga la habitación correspondiente
     if (selectedRoomId) {
-      this.getRoom(selectedRoomId);
+    this.roomService.getRoom(selectedRoomId)
+      .subscribe((res: Room) => {
+        // Asigna los datos de la habitación una vez que se completa la solicitud HTTP
+        this.roomService.selectedRoom = res as Room;
+      });
     }
-  }
-
-  //aqui debo traer el room
-  getRoom(id: string){
-    this.roomService.getRoom(id)
-    .subscribe(res =>{
-      this.roomService.selectedRoom = res as Room;
-    });
   }
 
   toggleForms(){

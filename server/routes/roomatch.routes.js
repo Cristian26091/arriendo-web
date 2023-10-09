@@ -9,6 +9,7 @@ const contact = require('../controllers/contact.controller');
 const region = require('../controllers/region.controller');
 const user = require('../controllers/user.controller');
 const help = require('../controllers/help.controller');
+const booking = require('../controllers/booking.controller');
 
 // ----------- HELP ROUTES -----------
 router.get('/help', help.getHelps);
@@ -39,6 +40,13 @@ router.get('/user', user.getUsers);
 router.get('/user/:idUser', user.getUser);  
 router.post('/user', user.createUser);
 router.post('/user/login', user.login);
+
+//----------BOOKING ROUTES-----------
+router.get('/booking', booking.getBookings);
+router.get('/booking/:idBooking', booking.getBooking);
+router.post('/booking', booking.createBooking);
+router.put('/booking/:idBooking', booking.editBooking);
+router.delete('/booking/:idBooking', booking.deleteBooking);
 
 
 module.exports = router;
