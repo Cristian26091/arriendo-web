@@ -1,1 +1,10 @@
-<p>booking works!</p>
+<div *ngFor="let booking of bookingService.bookings">
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Nombre de la Habitación</h5>
+          <p class="card-text">Fechas de Reserva: Del 01/01/2023 al 03/01/2023</p>
+          <p class="card-text">Estado: Pendiente</p>
+          <a href="#" class="btn btn-danger">Cancelar Reserva</a>
+        </div>
+      </div>      
+</div>

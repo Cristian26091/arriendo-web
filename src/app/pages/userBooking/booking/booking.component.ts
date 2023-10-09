@@ -11,7 +11,7 @@ import { Booking } from 'src/app/models/booking';
 })
 export class BookingComponent implements OnInit {
 
-  constructor(private bookingService: BookingService, private userService:UserService, private cookieService: CookieService) { }
+  constructor(public  bookingService: BookingService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     const userID = this.cookieService.get('user_id');
