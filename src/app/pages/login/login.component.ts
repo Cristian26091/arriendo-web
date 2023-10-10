@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
           this.loginService.loginSuccess();
           this.userService.selectedUser = response['user'];
           // console.log("login bien logueado:", response['user'])
+          
           this.clearForm();
         },
         (error) => {

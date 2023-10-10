@@ -4,6 +4,9 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10; // El número de rondas de sal que se utilizará
 
+const mongoose = require('mongoose'); // Importa Mongoose
+
+
 // Devolver todas los usuarios
 userCtrl.getUsers = async (req, res) => {
     const users = await User.find();
@@ -12,7 +15,18 @@ userCtrl.getUsers = async (req, res) => {
 
 // Devolver un usuario por su id
 userCtrl.getUser = async (req, res) => {
+  console.log("req.params.idUser", req.params.idUser);
+    
+    if (!mongoose.Types.ObjectId.isValid(req.params.idUser)) {
+        return res.status(400).json({ message: 'ID de usuario no válido' });
+    }
+
     const user = await User.findById(req.params.idUser);
+    
+    if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+    console.log(user);
     res.json(user);
 }
 

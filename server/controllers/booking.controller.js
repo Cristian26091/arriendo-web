@@ -14,7 +14,12 @@ bookingCtrl.getBooking = async (req, res) => {
 bookingCtrl.getBookingByUser = async (req, res) => {
     // console.log(req.params)
     const booking = await Booking.find({userId: req.params.idUser});
-    console.log(booking);
+    // console.log(booking);
+    res.json(booking);
+}
+
+bookingCtrl.getBookingByRoom = async (req, res) => {
+    const booking = await Booking.find({roomId: req.params.idRoom});
     res.json(booking);
 }
 
@@ -25,7 +30,8 @@ bookingCtrl.createBooking = async (req, res) => {
         fecha_inicio: req.body.fecha_inicio,
         fecha_fin: req.body.fecha_fin,
         fecha_creacion: req.body.fecha_creacion,
-        estado: req.body.estado
+        estado: req.body.estado,
+        precio: req.body.precio
     });
     await booking.save();
     res.json({
@@ -38,7 +44,7 @@ bookingCtrl.editBooking = async (req, res) => {
 }
 
 bookingCtrl.deleteBooking = async (req, res) => {
-    await Booking.findByIdAndRemove(req.params.id);
+    await Booking.findByIdAndRemove(req.params.idBooking);
     res.json({
         'status': 'Booking deleted'
     });

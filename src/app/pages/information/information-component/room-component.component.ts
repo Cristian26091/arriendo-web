@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router'
 import { Room } from 'src/app/models/room';
 import { RoomService } from 'src/app/services/room.service';
@@ -31,6 +31,11 @@ export class RoomComponentComponent implements OnInit {
         this.roomService.selectedRoom = res as Room;
       });
     }
+  }
+
+  ngOnDestroy(): void{
+    // Elimina el ID de la habitación seleccionada de la cookie
+    this.cookieService.delete('selectedRoomId');
   }
 
   toggleForms(){

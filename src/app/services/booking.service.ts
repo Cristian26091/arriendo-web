@@ -12,7 +12,9 @@ export class BookingService {
 
   readonly URL_API = environment.uri + '/api/booking';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.bookings = []
+  }
 
   getBookings() {
     return this.http.get(this.URL_API);
@@ -27,6 +29,11 @@ export class BookingService {
     return this.http.get(this.URL_API + `/user/${_id}`);
   }
 
+  getBookingByRoom(_id: string) {
+    console.log(_id);
+    return this.http.get(this.URL_API + `/room/${_id}`);
+  }
+
   postBooking(booking: Booking) {
     return this.http.post(this.URL_API, booking);
   }
@@ -37,6 +44,8 @@ export class BookingService {
   // }
 
   deleteBooking(_id: string) {
+    // console.log(_id);
+    // console.log(this.URL_API + `/${_id}`);
     return this.http.delete(this.URL_API + `/${_id}`);
   }
 

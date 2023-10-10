@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Room } from '../../../models/room';
 import {Router} from '@angular/router'
 import { RoomService } from '../../../services/room.service';
@@ -26,6 +26,7 @@ export class CardRoomComponent implements OnInit{
       this.roomService.selectedRoom = this.roomService.getRoomById(selectedRoomId);
     }
   }
+
 
   goToRoom(id:string){
     this.roomService.selectedRoom = this.room;
