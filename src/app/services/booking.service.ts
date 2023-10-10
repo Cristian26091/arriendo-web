@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Booking } from '../models/booking';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http'
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class BookingService {
   //   return this.http.put(this.URL_API + `/${booking._id}`, booking);
   // }
 
-  deleteBooking(_id: string) {
+  deleteBooking(_id: string): Observable<any>{
     // console.log(_id);
     // console.log(this.URL_API + `/${_id}`);
     return this.http.delete(this.URL_API + `/${_id}`);

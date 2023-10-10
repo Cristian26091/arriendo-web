@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BookingService } from 'src/app/services/booking.service';
+import { Booking } from 'src/app/models/booking';
 
 @Component({
   selector: 'app-reservation-views',
@@ -10,38 +12,40 @@ export class ReservationViewsComponent implements OnInit {
   currentRoute: string = "";
   currentRouteParts: string[] = ["primero", "segundo"];
   headTableContent: string[];
-  data = [
-    {
-      id: 1,
-      fechaReserva: "2023-08-18",
-      estado: "Pendiente"
-    },
-    {
-      id: 2,
-      fechaReserva: "2023-08-19",
-      estado: "Confirmada"
-    },
-    {
-      id: 3,
-      fechaReserva: "2023-08-20",
-      estado: "Cancelada"
-    },
-    // Agrega más reservas según sea necesario
-  ];
 
-  constructor() { 
-    this.headTableContent = ["ID", "Fecha reserva", "Estado", "Aciones"];
+  constructor(public bookingService: BookingService) { 
+    this.headTableContent = ["ID", "Fecha reserva","Fecha termino", "Estado", "Aciones"];
   }
 
   ngOnInit(): void {
+    this.getBookings();
   }
 
-  editarItem(item){
-    console.log(item);
+  getBookings(){
+    if(this.bookingService.bookings){
+      this.bookingService.getBookings().subscribe(res =>{
+        this.bookingService.bookings = res as Booking[];
+      })
+    }
+    return;
   }
 
-  eliminarItem(item){
-    console.log(item);
+  deleteBooking(){
+    if (this.bookingService.selectedBookin) {
+      // No hay habitación seleccionada, no se puede eliminar
+      this.bookingService.deleteBooking(this.bookingService.selectedBookin._id)
+      .subscribe(() => {
+        // La habitación se eliminó correctamente, puedes actualizar la lista de habitaciones si es necesario.
+        this.getBookings(); // Otra vez, obtén las habitaciones actualizadas.
+        // Cierra el modal de confirmación de eliminación
+        // $('#confirmDeleteModal').modal('hide');
+      });
+    }
+    return;
+  }
+
+  selectToDeleteItem(item:Booking){
+    this.bookingService.selectedBookin = item;
   }
 
 }
