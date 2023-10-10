@@ -1,9 +1,10 @@
 
 export class User {
     constructor(
-      nombre = '', apellido = '', rut = '', fecha_nacimiento = '', 
+      _id = '', nombre = '', apellido = '', rut = '', fecha_nacimiento = '', 
       telefono = '', email= '', pass = '', role = '', token = ''
     ) {
+        this._id = _id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.rut = rut;
@@ -14,7 +15,7 @@ export class User {
         this.role = role;
         this.token = token;
     }
-  
+    _id: string;
     nombre: string;
     apellido: string;
     rut: string;

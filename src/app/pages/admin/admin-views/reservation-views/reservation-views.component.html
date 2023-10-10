@@ -40,12 +40,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of data">
-                <th scope="row">{{ item.id }}</th>
-                <td>{{ item.fechaReserva }}</td>
-                <td>{{ item.estado }}</td>
+            <tr *ngFor="let booking of bookingService.bookings">
+                <th scope="row">{{ booking._id }}</th>
+                <td>{{ booking.fecha_inicio }}</td>
+                <td>{{ booking.fecha_fin }}</td>
+                <td>{{ booking.estado }}</td>
                 <td>
-                    <button type="button" class="btn btn-danger" (click)="eliminarItem(item)"> Eliminar</button>
+                    <button type="button" class="btn btn-danger" (click)="selectToDeleteItem(booking)" data-bs-toggle="modal" data-bs-target="#deleteBookingModal"> Eliminar</button>
                 </td>
             </tr>
         </tbody>
@@ -60,6 +61,32 @@
             <li class="page-item"><a class="page-link" href="#">Next</a></li>
         </ul>
     </nav>
+
+    <!-- MODAL ELIMINAR HABITACIÓN -->
+    <div class="modal fade" id="deleteBookingModal" tabindex="-1" aria-labelledby="deleteBookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mx-auto">
+            <div class="modal-content">
+
+                <!-- Encabezado del Modal -->
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Cuerpo del Modal -->
+                <div class="modal-body text-center">
+                    <div>
+                        <p>¿Estás seguro de que deseas eliminar esta habitación?</p>
+                    </div>
+                </div>
+
+                <!-- Pie del Modal -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="deleteBooking()">Continuar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </body>
 

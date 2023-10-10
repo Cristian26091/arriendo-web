@@ -12,19 +12,18 @@ export class UserViewsComponent implements OnInit {
   currentRouteParts: string[] = ["primero", "segundo"];
   headTableContent: string[];
   
-  constructor(public UserService: UserService) { 
+  constructor(public userService: UserService) { 
     this.headTableContent = ["Nombre", "Email", "Telefono", "Rut", "Acción"];
     this.getUsers();
-    // console.log(this.UserService.users);
   }
 
   ngOnInit(): void {
   }
 
   getUsers(){
-    this.UserService.getUsers()
+    this.userService.getUsers()
       .subscribe( res =>{
-        this.UserService.users = res as User[];
+        this.userService.users = res as User[];
     });
   }
 
@@ -32,8 +31,22 @@ export class UserViewsComponent implements OnInit {
     console.log(item);
   }
 
-  eliminarItem(item){
-    console.log(item);
+  deleteUser(){
+    if (this.userService.selectedUser) {
+      // No hay habitación seleccionada, no se puede eliminar
+      this.userService.deleteUser(this.userService.selectedUser._id)
+      .subscribe(() => {
+        // La habitación se eliminó correctamente, puedes actualizar la lista de habitaciones si es necesario.
+        this.getUsers(); // Otra vez, obtén las habitaciones actualizadas.
+        // Cierra el modal de confirmación de eliminación
+        // $('#confirmDeleteModal').modal('hide');
+      });
+    }
+    return;
+  }
+
+  selectToDelete(item:User){
+    this.userService.selectedUser = item;
   }
 
 }

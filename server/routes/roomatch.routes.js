@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
+const multer = require('multer');
+const upload = multer(); // Configuración básica de multer para procesar archivos
+
 const room = require('../controllers/room.controller');
 const contact = require('../controllers/contact.controller');
 const region = require('../controllers/region.controller');
 const user = require('../controllers/user.controller');
 const help = require('../controllers/help.controller');
+const booking = require('../controllers/booking.controller');
 
 // ----------- HELP ROUTES -----------
 router.get('/help', help.getHelps);
@@ -14,17 +18,20 @@ router.get('/help', help.getHelps);
 router.get('/room', room.getRooms);
 router.get('/room/:idRoom', room.getRoom);
 router.get('/filterRooms', room.getRoomByFilter);
-// router.post('room/', room.createRoom);
-// router.put('/room/:id', room.editRoom);
-// router.delete('room/:id', room.deleteRoom);
+router.delete('/room/:idRoom', room.deleteRoom);
+
+//----------ROOM BUCKET ROUTES-----------
+router.post('/uploadModel',upload.single('model'), room.uploadModelToBucket);
+router.delete('/deleteModel/models/:folder/:file', room.deleteModelFromBucket);
+router.post('/uploadImages',upload.array('images'), room.uploadImageToBucket);
+router.delete('/deleteImages/room-image-cover/:folder/:file', room.deleteImagesFromBucket);
+router.post('/uploadTexture',upload.single('texture'), room.uploadTextureToBucket);
+router.delete('/deleteTexture/textures/:file', room.deleteTextureFromBucket);
+router.post('/uploadRoom',room.createRoom);
 
 //----------CONTACT ROUTES-----------
 router.get('/contact', contact.getContacts);
 router.post('/contact/', contact.createContact);
-// router.get('/contact/:id', room.getContact);
-// router.get('/contact', room.createContact);
-// router.put('/contact/:id', room.editContact);
-// router.delete('contact/:id', room.deleteContact);
 
 //----------REGION ROUTES-----------
 router.get('/region', region.getRegions);
@@ -34,6 +41,16 @@ router.get('/user', user.getUsers);
 router.get('/user/:idUser', user.getUser);  
 router.post('/user', user.createUser);
 router.post('/user/login', user.login);
+router.delete('/user/:idUser', user.deleteUser);
+
+//----------BOOKING ROUTES-----------
+router.get('/booking', booking.getBookings);
+router.get('/booking/:idBooking', booking.getBooking);
+router.get('/booking/user/:idUser', booking.getBookingByUser);
+router.get('/booking/room/:idRoom', booking.getBookingByRoom);
+router.post('/booking', booking.createBooking);
+router.put('/booking/:idBooking', booking.editBooking);
+router.delete('/booking/:idBooking', booking.deleteBooking);
 
 
 module.exports = router;

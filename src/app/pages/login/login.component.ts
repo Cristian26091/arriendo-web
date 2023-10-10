@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { LoginService } from '../../services/login.service';
 import { TokenService } from '../../services/token.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,9 @@ export class LoginComponent implements OnInit {
           // Manejar la respuesta del servidor (token de autenticación, redireccionar, etc.)
           this.tokenService.storeToken(response['token'], response['user']);
           this.loginService.loginSuccess();
-
+          this.userService.selectedUser = response['user'];
+          // console.log("login bien logueado:", response['user'])
+          
           this.clearForm();
         },
         (error) => {

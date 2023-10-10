@@ -64,6 +64,9 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
 import { RoomViewsAddComponent } from './pages/admin/admin-views/room-views/room-views-add/room-views-add/room-views-add.component';
 import { CookieService } from 'ngx-cookie-service';
 import { RoomViewsEditComponent } from './pages/admin/admin-views/room-views/room-views-edit/room-views-edit.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { BookingComponent } from './pages/userBooking/booking/booking.component';
+import { HistoryComponent } from './pages/userBooking/history/history.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +105,9 @@ import { RoomViewsEditComponent } from './pages/admin/admin-views/room-views/roo
     DateFormatPipe,
     RoomViewsAddComponent,
     RoomViewsEditComponent,
+    NotFoundComponent,
+    BookingComponent,
+    HistoryComponent,
 
   ],
   imports: [

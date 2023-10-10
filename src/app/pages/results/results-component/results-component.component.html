@@ -13,7 +13,6 @@
             <div *ngIf="!isRoomServiceVoid; else noRooms">
                 <div class="container" *ngFor="let room of roomService.rooms" >
                     <app-card-room [room] = "room"></app-card-room>
-                    <span class="salto-linea"> - </span>
                 </div>
             </div>
 
