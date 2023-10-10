@@ -67,6 +67,7 @@ import { RoomViewsEditComponent } from './pages/admin/admin-views/room-views/roo
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { BookingComponent } from './pages/userBooking/booking/booking.component';
 import { HistoryComponent } from './pages/userBooking/history/history.component';
+import { ViewInfoModalComponent } from './pages/admin/admin-views/reservation-views/view-info-modal/view-info-modal.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,7 @@ import { HistoryComponent } from './pages/userBooking/history/history.component'
     NotFoundComponent,
     BookingComponent,
     HistoryComponent,
+    ViewInfoModalComponent,
 
   ],
   imports: [
