@@ -335,8 +335,11 @@ roomCtrl.editRoom = function () {
 
 }
 
-roomCtrl.deleteRoom = function () {
-
+roomCtrl.deleteRoom = async (req, res) => {
+  await Room.findByIdAndRemove(req.params.idRoom);
+  res.json({
+    'status': 'Room removed'
+  });
 }
 
 
