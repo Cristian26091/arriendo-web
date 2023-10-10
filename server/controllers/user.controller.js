@@ -106,8 +106,24 @@ userCtrl.editUser = function () {
 
 }
 
-userCtrl.deleteUser= function () {
+userCtrl.deleteUser= async (req, res) => {
+    try {
+        const { idUser } = req.params;
+        console.log("idUser", idUser);
+        // Verifica si el usuario existe en la base de datos
+        const existingUser = await User.findById(idUser);
 
+        if (!existingUser) {
+            return res.status(400).json({ message: 'El usuario no existe!' });
+        }
+
+        await User.findByIdAndDelete(idUser);
+
+        res.status(200).json({ message: 'Usuario eliminado con éxito' });
+    } catch (error) {
+        console.error('Error al eliminar usuario:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
+    }
 }
 
 

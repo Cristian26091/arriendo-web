@@ -57,7 +57,6 @@ export class RoomViewsComponent implements OnInit {
       });
     }
     return;
-    
   }
 
   getrooms(){

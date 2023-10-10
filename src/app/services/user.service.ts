@@ -52,5 +52,8 @@ export class UserService {
 
   putUser(user: User){}
 
-  deleteUser(_id: string){}
+  deleteUser(userId: string): Observable<any> {
+    // Realiza la lógica de eliminación y devuelve un Observable
+    return this.http.delete<any>(`${this.URL_API}/${userId}`);
+  }
 }

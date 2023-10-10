@@ -41,6 +41,7 @@ router.get('/user', user.getUsers);
 router.get('/user/:idUser', user.getUser);  
 router.post('/user', user.createUser);
 router.post('/user/login', user.login);
+router.delete('/user/:idUser', user.deleteUser);
 
 //----------BOOKING ROUTES-----------
 router.get('/booking', booking.getBookings);
