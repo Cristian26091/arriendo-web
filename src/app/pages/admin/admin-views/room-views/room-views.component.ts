@@ -46,13 +46,17 @@ export class RoomViewsComponent implements OnInit {
   }
 
   deleteRoom(){
-    this.RoomService.deleteRoom(this.RoomService.selectedRoom._id)
-    .subscribe(() => {
-      // La habitación se eliminó correctamente, puedes actualizar la lista de habitaciones si es necesario.
-      this.getrooms(); // Otra vez, obtén las habitaciones actualizadas.
-      // Cierra el modal de confirmación de eliminación
-      // $('#confirmDeleteModal').modal('hide');
-    });
+    if (this.RoomService.selectedRoom) {
+      // No hay habitación seleccionada, no se puede eliminar
+      this.RoomService.deleteRoom(this.RoomService.selectedRoom._id)
+      .subscribe(() => {
+        // La habitación se eliminó correctamente, puedes actualizar la lista de habitaciones si es necesario.
+        this.getrooms(); // Otra vez, obtén las habitaciones actualizadas.
+        // Cierra el modal de confirmación de eliminación
+        // $('#confirmDeleteModal').modal('hide');
+      });
+    }
+    return;
   }
 
   getrooms(){

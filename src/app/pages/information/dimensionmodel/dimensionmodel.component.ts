@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef,  } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit   } from '@angular/core';
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -9,7 +9,7 @@ import { RoomService } from 'src/app/services/room.service';
   templateUrl: './dimensionmodel.component.html',
   styleUrls: ['./dimensionmodel.component.css']
 })
-export class DimensionmodelComponent implements OnInit{
+export class DimensionmodelComponent implements OnInit, AfterViewInit {
 
   // @ViewChild('canvas') canvasRef: ElementRef<HTMLCanvasElement>;
   @ViewChild('container', { static: true }) container!: ElementRef;
@@ -58,6 +58,7 @@ export class DimensionmodelComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    console.log("roomService.selectedRoom:",this.roomService.selectedRoom);
     this.initscene();
     // Aquí puedes acceder al canvas utilizando la referencia container
     console.log("url modelo:"+(this.roomService.selectedRoom.url_model).toString());
@@ -88,7 +89,12 @@ export class DimensionmodelComponent implements OnInit{
     this.camera.lookAt(0, 0, 0);
 
     this.animate();
-  } 
+  }
+
+  ngAfterViewInit(): void {
+    // Aquí puedes acceder al canvas utilizando la referencia container
+    // console.log(this.container.nativeElement);
+  }
 
   ngOnDestroy() {
     while (this.scene.children.length > 0) {

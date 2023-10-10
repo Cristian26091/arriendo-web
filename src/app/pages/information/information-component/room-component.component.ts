@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router'
 import { Room } from 'src/app/models/room';
 import { RoomService } from 'src/app/services/room.service';
+import { LoginService } from 'src/app/services/login.service';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -11,28 +13,33 @@ import { RoomService } from 'src/app/services/room.service';
 })
 export class RoomComponentComponent implements OnInit {
 
-  room: Room = null;
+  showLoginForm = false;
+  showSuccessAlert = false;
 
-  constructor(private activaterouter: ActivatedRoute, private router: Router, public roomService: RoomService) { }
+  constructor(private activaterouter: ActivatedRoute, private router: Router, 
+  public roomService: RoomService, public loginService: LoginService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
-    let pacienteId = this.activaterouter.snapshot.paramMap.get('id');
-    this.getRoom(pacienteId);
-
+    // Obtén el ID de la habitación seleccionada desde la cookie
+    const selectedRoomId = this.cookieService.get('selectedRoomId');
+  
+    // Si se encuentra el ID en la cookie, carga la habitación correspondiente
+    if (selectedRoomId) {
+    this.roomService.getRoom(selectedRoomId)
+      .subscribe((res: Room) => {
+        // Asigna los datos de la habitación una vez que se completa la solicitud HTTP
+        this.roomService.selectedRoom = res as Room;
+      });
+    }
   }
 
-  //aqui debo traer el room
-  getRoom(id: string){
-    this.roomService.getRoom(id)
-    .subscribe(res =>{
-      this.room = res as Room;
-      //console.log(res);
-    });
+  ngOnDestroy(): void{
+    // Elimina el ID de la habitación seleccionada de la cookie
+    this.cookieService.delete('selectedRoomId');
   }
 
-  reserveRoom(){
-    console.log("hola")
-    this.router.navigate(['/payment']);
+  toggleForms(){
+    this.showLoginForm = !this.showLoginForm;
   }
 
 }

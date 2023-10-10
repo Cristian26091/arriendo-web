@@ -4,6 +4,9 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10; // El número de rondas de sal que se utilizará
 
+const mongoose = require('mongoose'); // Importa Mongoose
+
+
 // Devolver todas los usuarios
 userCtrl.getUsers = async (req, res) => {
     const users = await User.find();
@@ -12,7 +15,18 @@ userCtrl.getUsers = async (req, res) => {
 
 // Devolver un usuario por su id
 userCtrl.getUser = async (req, res) => {
+  console.log("req.params.idUser", req.params.idUser);
+    
+    if (!mongoose.Types.ObjectId.isValid(req.params.idUser)) {
+        return res.status(400).json({ message: 'ID de usuario no válido' });
+    }
+
     const user = await User.findById(req.params.idUser);
+    
+    if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+    console.log(user);
     res.json(user);
 }
 
@@ -92,8 +106,24 @@ userCtrl.editUser = function () {
 
 }
 
-userCtrl.deleteUser= function () {
+userCtrl.deleteUser= async (req, res) => {
+    try {
+        const { idUser } = req.params;
+        console.log("idUser", idUser);
+        // Verifica si el usuario existe en la base de datos
+        const existingUser = await User.findById(idUser);
 
+        if (!existingUser) {
+            return res.status(400).json({ message: 'El usuario no existe!' });
+        }
+
+        await User.findByIdAndDelete(idUser);
+
+        res.status(200).json({ message: 'Usuario eliminado con éxito' });
+    } catch (error) {
+        console.error('Error al eliminar usuario:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
+    }
 }
 
 

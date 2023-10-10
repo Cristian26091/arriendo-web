@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../models/user';
+import { UserService } from './user.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -33,4 +35,5 @@ export class TokenService {
     this.cookieService.delete(this.TOKEN_KEY);
     this.cookieService.delete(this.TOKEN_USER);
   }
+
 }

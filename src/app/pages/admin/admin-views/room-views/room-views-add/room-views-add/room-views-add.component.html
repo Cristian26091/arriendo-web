@@ -1,5 +1,5 @@
 
-<body>
+
     
     <div class="container mt-5">
         <h1 class="text-center">Registro de habitación</h1>
@@ -10,26 +10,32 @@
             <div class="row mb-3">
                 <div class="col md-6">
                     <!-- Modelo 3D: Zona de arrastre (Drop Zone) -->
-                    <div id="dropZone" class="drop-zone" *ngIf="!isUploadModel" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                    <div id="dropZone" class="drop-zone form-control" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
                         <!-- Icono de carga centrado arriba del texto -->
-                        <div class="d-flex flex-column align-items-center" style="position: relative; height: 50%;">
-                            <i class="bi bi-upload h1 mb-3"></i>
-                            <p class="mb-0">Arrastra y suelta archivos aquí</p>
+                        <div class="d-flex flex-column align-items-center">
+                            <i class="bi bi-badge-3d-fill h1 mb-3" *ngIf="getFileName(model_ref)"></i>
+                            <i class="bi bi-upload h1 mb-3" *ngIf="!getFileName(model_ref)"></i>
+                            <p class="mb-0" *ngIf="!getFileName(model_ref)">Arrastra y suelta tu modelo 3D aquí</p>
+                            <p *ngIf="getFileName(model_ref)" style="color: skyblue;"> Modelo cargado: {{getFileName(model_ref)}}</p>
                         </div>
-                        <input type="file" id="fileInput" accept=".fbx, .obj, .dae, .blend, .stl, .zip, .rar" (change)="onFileSelected($event)" style="display:none">
                     </div>
-
-                    <!-- Barra de carga -->
-                    <div class="progress" *ngIf="isUploadModel">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" 
-                        role="progressbar" aria-label="Animated striped example" aria-valuenow="75" 
-                        aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                    <div *ngIf="ModelErrorMessage" class="text-danger"> {{ModelErrorMessage}}</div>
+                </div>
+                <div class="col md-6">
+                    <!-- TEXTURA DEL MODELO 3D -->
+                    <div id="dropZone" class="drop-zone form-control" (drop)="onDropTexture($event)" (dragover)="onDragOver($event)">
+                        <!-- Icono de carga centrado arriba del texto -->
+                        <div class="d-flex flex-column align-items-center">
+                            <i class="bi bi-image h1 mb-3" *ngIf="getFileName(texture_ref)"></i>
+                            <i class="bi bi-upload h1 mb-3" *ngIf="!getFileName(texture_ref)"></i>
+                            <p class="mb-0" *ngIf="!getFileName(texture_ref)">Arrastra y suelta tu textura del modelo aquí</p>
+                            <p *ngIf="getFileName(texture_ref)" style="color: skyblue;">Textura cargada:{{getFileName(texture_ref)}} </p>
+                        </div>
                     </div>
+                    <div *ngIf="textureErroMessage" class="text-danger">{{textureErroMessage}}</div>
                 </div>
             </div>
         </div>
-        
-        
         
         <form>
             <h2>Información de Ubicación</h2>
@@ -37,33 +43,33 @@
 
             <div class="form-section">
                 <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="ciudad" class="form-label">Ingrese una ciudad</label>
-                        <select class="form-select" id="ciudad" name="ciudad">
-                            <!-- Opciones del dropdown de ciudad -->
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="comuna" class="form-label">Seleccione una comuna</label>
-                        <select class="form-select" id="comuna" name="comuna">
-                            <!-- Opciones del dropdown de comuna -->
-                        </select>
-                    </div>
-                </div>
-                <div class="row mb-3">
+                    <!-- seleccionar region -->
                     <div class="col-md-6">
                         <label for="region" class="form-label">Seleccione una región</label>
-                        <select class="form-select" id="region" name="region">
-                            <!-- Opciones del dropdown de región -->
+                        <select class="form-select" [(ngModel)]="selectedRegion" (change)="onRegionSelect($event)" name="region">
+                            <option disabled value="">Selecciona una region</option>
+                            <option *ngFor="let region of regionService.regions" [value]="region.nombre_region">{{ region.nombre_region }}</option>
                         </select>
+                        <div *ngIf="regionErrorMessage" class="text-danger">{{ regionErrorMessage }}</div>
                     </div>
+                    <!-- seleccionar comuna -->
                     <div class="col-md-6">
-                        <label for="provincia" class="form-label">Seleccione una provincia</label>
-                        <select class="form-select" id="provincia" name="provincia">
-                            <!-- Opciones del dropdown de provincia -->
+                        <label for="comuna" class="form-label">Seleccione una comuna</label>
+                        <select class="form-select" [(ngModel)]="selectedComuna" (change)="onComunaSelect($event)" name="comuna">
+                            <option disabled selected>Seleccione una comuna</option>
+                            <option *ngFor="let comuna of regionService.selectedRegion.comunas" [value]="comuna.nombre_comuna">{{comuna.nombre_comuna}}</option>
                         </select>
+                        <div *ngIf="comunaErrorMessage" class="text-danger">{{ comunaErrorMessage }}</div>
                     </div>
                 </div>
+                <!-- Mapa -->
+                <div class="row-12">
+                    <label for="map" class="form-label">Seleccione una ubicación</label>
+                    <div id="mapa"></div>
+                    <div *ngIf="locationErrorMessage" class="text-danger">{{ locationErrorMessage }}</div>
+                </div>
+
+
             </div>
 
             <h2>Información de la habitación</h2>
@@ -71,54 +77,69 @@
 
             <div class="form-section">
                 <div class="row mb-3">
+                    <!-- tipo de casa -->
                     <div class="col-md-6">
-                        <label for="tipo-habitacion" class="form-label"> Seleccione un tipo de habitación</label>
-                        <select class="form-select" id="tipo-habitacion" name="tipo-habitacion">
-                            <!-- Opciones del dropdown de tipo de habitación -->
+                        <label for="tipo-casa" class="form-label"> Seleccione un tipo de Casa</label>
+                        <select class="form-select" name="tipo-casa" [(ngModel)]="selectedHome" (change)="onSelectHome($event)">
+                            <option disabled value="">Seleccione un tipo de casa</option>
+                            <option *ngFor="let tipo of homeTypes" [value]="tipo">{{tipo}}</option>
                         </select>
+                        <div *ngIf="homeErrorMessage" class="text-danger">{{ homeErrorMessage }}</div>
                     </div>
+                    <!-- numero de habitacion -->
                     <div class="col-md-6">
                         <label for="num-habitacion" class="form-label">Ingrese el número de Habitación</label>
-                        <input type="text" class="form-control" id="num-habitacion" name="num-habitacion">
+                        <input type="text" class="form-control" name="num-habitacion" [(ngModel)]="roomNumber" (ngModelChange)="validateRoomNumber()">
+                        <div *ngIf="roomErrorMessage" class="text-danger">{{ roomErrorMessage }}</div>
                     </div>
                 </div>
                 <div class="row mb-3">
+                    <!-- tipo de baño -->
                     <div class="col-md-6">
                         <label for="num-bano" class="form-label">Seleccione el tipo de Baño</label>
-                        <select class="form-select" id="num-bano" name="num-bano">
-                            <!-- Opciones del dropdown de número de baño -->
+                        <select class="form-select" name="num-bano"  (change)="onBathroomTypeSelect($event)">
+                            <option disabled value="">Selecciona un tipo de baño</option>
+                            <option *ngFor="let type of bathRoomTypes" [value]="type">{{ type }}</option>
                         </select>
+                        <div *ngIf="bathroomErrorMessage" class="text-danger">{{ bathroomErrorMessage }}</div>
                     </div>
+                    <!-- precio mensual -->
                     <div class="col-md-6">
-                        <label for="precio" class="form-label">Ingrese el precio mensual</label>
-                        <input type="text" class="form-control" id="precio" name="precio">
+                        <label for="precio" class="form-label">Ingrese el precio mensual de la habitación (en CLP)</label>
+                        <input type="text" class="form-control" name="precio" [(ngModel)]="roomPrice" (ngModelChange)="validateRoomPrice()">
+                        <div *ngIf="priceErrorMessage" class="text-danger">{{ priceErrorMessage }}</div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="calle" class="form-label">Ingrese la calle</label>
-                    <input type="text" class="form-control" id="calle" name="calle">
+                    <input type="text" class="form-control" name="calle" [(ngModel)]="roomStreet">
+                    <div *ngIf="streetErrorMessage" class="text-danger">{{ streetErrorMessage }}</div>
                 </div>
                 <div class="mb-3">
                     <label for="descripcion" class="form-label">Ingrese una descripción</label>
-                    <textarea class="form-control" id="descripcion" name="descripcion" rows="4"></textarea>
+                    <textarea class="form-control" name="descripcion" [(ngModel)]="roomDescription" rows="4"></textarea>
+                    <div *ngIf="descriptionErrorMessage" class="text-danger">{{ descriptionErrorMessage }}</div>
                 </div>
             </div>
             
             <div class="row mb-3">
                 <div class="col-md-">
-                    <label for="descripcion" class="form-label">Ingresa la imagen del cover</label>
-                    <div class="drop-zone" id="dropArea">
+                    <label for="descripcion" class="form-label">Carga las imagenes de la habitación</label>
+                    <div class="drop-zone" id="dropArea" (drop)="onDropImages($event)" (dragover)="onDragOver($event)">
                         <i class="bi bi-card-image h1"></i>
-                        <p class="fs-5">Arrastra y suelta el cover aquí</p>
+                        <p class="fs-5">Arrastra y suelta las imagenes de la habitación aquí</p>
                     </div>
+                    <div *ngIf="imagesErrorMessage" class="text-danger">{{ imagesErrorMessage }}</div>
                     
                 </div>
             </div>
 
             <div class="text-center">
-                <button type="submit" class="btn btn-primary">Cargar habitación</button>
+                <button type="submit" class="btn btn-primary" (click)="onSubmit()">Cargar habitación</button>
             </div>
         </form>
     </div>
 
-</body>
+    
+
+

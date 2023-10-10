@@ -23,6 +23,7 @@ export class LoginService {
   isAuthenticated(): boolean {
     // Comprueba si existe una cookie de autenticación llamada 'secreto_acceso'
     const token = this.cookieService.get('accessToken');
+    // console.log('El valor de token es:', token);
     return !!token; // Devuelve true si hay un token, false si no lo hay
   }
 

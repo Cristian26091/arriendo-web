@@ -1,0 +1,25 @@
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8" *ngIf="bookingService.bookings && bookingService.bookings.length > 0;else voidBooking">
+        <div *ngFor="let booking of bookingService.bookings" class="mb-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ getRoomName(booking.roomId) }}</h5>
+                    <p class="card-text">Fecha inicio reserva: {{ booking.fecha_inicio | date: 'dd/MM/yyyy' }}</p>
+                    <p class="card-text">Fecha termino reserva: {{ booking.fecha_fin | date: 'dd/MM/yyyy' }}</p>
+                    <p class="card-text">Estado: {{ booking.estado }}</p>
+                    <p class="card-text">Precio: ${{ booking.precio }}</p>
+                    <div class="d-flex justify-content-end">
+                        <a class="btn btn-danger ml-2" (click)="cancelBooking(booking._id)">Cancelar Reserva</a>
+                        <a href="#" class="btn btn-primary ml-2">Cargar Contrato</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #voidBooking>
+    <div class="alert alert-warning">
+        No tienes reservas
+    </div>
+</ng-template>

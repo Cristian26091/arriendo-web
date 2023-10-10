@@ -23,7 +23,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="accountDropdown">
                     <a class="dropdown-item" href="#">Mi cuenta</a>
-                    <a class="dropdown-item" href="#" (click)="logout()">Cerrar sesión</a>
+                    <a class="dropdown-item" (click)="logout()">Cerrar sesión</a>
                     </div>
                 </li>
 
@@ -31,10 +31,10 @@
                 <li class="nav-item dropdown" *ngIf="loggedIn">
                     <a class="nav-link dropdown-toggle" href="#" id="reservationsDropdown" role="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    [Mis Reservas]
+                    Mis Reservas
                     </a>
                     <div class="dropdown-menu" aria-labelledby="reservationsDropdown">
-                    <a class="dropdown-item" href="#">Ver mis reservas</a>
+                    <a class="dropdown-item" (click)="goToBookings()">Ver mis reservas</a>
                     <a class="dropdown-item" href="#">Historial de reservas</a>
                     </div>
                 </li>
