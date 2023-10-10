@@ -9,8 +9,8 @@
     providedIn: 'root'
   })
   export class RoomService {
-    selectedRoom: Room;
-    rooms: Room[];
+    selectedRoom: Room = new Room();
+    rooms: Room[] = [];
 
     readonly URL_API = environment.uri+'/api/room'
     readonly URL_FILTER_ROOM = environment.uri+'/api'
@@ -22,12 +22,7 @@
     readonly URL_UPLOAD_TEXTURE = environment.uri + '/api/uploadTexture';
     readonly URL_DELETE_TEXTURE = environment.uri + '/api/deleteTexture';
 
-    constructor(private http: HttpClient){
-      
-      this.selectedRoom = new Room();
-      this.rooms = [];
-
-    }
+    constructor(private http: HttpClient){}
 
     //función para subir el modelo 3D
     uploadModelFile(file: File): Observable<any> {

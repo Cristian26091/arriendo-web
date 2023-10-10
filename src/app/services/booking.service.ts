@@ -21,7 +21,7 @@ export class BookingService {
     return this.http.get(this.URL_API);
   }
 
-  getBooking(_id: string) {
+  getBooking(_id: string): Observable<any>{
     return this.http.get(this.URL_API + `/${_id}`);
   }
 

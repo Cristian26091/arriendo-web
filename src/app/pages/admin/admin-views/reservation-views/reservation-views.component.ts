@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingService } from 'src/app/services/booking.service';
 import { Booking } from 'src/app/models/booking';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user';
+import { RoomService } from 'src/app/services/room.service';
+import { Room } from 'src/app/models/room';
 
 @Component({
   selector: 'app-reservation-views',
@@ -12,8 +16,10 @@ export class ReservationViewsComponent implements OnInit {
   currentRoute: string = "";
   currentRouteParts: string[] = ["primero", "segundo"];
   headTableContent: string[];
+  
+  selectedBooking: Booking | undefined;
 
-  constructor(public bookingService: BookingService) { 
+  constructor(public bookingService: BookingService, public userService: UserService, public roomService: RoomService) { 
     this.headTableContent = ["ID", "Fecha reserva","Fecha termino", "Estado", "Aciones"];
   }
 
@@ -46,6 +52,27 @@ export class ReservationViewsComponent implements OnInit {
 
   selectToDeleteItem(item:Booking){
     this.bookingService.selectedBookin = item;
+  }
+
+  selectToViewInfo(item:Booking){
+    this.bookingService.selectedBookin = item;
+    this.getUser(item.userId);
+    this.getRoom(item.roomId);
+
+  }
+
+  getUser(_id: string){
+    this.userService.getUser(_id).subscribe(res =>{
+      this.userService.selectedUser = res as User;
+    })
+  }
+
+  getRoom(_id:string){
+    this.roomService.getRoom(_id).subscribe(res =>{
+      // console.log("res dentro de reservation-view component:",res);
+      this.roomService.selectedRoom = res as Room;
+      // this.roomService.selectedRoom = res as Room;
+    })
   }
 
 }
