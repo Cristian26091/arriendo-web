@@ -7,7 +7,6 @@ import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 import { ImageRef } from 'src/app/models/image-ref';
 
-
 @Component({
   selector: 'app-room-views-add',
   templateUrl: './room-views-add.component.html',
@@ -112,50 +111,56 @@ export class RoomViewsAddComponent implements OnInit {
     });
   }
 
-  // ---------------------- MODELADO 3D ----------------------
+  //----------------------- DRAG -----------------------
   onDragOver(event: DragEvent) {  
     event.preventDefault();
     event.stopPropagation();
   }
 
-  onDrop(event: DragEvent) {
+  // ---------------------- MODELADO 3D ----------------------
+
+  onDropModel(event: DragEvent) {
     event.preventDefault();
     const files = event.dataTransfer.files;
-    this.handle3DFiles(files);
+    if(files.length > 1){
+      this.ModelErrorMessage = 'Solo se puede cargar un archivo a la vez.';
+      return;
+    }
+    else{
+      const file = files[0];
+      this.handle3DFiles(file);
+    }
   }
 
-  private handle3DFiles(files: FileList) {
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
+  //Manejo de un solo modelo 3D
+  private handle3DFiles(file: File) {
       
-      // Validar el tipo de archivo [obj]
-      if (!this.isValidFileType(file)) {
-        this.ModelErrorMessage = 'Tipo de archivo no válido. Por favor, sube archivos OBJ o el rar de tu proyecto .';
-        continue; // Saltar este archivo y continuar con el siguiente
-      }
-
-      // Validar el tamaño del archivo (por ejemplo, limitar a un tamaño máximo en bytes)
-      if (!this.isValidFileSize(file)) {
-        this.ModelErrorMessage = 'Tamaño de archivo no válido. El tamaño máximo permitido es 300 MB.';
-        continue; // Saltar este archivo y continuar con el siguiente
-      }
-
-      //Cargar el archivo si es obj o rar jpg o png
-      this.roomService.uploadModelFile(file).subscribe(
-        (res) => {
-          // Maneja la respuesta del servidor (por ejemplo, actualiza la URL del modelo en tu formulario)
-          console.log('Archivo cargado con éxito:', res);
-          this.url_model = res.downloadLink;
-          this.model_ref = res.fileName;
-        },
-        (error) => {
-          console.error('Error al cargar el archivo:', error);
-        }
-      );
-      // Establece la bandera de carga del modelo
-      this.isUploadModel = true;
+    // Validar el tipo de archivo obj
+    if (!this.isValidModelType(file)) {
+      this.ModelErrorMessage = 'Tipo de archivo no válido. Por favor, sube archivos .obj.';
+      return; // Saltar este archivo y continuar con el siguiente
     }
+
+    // Validar el tamaño del archivo (por ejemplo, limitar a un tamaño máximo en bytes)
+    if (!this.isValidModelFileSize(file)) {
+      this.ModelErrorMessage = 'Tamaño de archivo no válido. El tamaño máximo permitido es 300 MB.';
+      return; // Saltar este archivo y continuar con el siguiente
+    }
+
+    this.roomService.uploadModelFile(file).subscribe(
+      (res) => {
+        // Maneja la respuesta del servidor (por ejemplo, actualiza la URL del modelo en tu formulario)
+        console.log('Archivo cargado con éxito:', res);
+        this.url_model = res.downloadLink;
+        this.model_ref = res.fileName;
+      },
+      (error) => {
+        console.error('Error al cargar el archivo:', error);
+      }
+    );
+    // Establece la bandera de carga del modelo
+    this.isUploadModel = true;
+  
   }
 
   // Método que se ejecutará antes de cerrar/cambiar la página
@@ -177,38 +182,50 @@ export class RoomViewsAddComponent implements OnInit {
 
   // ----------------------- TEXTURA -----------------------
  
-
   onDropTexture(event: DragEvent) {
     event.preventDefault();
     const files = event.dataTransfer.files;
-    this.handleTextureFiles(files);
+    if(files.length > 1){
+      this.textureErroMessage = 'Solo se puede cargar un archivo a la vez.';
+      return;
+    }
+    else{
+      const file = files[0];
+      this.handleTextureFile(file);
+
+    }
   }
 
-  handleTextureFiles(files: FileList) {
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      
-      // Validar el tipo de archivo [jpg o png]
-      if (!this.isValidTextureType(file)) {
-        this.textureErroMessage = 'Tipo de archivo no válido. Por favor, sube archivos JPG o PNG.';
-        continue; // Saltar este archivo y continuar con el siguiente
-      }
+  handleTextureFile(file: File) {
 
-      //Cargar el archivo si es jpg o png
-      this.roomService.uploadTextureFile(file).subscribe(
-        (res) => {
-          // Maneja la respuesta del servidor (por ejemplo, actualiza la URL del modelo en tu formulario)
-          console.log('Archivo cargado con éxito:', res);
-          this.texture_ref = res.fileName;
-          this.texture_url = res.downloadLink;
-        },
-        (error) => {
-          console.error('Error al cargar el archivo:', error);
-        }
-      );
-      // Establece la bandera de carga del modelo
-      this.isUploadModel = true;
+    // Validar el tipo de archivo [jpg o png]
+    if (!this.isValidTextureType(file)) {
+      this.textureErroMessage = 'Tipo de archivo no válido. Por favor, sube archivos JPG o PNG.';
+      return; // Saltar este archivo y continuar con el siguiente
     }
+
+    if(!this.isValidTextureFileSize(file)){
+      this.textureErroMessage = 'Tamaño de archivo no válido. El tamaño máximo permitido es 25 MB.';
+      return;
+    }
+
+    this.processTextureImage(file);
+
+    //Cargar el archivo si es jpg o png
+    this.roomService.uploadTextureFile(file).subscribe(
+      (res) => {
+        // Maneja la respuesta del servidor (por ejemplo, actualiza la URL del modelo en tu formulario)
+        console.log('Archivo cargado con éxito:', res);
+        this.texture_ref = res.fileName;
+        this.texture_url = res.downloadLink;
+      },
+      (error) => {
+        console.error('Error al cargar el archivo:', error);
+      }
+    );
+    // Establece la bandera de carga del modelo
+    this.isUploadModel = true;
+
   }
 
   onBeforeUnloadTexture() {
@@ -225,6 +242,11 @@ export class RoomViewsAddComponent implements OnInit {
         }
       );
     }
+  }
+
+  processTextureImage(file: File): File{
+    console.log("File", file);
+    return null;
   }
 
   // ---------------------- IAMGENES----------------------
@@ -363,14 +385,15 @@ export class RoomViewsAddComponent implements OnInit {
     }
   }
 
-  private isValidFileType(file: File): boolean {
+
+  private isValidModelType(file: File): boolean {
     const fileExtension = file.name.split('.').pop().toLowerCase();
-    // Verificar si la extensión es "obj" o "rar", jpg o png para texturas
-    const allowedFileExtensions = ['obj', 'rar', 'jpg', 'png'];
+    // Verificar si la extensión es "obj"
+    const allowedFileExtensions = ['obj'];
     return allowedFileExtensions.includes(fileExtension);
   }
 
-  private isValidFileSize(file: File): boolean {
+  private isValidModelFileSize(file: File): boolean {
     // Verificar si el tamaño del archivo es aceptable
     const maxSizeBytes = 300 * 1024 * 1024; // 300 MB
     return file.size <= maxSizeBytes;
@@ -381,6 +404,12 @@ export class RoomViewsAddComponent implements OnInit {
     // Verificar si la extensión es "jpg" o "png"
     const allowedFileExtensions = ['jpg', 'png', 'jpeg'];
     return allowedFileExtensions.includes(fileExtension);
+  }
+
+  private isValidTextureFileSize(file: File): boolean {
+    // Verificar si el tamaño del archivo es aceptable
+    const maxSizeBytes = 25 * 1024 * 1024; // 10 MB
+    return file.size <= maxSizeBytes;
   }
 
   validarFormulario(): boolean {
