@@ -321,7 +321,11 @@ roomCtrl.createRoom = async (req, res) =>{
     image_ref_bucket: roomDataFromClient.image_ref_bucket,
     texture_ref_bucket: roomDataFromClient.texture_ref_bucket,
     reservas: roomDataFromClient.reservas,
-    bucket_ref_imgs: roomDataFromClient.bucket_ref_imgs
+    bucket_ref_imgs: roomDataFromClient.bucket_ref_imgs,
+    url_model_LQ: roomDataFromClient.url_model_LQ,
+    model_LQ_ref_bucket: roomDataFromClient.model_ref_bucket_LQ,
+    url_texture_LQ: roomDataFromClient.url_texture_LQ ,
+    texture_LQ_ref_bucket: roomDataFromClient.texture_ref_bucket_LQ,
   });
   console.log(room);
   await room.save();

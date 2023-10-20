@@ -22,6 +22,11 @@ const { Schema } = mongoose;
     model_ref_bucket: {type: String, required: true},
     url_texture: {type: String, required: true},
     texture_ref_bucket: {type: String, required: true},
+    url_model_LQ: {type: String, required: true},
+    model_LQ_ref_bucket: {type: String, required: true},
+    url_texture_LQ: {type: String, required: true},
+    texture_LQ_ref_bucket: {type: String, required: true},
+
     reservas: [{
         type: Schema.Types.ObjectId,
         ref: 'Booking'
