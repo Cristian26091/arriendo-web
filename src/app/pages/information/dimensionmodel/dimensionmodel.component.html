@@ -1,11 +1,9 @@
-<div #container class="model-container" style="width: 100%; padding-top: 2.5%; ">
-
-    <!-- Capa semitransparente -->
+<div #container class="model-container" style="width: 100%; padding-top: 2.5%;">
+  <!-- Capa semitransparente para modelo LQ -->
   <div class="loading-overlay" *ngIf="!modelLoaded">
     <div class="loader">
-      <div class="progress-bar" [style.width]="loadingProgress + '%'"></div>
-      <div class="loading-text">{{ loadingProgress }}%</div>
+      <div class="progress-bar" [style.width]="(lqModelLoaded ? loadingProgressHQ : loadingProgressLQ) + '%'"></div>
+      <div class="loading-text">{{ lqModelLoaded ? loadingProgressHQ : loadingProgressLQ }}%</div>
     </div>
   </div>
-
 </div>

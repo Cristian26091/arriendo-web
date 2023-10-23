@@ -7,6 +7,8 @@ import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 import { ImageRef } from 'src/app/models/image-ref';
 
+
+
 @Component({
   selector: 'app-room-views-add',
   templateUrl: './room-views-add.component.html',
@@ -156,7 +158,7 @@ export class RoomViewsAddComponent implements OnInit {
       
     // Validar el tipo de archivo obj
     if (!this.isValidModelType(file)) {
-      this.ModelErrorMessageHQ = 'Tipo de archivo no válido. Por favor, sube archivos .obj.';
+      this.ModelErrorMessageHQ = 'Tipo de archivo no válido. Por favor, sube archivos con extensión obj, glb o gltf.';
       return; // Saltar este archivo y continuar con el siguiente
     }
 
@@ -499,7 +501,7 @@ export class RoomViewsAddComponent implements OnInit {
   private isValidModelType(file: File): boolean {
     const fileExtension = file.name.split('.').pop().toLowerCase();
     // Verificar si la extensión es "obj"
-    const allowedFileExtensions = ['obj'];
+    const allowedFileExtensions = ['obj', 'glb', 'gltf'];
     return allowedFileExtensions.includes(fileExtension);
   }
 
