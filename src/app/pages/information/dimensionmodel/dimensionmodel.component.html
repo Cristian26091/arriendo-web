@@ -1,18 +1,9 @@
-<div #container class="model-container" style="width: 100%; padding-top: 2.5%;">
-  <div class="loading-overlay" *ngIf="!modelLoaded">
-    <div class="loader">
-      <div class="progress-bar" *ngIf="lqModelLoaded" [style.width.%]="loadingProgressLQ">
-        {{ loadingProgressLQ }}%
-      </div>
-      <div class="progress-bar" *ngIf="hqModelLoaded" [style.width.%]="loadingProgressHQ">
-        {{ loadingProgressHQ }}%
-      </div>
-      <div class="loading-text" *ngIf="lqModelLoaded && !hqModelLoaded">
-        Loading Low Quality Model: {{ loadingProgressLQ }}%
-      </div>
-      <div class="loading-text" *ngIf="hqModelLoaded">
-        Loading High Quality Model: {{ loadingProgressHQ }}%
-      </div>
+<div class="model-container" #container>
+  <div class="loading-overlay" *ngIf="loadingProgress < 100">
+    <div class="loading-text">Cargando modelo...</div>
+    <div class="progress-bar">
+      <div class="progress" [style.width.%]="loadingProgress"></div>
     </div>
+    <div class="loading-text">{{ loadingProgress }}%</div>
   </div>
 </div>

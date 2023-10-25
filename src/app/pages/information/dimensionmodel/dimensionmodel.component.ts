@@ -5,8 +5,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomService } from 'src/app/services/room.service';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-
-
 @Component({
   selector: 'app-dimensionmodel',
   templateUrl: './dimensionmodel.component.html',
@@ -17,8 +15,7 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
   @ViewChild('container', { static: true }) container!: ElementRef;
 
   private scene: THREE.Scene = new THREE.Scene();
-  public loadingProgressHQ: number = 0;
-  public loadingProgressLQ: number = 0;
+  public loadingProgress: number = 0;
   private camera: THREE.PerspectiveCamera;
   private renderer: THREE.WebGLRenderer;
   private controls: THREE.OrbitControls;
@@ -33,6 +30,9 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
   private static textureLoader: THREE.TextureLoader;
   private static objLoader: OBJLoader;
   private static gltfLoader: GLTFLoader;
+
+  private currentModelType: string; // Puedes usar "LQ" o "HQ" para indicar el tipo de modelo.
+
 
 
   constructor(public roomService: RoomService) {
@@ -64,11 +64,11 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
     this.controls.screenSpacePanning = false;
 
     // Ajusta la velocidad de rotación
-    this.controls.rotateSpeed = 2.0;
+    this.controls.rotateSpeed = 1.2;
     // Ajusta la velocidad de zoom
-    this.controls.zoomSpeed = 2.0;
+    this.controls.zoomSpeed = 1.2;
     // Ajusta la velocidad de paneo
-    this.controls.panSpeed = 1;
+    this.controls.panSpeed = 1.2;
 
     // Agregar luces a la escena
     this.ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -99,6 +99,7 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
       await this.loadLowQualityModel(urlLQModel, urlLQTexture);
   
       const endTime = performance.now();
+      //tiempo en milisegundos
       this.lqModelDownloadTime = endTime - startTime;
   
       if (this.lqModelDownloadTime < 5000) {
@@ -154,15 +155,16 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
 
   // ----------------------------- LOADS -------------------------------
   private async loadLowQualityModel(urlModel: string, urlTexture: string): Promise<void> {
+    this.currentModelType = 'LQ';
     const lqObject = await this.load3DObject(urlModel, urlTexture);
-    lqObject.name = 'LQ_Model';
     this.scene.add(lqObject);
     this.lqModelLoaded = true;
-    this.loadingProgressLQ = 100;
+    this.loadingProgress = 100;
 
   }
 
   private async loadHighQualityModel(urlModel: string, urlTexture: string): Promise <void> {
+    this.currentModelType = "HQ"; // Indica que se ha cargado un modelo HQ
     const hqObject = await this.load3DObject(urlModel, urlTexture);
     hqObject.name = 'HQ_Model';
     // Remove the LQ version from the scene if present
@@ -170,10 +172,11 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
     if (lqModel) {
       this.scene.remove(lqModel);
     }
+
     // Add the HQ object to the scene
     this.scene.add(hqObject);
     this.hqModelLoaded = true;
-    this.loadingProgressHQ = 100;
+    this.loadingProgress
  
  
   }
@@ -186,6 +189,7 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
         loader.load(
           urlModel,
           (gltf) => {
+            console.log("gltf name: ", gltf.scene.name);
             if (gltf.scene) {
               // gltf.scene.scale.set(0.5, 0.5, 0.5);
               this.scene.add(gltf.scene);
@@ -195,7 +199,7 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
           },
           (xhr) => {
             const percentComplete = (xhr.loaded / xhr.total) * 100;
-            this.loadingProgressLQ = Math.trunc(percentComplete);
+            this.loadingProgress = Math.trunc(percentComplete);
           },
           undefined,
           (error) => {
@@ -234,13 +238,13 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
             } 
           
             else {
-              console.error('El objeto no es una instancia de THREE.Object3D.');
+              console.error('El objeto no es una instancia de THREE.Object3D, THREE.Mesh o THREE.Group');
               reject();
             }
           },
           (xhr) => {
             const percentComplete = (xhr.loaded / xhr.total) * 100;
-            this.loadingProgressLQ = Math.trunc(percentComplete);
+            this.loadingProgress = Math.trunc(percentComplete);
           },
           undefined,
           (error) => {
