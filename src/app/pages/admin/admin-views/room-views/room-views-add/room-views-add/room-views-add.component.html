@@ -5,10 +5,9 @@
         <h1 class="text-center">Registro de habitación</h1>
         
         <div class="form-section">
-            <h2>Información de los modelos</h2>
+            <h2>Información del Modelo Detallado</h2>
             <hr>
             <div class="row mb-3">
-
                 <div class="col md-6">
                     <!-- Modelo 3D: Zona de arrastre (Drop Zone) -->
                     <div id="dropZone" class="drop-zone form-control" (drop)="onDropModelHQ($event)" (dragover)="onDragOver($event)">
@@ -22,7 +21,26 @@
                     </div>
                     <div *ngIf="ModelErrorMessageHQ" class="text-danger"> {{ModelErrorMessageHQ}}</div>
                 </div>
+                <div class="col md-6">
+                    <!-- TEXTURA DEL MODELO 3D -->
+                    <div id="dropZone" class="drop-zone form-control" (drop)="onDropTextureHQ($event)" (dragover)="onDragOver($event)">
+                        <!-- Icono de carga centrado arriba del texto -->
+                        <div class="d-flex flex-column align-items-center">
+                            <i class="bi bi-image h1 mb-3" *ngIf="getFileName(texture_refHQ)"></i>
+                            <i class="bi bi-upload h1 mb-3" *ngIf="!getFileName(texture_refHQ)"></i>
+                            <p class="mb-0" *ngIf="!getFileName(texture_refHQ)">Arrastra y suelta tu textura del modelo detallado aquí</p>
+                            <p *ngIf="getFileName(texture_refHQ)" style="color: skyblue;">Textura cargada:{{getFileName(texture_refHQ)}} </p>
+                        </div>
+                    </div>
+                    <div *ngIf="textureErroMessageHQ" class="text-danger">{{textureErroMessageHQ}}</div>
+                </div>
+            </div>
+        </div>
 
+        <div class="form-section">
+            <h2>Información del Modelo de Baja Calidad </h2>
+            <hr>
+            <div class="row mb-3">
                 <div class="col md-6">
                     <!-- Modelo 3D: Zona de arrastre (Drop Zone) -->
                     <div id="dropZone" class="drop-zone form-control" (drop)="onDropModelLQ($event)" (dragover)="onDragOver($event)">
@@ -36,30 +54,10 @@
                     </div>
                     <div *ngIf="ModelErrorMessageLQ" class="text-danger"> {{ModelErrorMessageLQ}}</div>
                 </div>
-
-                <!-- TEXTURA MODELO 1 -->
-                <!-- <div class="col md-6">
-                    <div id="dropZone" class="drop-zone form-control" (drop)="onDropTextureHQ($event)" (dragover)="onDragOver($event)">
-                        <div class="d-flex flex-column align-items-center">
-                            <i class="bi bi-image h1 mb-3" *ngIf="getFileName(texture_refHQ)"></i>
-                            <i class="bi bi-upload h1 mb-3" *ngIf="!getFileName(texture_refHQ)"></i>
-                            <p class="mb-0" *ngIf="!getFileName(texture_refHQ)">Arrastra y suelta tu textura del modelo detallado aquí</p>
-                            <p *ngIf="getFileName(texture_refHQ)" style="color: skyblue;">Textura cargada:{{getFileName(texture_refHQ)}} </p>
-                        </div>
-                    </div>
-                    <div *ngIf="textureErroMessageHQ" class="text-danger">{{textureErroMessageHQ}}</div>
-                </div> -->
-
-            </div>
-        </div>
-
-        <!-- <div class="form-section">
-            <h2>Información del Modelo de Baja Calidad </h2>
-            <hr>
-            <div class="row mb-3">
-
-                 <div class="col md-6">
+                <div class="col md-6">
+                    <!-- TEXTURA DEL MODELO 3D -->
                     <div id="dropZone" class="drop-zone form-control" (drop)="onDropTextureLQ($event)" (dragover)="onDragOver($event)">
+                        <!-- Icono de carga centrado arriba del texto -->
                         <div class="d-flex flex-column align-items-center">
                             <i class="bi bi-image h1 mb-3" *ngIf="getFileName(texture_refLQ)"></i>
                             <i class="bi bi-upload h1 mb-3" *ngIf="!getFileName(texture_refLQ)"></i>
@@ -70,7 +68,7 @@
                     <div *ngIf="textureErroMessageLQ" class="text-danger">{{textureErroMessageLQ}}</div>
                 </div>
             </div>
-        </div> -->
+        </div>
         
         <form>
             <h2>Información de Ubicación</h2>

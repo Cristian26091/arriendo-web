@@ -20,12 +20,12 @@ const { Schema } = mongoose;
     url_img_cover: {type: String, required: true},
     url_model: {type: String, required: true},
     model_ref_bucket: {type: String, required: true},
-    // url_texture: {type: String, required: true},
-    // texture_ref_bucket: {type: String, required: true},
+    url_texture: {type: String, required: true},
+    texture_ref_bucket: {type: String, required: true},
     url_model_LQ: {type: String, required: true},
     model_LQ_ref_bucket: {type: String, required: true},
-    // url_texture_LQ: {type: String, required: true},
-    // texture_LQ_ref_bucket: {type: String, required: true},
+    url_texture_LQ: {type: String, required: true},
+    texture_LQ_ref_bucket: {type: String, required: true},
 
     reservas: [{
         type: Schema.Types.ObjectId,

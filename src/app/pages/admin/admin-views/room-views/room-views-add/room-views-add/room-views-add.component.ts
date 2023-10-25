@@ -282,6 +282,8 @@ export class RoomViewsAddComponent implements OnInit {
       return;
     }
 
+    this.processTextureImage(file);
+
     //Cargar el archivo si es jpg o png
     this.roomService.uploadTextureFile(file).subscribe(
       (res) => {
@@ -309,6 +311,8 @@ export class RoomViewsAddComponent implements OnInit {
       this.textureErroMessageLQ = 'Tamaño de archivo no válido. El tamaño máximo permitido es 25 MB.';
       return;
     }
+
+    this.processTextureImage(file);
 
     //Cargar el archivo si es jpg o png
     this.roomService.uploadTextureFile(file).subscribe(
@@ -351,6 +355,12 @@ export class RoomViewsAddComponent implements OnInit {
       );
     }
   }
+
+  processTextureImage(file: File): File{
+    console.log("File", file);
+    return null;
+  }
+
   // ---------------------- IAMGENES----------------------
 
   // Función para manejar el evento 'drop' de las imagenes del cover
@@ -540,20 +550,20 @@ export class RoomViewsAddComponent implements OnInit {
       formularioValido = false;
     }
   
-    // if (!this.texture_refHQ) {
-    //   this.textureErroMessageHQ = 'Por favor, sube una textura.';
-    //   formularioValido = false;
-    // }
+    if (!this.texture_refHQ) {
+      this.textureErroMessageHQ = 'Por favor, sube una textura.';
+      formularioValido = false;
+    }
 
     if (!this.model_refLQ) {
       this.ModelErrorMessageLQ = 'Por favor, sube un modelo 3D.';
       formularioValido = false;
     }
 
-    // if (!this.texture_refLQ) {
-    //   this.textureErroMessageLQ = 'Por favor, sube una textura.';
-    //   formularioValido = false;
-    // }
+    if (!this.texture_refLQ) {
+      this.textureErroMessageLQ = 'Por favor, sube una textura.';
+      formularioValido = false;
+    }
 
     if (!this.selectedRegion) {
       this.regionErrorMessage = 'Por favor, selecciona una región.';
@@ -621,10 +631,10 @@ export class RoomViewsAddComponent implements OnInit {
     this.url_modelLQ = '';
     this.model_refLQ = '';
     this.imagesRefs = [];
-    // this.texture_refHQ = '';
-    // this.texture_urlHQ = '';
-    // this.texture_refLQ = '';
-    // this.texture_urlLQ = '';
+    this.texture_refHQ = '';
+    this.texture_urlHQ = '';
+    this.texture_refLQ = '';
+    this.texture_urlLQ = '';
     this.cover_image_url = '';
   }
   
@@ -654,13 +664,13 @@ export class RoomViewsAddComponent implements OnInit {
       // Campos modelo 3D
       room.url_model = this.url_modelHQ; // URL del modelo
       room.model_ref_bucket = this.model_refHQ; // Nombre del archivo del modelo en el bucket
-      // room.url_texture = this.texture_urlHQ; // URL de la textura
-      // room.texture_ref_bucket = this.texture_refHQ; // Nombre del archivo de la textura en el bucket
+      room.url_texture = this.texture_urlHQ; // URL de la textura
+      room.texture_ref_bucket = this.texture_refHQ; // Nombre del archivo de la textura en el bucket
       room.bucket_ref_imgs = this.imagesRefs; // Referencia de las imágenes en el bucket (nombre, url)
       room.url_model_LQ = this.url_modelLQ; // URL del modelo
       room.model_ref_bucket_LQ = this.model_refLQ; // Nombre del archivo del modelo en el bucket
-      // room.url_texture_LQ = this.texture_urlLQ; // URL de la textura
-      // room.texture_ref_bucket_LQ = this.texture_refLQ; // Nombre del archivo de la textura en el bucket
+      room.url_texture_LQ = this.texture_urlLQ; // URL de la textura
+      room.texture_ref_bucket_LQ = this.texture_refLQ; // Nombre del archivo de la textura en el bucket
 
       //Campo imagen de portada
       this.chooseCoverImage();
