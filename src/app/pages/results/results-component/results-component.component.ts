@@ -24,6 +24,10 @@ export class ResultsComponentComponent {
     this.isRoomServiceVoid = this.roomService.roomsIsVoid();
   }
 
+  ngOnDestroy(){
+    this.cookieService.delete('busquedaResultados');
+  }
+
 }
 
 
