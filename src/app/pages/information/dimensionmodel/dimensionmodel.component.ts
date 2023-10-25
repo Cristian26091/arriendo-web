@@ -5,8 +5,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomService } from 'src/app/services/room.service';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-import { ConnectionSpeedServiceService } from '../../../services/connection-speed-service.service';
-
 
 
 @Component({
@@ -16,29 +14,41 @@ import { ConnectionSpeedServiceService } from '../../../services/connection-spee
 })
 export class DimensionmodelComponent implements OnInit, AfterViewInit {
 
-  // @ViewChild('canvas') canvasRef: ElementRef<HTMLCanvasElement>;
   @ViewChild('container', { static: true }) container!: ElementRef;
 
   private scene: THREE.Scene = new THREE.Scene();
-
-  // public loadingProgress: number = 0;
-
   public loadingProgressHQ: number = 0;
   public loadingProgressLQ: number = 0;
-
-
   private camera: THREE.PerspectiveCamera;
   private renderer: THREE.WebGLRenderer;
   private controls: THREE.OrbitControls;
-  
   private ambientLight: THREE.AmbientLight;
   private directionalLight : THREE.DirectionalLight;
-
   public modelLoaded: boolean = false;
   public lqModelLoaded: boolean = false;
+  public  hqModelLoaded: boolean = false;
+  private lqModelDownloadTime: number = 0;
+
+  private static instance: DimensionmodelComponent;
+  private static textureLoader: THREE.TextureLoader;
+  private static objLoader: OBJLoader;
+  private static gltfLoader: GLTFLoader;
 
 
-  constructor(public roomService: RoomService, ) {}
+  constructor(public roomService: RoomService) {
+    // Establecer la instancia Singleton
+    DimensionmodelComponent.instance = this;
+    // Inicializar cargadores Singleton
+    if (!DimensionmodelComponent.textureLoader) {
+      DimensionmodelComponent.textureLoader = new THREE.TextureLoader();
+    }
+    if (!DimensionmodelComponent.objLoader) {
+      DimensionmodelComponent.objLoader = new OBJLoader();
+    }
+    if (!DimensionmodelComponent.gltfLoader) {
+      DimensionmodelComponent.gltfLoader = new GLTFLoader();
+    }
+  }
 
   private initscene() {
 
@@ -53,6 +63,13 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
     this.controls.dampingFactor = 0.05;
     this.controls.screenSpacePanning = false;
 
+    // Ajusta la velocidad de rotación
+    this.controls.rotateSpeed = 2.0;
+    // Ajusta la velocidad de zoom
+    this.controls.zoomSpeed = 2.0;
+    // Ajusta la velocidad de paneo
+    this.controls.panSpeed = 1;
+
     // Agregar luces a la escena
     this.ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     this.scene.add(this.ambientLight);
@@ -66,38 +83,33 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
 
     this.initscene();
 
-    //revisamos si el modelo tiene una version LQ (temporalmente para los modelos que ya tengo implementado y no tienen una versión lq)
-    if(this.roomService.selectedRoom.url_model_LQ == null || this.roomService.selectedRoom.url_model_LQ == undefined){
-      const urlHQModel = this.roomService.selectedRoom.url_model.toString();
-      const urlHQTexture = this.roomService.selectedRoom.url_texture.toString();
-      this.loadHighQualityModel(urlHQModel, urlHQTexture);
-    }
-    //luego de verificar que tenga una versión LQ se carga el modelo LQ
-    else{
-      const urlLQModel = this.roomService.selectedRoom.url_model_LQ.toString();
-      const urlLQTexture = this.roomService.selectedRoom.url_texture_LQ.toString();
-      const urlHQModel = this.roomService.selectedRoom.url_model.toString();
-      const urlHQTexture = this.roomService.selectedRoom.url_texture.toString();
+    const urlHQModel = this.roomService.selectedRoom.url_model.toString();
+    const urlTexture = this.roomService.selectedRoom.url_texture.toString();
+    const urlLQModel = this.roomService.selectedRoom.url_model_LQ?.toString();
+    const urlLQTexture = this.roomService.selectedRoom.url_texture_LQ?.toString();
 
-      //mido la el tiempo de descarga del modelo LQ
+    if (urlLQModel) {
+      // Cargar modelo LQ al principio si existe
       const startTime = performance.now();
 
-      this.loadLowQualityModel(urlLQModel,urlLQTexture); // Cargar modelo LQ al principio
-
+      await this.loadLowQualityModel(urlLQModel, urlLQTexture);
+  
       const endTime = performance.now();
-      const downloadTime = endTime - startTime;
-
-      // console.log("tiempo en milisegundos de descarga del modelo LQ: " + downloadTime);
-
-      //si la descarga del modelo Low Quality es mayor a 5 segundos, se carga el modelo High Quality
-      if(downloadTime < 5000){
-        this.loadHighQualityModel(urlHQModel,urlHQTexture); // Cargar modelo HQ al principio
+      this.lqModelDownloadTime = endTime - startTime;
+  
+      if (this.lqModelDownloadTime < 5000) {
+        // Si la descarga del modelo LQ es rápida, cargar el modelo HQ
+        await this.loadHighQualityModel(urlHQModel, urlTexture);
       }
+    } else {
+      // Si no hay modelo LQ, cargar directamente el HQ
+      await this.loadHighQualityModel(urlHQModel, urlTexture);
     }
+
   
     // Escucha el evento de cambio de tamaño de la ventana y ajusta el renderizador
     window.addEventListener('resize', () => {
@@ -131,18 +143,8 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
   }
 
   ngOnDestroy() {
-    while (this.scene.children.length > 0) {
-      const child = this.scene.children[0];
-      if (child instanceof THREE.Mesh) {
-        // Si es un Mesh, elimina su material para liberar recursos
-        if (child.material instanceof THREE.Material) {
-          child.material.dispose();
-        }
-      }
-      this.scene.remove(child);
-    }
+    this.disposeScene(this.scene);
     this.controls.dispose();
-    this.renderer.dispose();
   }
 
   private animate(): void {
@@ -157,113 +159,126 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
     this.scene.add(lqObject);
     this.lqModelLoaded = true;
     this.loadingProgressLQ = 100;
+
   }
 
   private async loadHighQualityModel(urlModel: string, urlTexture: string): Promise <void> {
     const hqObject = await this.load3DObject(urlModel, urlTexture);
     hqObject.name = 'HQ_Model';
     // Remove the LQ version from the scene if present
-    this.scene.children.forEach((child) => {
-      if (child.name === 'LQ_Model') {
-        this.scene.remove(child);
-      }
-    });
+    const lqModel = this.scene.getObjectByName('LQ_Model');
+    if (lqModel) {
+      this.scene.remove(lqModel);
+    }
     // Add the HQ object to the scene
     this.scene.add(hqObject);
-    this.modelLoaded = true;
+    this.hqModelLoaded = true;
     this.loadingProgressHQ = 100;
+ 
  
   }
 
   private load3DObject(urlModel: string, urlTexture:string): Promise<THREE.Object3D> {
-    // Reset progress based on the type of model
-    if (urlModel.endsWith('.obj')) {
-      this.loadingProgressLQ = 0; // Reset LQ progress
-      this.loadingProgressHQ = 0; // Reset HQ progress
-    } else {
-      this.loadingProgressHQ = 0; // Reset HQ progress
-      this.loadingProgressLQ = 0; // Reset LQ progress
-    }
-
-    this.modelLoaded = false;
     return new Promise((resolve, reject) => {
-
-      if (urlModel.endsWith('.obj')) {
-        const loader = new OBJLoader();
+      let loader: THREE.Loader;
+      if (urlModel.endsWith('.glb') || urlModel.endsWith('.gltf')) {
+        loader = DimensionmodelComponent.gltfLoader;
         loader.load(
           urlModel,
-          (object) => {
-            object.traverse((child) => {
-
-              if (child instanceof THREE.Mesh || child instanceof THREE.Group) {
-                child.scale.set(0.5, 0.5, 0.5);
-                this.scene.add(object);
-                const textureLoader = new THREE.TextureLoader();
-                const texture = textureLoader.load(urlTexture);
-                child.material = new THREE.MeshBasicMaterial({ map: texture });
-                this.modelLoaded = true;
-                // Update the loading progress based on the type of model
-                if (urlModel.endsWith('.obj')) {
-                  this.loadingProgressLQ = 100; // LQ is fully loaded
-                } else {
-                  this.loadingProgressHQ = 100; // HQ is fully loaded
-                }
-              }
-            });
-            resolve(object);
+          (gltf) => {
+            if (gltf.scene) {
+              // gltf.scene.scale.set(0.5, 0.5, 0.5);
+              this.scene.add(gltf.scene);
+              this.modelLoaded = true;
+              resolve(gltf.scene);
+            }
           },
           (xhr) => {
             const percentComplete = (xhr.loaded / xhr.total) * 100;
-            // Update the loading progress based on the type of model
-            if (urlModel.endsWith('.obj')) {
-              this.loadingProgressLQ = Math.trunc(percentComplete);
-            } else {
-              this.loadingProgressHQ = Math.trunc(percentComplete);
-            }
+            this.loadingProgressLQ = Math.trunc(percentComplete);
           },
           undefined,
           (error) => {
             console.error(`Error al cargar el objeto 3D: ${error}`);
-          },
-          reject
+            reject();
+          }
         );
-        
-      } else if (urlModel.endsWith('.glb') || urlModel.endsWith('.gltf')) {
-          const loader = new GLTFLoader();
-          loader.load(
-            urlModel,
-            (gltf) => {
-              const object = gltf.scene;
-              object.scale.set(0.5, 0.5, 0.5);
+      }
+      else if (urlModel.endsWith('.obj')){
+        loader = DimensionmodelComponent.objLoader;
+        loader.load(
+          urlModel,
+          (object ) => {
+  
+            //si es obj
+            if (object instanceof THREE.Mesh || object instanceof THREE.Object3D){ // Verifica si es un objeto 3D
+              object.traverse((child) => {
+                if (child instanceof THREE.Mesh || child instanceof THREE.Group) {
+                  child.scale.set(0.5, 0.5, 0.5);
+                  this.loadTexture(urlTexture).then((texture) => {
+                    // Cuando la textura se carga con éxito, aplica la textura al material.
+                    child.material = new THREE.MeshBasicMaterial({ map: texture });
+                    this.scene.add(object);
+                    this.modelLoaded = true;
+                    resolve(object);
+                  }).catch((error) => {
+                    console.error('Error al cargar la textura:', error);
+                    reject();
+                  });
+                }
+    
+              });
               this.scene.add(object);
               this.modelLoaded = true;
-              // Update the loading progress based on the type of model
-              if (urlModel.endsWith('.obj')) {
-                this.loadingProgressLQ = 100; // LQ is fully loaded
-              } else {
-                this.loadingProgressHQ = 100; // HQ is fully loaded
-              }
               resolve(object);
-            },
-            (xhr) => {
-              const percentComplete = (xhr.loaded / xhr.total) * 100;
-              // Update the loading progress based on the type of model
-              if (urlModel.endsWith('.glb') || urlModel.endsWith('.gltf')) {
-                this.loadingProgressLQ = Math.trunc(percentComplete);
-              } else {
-                this.loadingProgressHQ = Math.trunc(percentComplete);
-              }
-            },
-            (error) => {
-              console.error(`Error al cargar el objeto 3D: ${error}`);
-            },
-            reject
-          );
-      } else {
-        console.error(`Formato de archivo no admitido: ${urlModel}`);
+            } 
+          
+            else {
+              console.error('El objeto no es una instancia de THREE.Object3D.');
+              reject();
+            }
+          },
+          (xhr) => {
+            const percentComplete = (xhr.loaded / xhr.total) * 100;
+            this.loadingProgressLQ = Math.trunc(percentComplete);
+          },
+          undefined,
+          (error) => {
+            console.error(`Error al cargar el objeto 3D: ${error}`);
+            reject();
+          }
+        );
+      }
+      else{
+        console.error('El formato del modelo no es compatible.');
         reject();
       }
+
+      
     });
+  }
+
+  private async loadTexture(urlTexture: string): Promise<THREE.Texture> {
+    return new Promise((resolve, reject) => {
+      DimensionmodelComponent.textureLoader.load(urlTexture, (texture) => {
+        resolve(texture);
+      }, undefined, (error) => {
+        console.error(`Error al cargar la textura: ${error}`);
+        reject();
+      });
+    });
+  }
+
+  private disposeScene(scene: THREE.Scene): void {
+    while (scene.children.length > 0) {
+      const child = scene.children[0];
+      if (child instanceof THREE.Mesh || child instanceof THREE.Group) {
+        if (child.material instanceof THREE.Material) {
+          child.material.dispose();
+        }
+      }
+      scene.remove(child);
+    }
   }
   
 
