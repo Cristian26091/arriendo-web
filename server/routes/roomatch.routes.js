@@ -19,6 +19,7 @@ router.get('/room', room.getRooms);
 router.get('/room/:idRoom', room.getRoom);
 router.get('/filterRooms', room.getRoomByFilter);
 router.delete('/room/:idRoom', room.deleteRoom);
+router.get('/filterRoomsResults', room.filterRoomsByResults);
 
 //----------ROOM BUCKET ROUTES-----------
 router.post('/uploadModel',upload.single('model'), room.uploadModelToBucket);

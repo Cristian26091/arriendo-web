@@ -21,6 +21,7 @@
     readonly URL_DELETE_IMAGES = environment.uri + '/api/deleteImages';
     readonly URL_UPLOAD_TEXTURE = environment.uri + '/api/uploadTexture';
     readonly URL_DELETE_TEXTURE = environment.uri + '/api/deleteTexture';
+    readonly URL_FILTER_ROOMS_RESULTS = environment.uri + '/api/filterRoomsResults';
 
     constructor(private http: HttpClient){}
 
@@ -107,7 +108,30 @@
       // console.log("Imprimir query:", params);
 
       return this.http.get<any[]>(`${this.URL_FILTER_ROOM}/filterRooms/`, { params });
-    
+    }
+
+    getRoomByFilterResults (req: any): Observable<any[]>{
+      let params = {
+        minPrice: "",
+        maxPrice: "",
+        typeHouse: "",
+        isShareBathroom: "",
+      };
+      if (req.minPrice !== undefined) {
+        params.minPrice = req.minPrice;
+      }
+      if (req.maxPrice !== undefined) {
+        params.maxPrice = req.maxPrice;
+      }
+      if (req.typeHouse !== undefined) {
+        params.typeHouse = req.typeHouse;
+      }
+      if (req.isShareBathroom !== undefined) {
+        params.isShareBathroom = req.isShareBathroom;
+      }
+      console.log("Imprimir query:", params);
+
+      return this.http.get<any[]>(`${this.URL_FILTER_ROOMS_RESULTS}`, { params });
     }
 
     postRoom(room: Room): Observable<any> {

@@ -293,7 +293,38 @@ roomCtrl.getRoomByFilter = async (req, res) => {
       console.error(error);
       res.status(500).json({ message: 'Error en el servidor' });
     }
-  };
+};
+
+roomCtrl.filterRoomsByResults = async (req, res) => {
+  const { minPrice, maxPrice, typeHouse, isSharedBathroom} = req.query;
+  console.log(req.query);
+
+  let query = {};
+
+  // Agregar criterios de filtro según los parámetros de consulta
+  if (minPrice) {
+    query.precio = { $gte: minPrice };
+  }
+  if (maxPrice) {
+    query.precio = { ...query.precio, $lte: maxPrice };
+  }
+  if (typeHouse) {
+    query.casa_depto = typeHouse;
+  }
+  if (isSharedBathroom) {
+    query.banio_compartido = true;
+  }
+
+  try {
+    const rooms = await Room.find(query);
+
+    res.json(rooms);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error en el servidor' });
+  }
+
+}
 
 roomCtrl.createRoom = async (req, res) =>{
   // console.log(req.body);
