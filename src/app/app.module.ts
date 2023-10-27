@@ -68,6 +68,10 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { BookingComponent } from './pages/userBooking/booking/booking.component';
 import { HistoryComponent } from './pages/userBooking/history/history.component';
 import { ViewInfoModalComponent } from './pages/admin/admin-views/reservation-views/view-info-modal/view-info-modal.component';
+import { HouseviewComponent } from './pages/admin/admin-views/house-views/houseview/houseview.component';
+import { AddFormHouseComponent } from './pages/admin/admin-views/house-views/add-form-house/add-form-house.component';
+
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -110,7 +114,8 @@ import { ViewInfoModalComponent } from './pages/admin/admin-views/reservation-vi
     BookingComponent,
     HistoryComponent,
     ViewInfoModalComponent,
-
+    HouseviewComponent,
+    AddFormHouseComponent,
   ],
   imports: [
     BrowserModule,
@@ -137,7 +142,7 @@ import { ViewInfoModalComponent } from './pages/admin/admin-views/reservation-vi
     MatSliderModule,
     MatSlideToggleModule,
   ],
-  providers: [CookieService],
+  providers: [CookieService, DatePipe],
   bootstrap: [AppComponent],
   
   schemas: [ 

@@ -30,8 +30,13 @@ export class SidebarComponent implements OnInit {
     this.cambiarContenido.emit('reclamos');
   }
 
+  mostrarCasas(){
+    this.cambiarContenido.emit('casas');
+  }
+
   //evento para cerrar sesión
   salir() {
     this.cambiarContenido.emit('salir');
   }
+
 }

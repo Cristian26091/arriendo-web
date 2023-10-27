@@ -10,6 +10,7 @@ const region = require('../controllers/region.controller');
 const user = require('../controllers/user.controller');
 const help = require('../controllers/help.controller');
 const booking = require('../controllers/booking.controller');
+const house = require('../controllers/house.controller');
 
 // ----------- HELP ROUTES -----------
 router.get('/help', help.getHelps);
@@ -20,6 +21,7 @@ router.get('/room/:idRoom', room.getRoom);
 router.get('/filterRooms', room.getRoomByFilter);
 router.delete('/room/:idRoom', room.deleteRoom);
 router.get('/filterRoomsResults', room.filterRoomsByResults);
+router.post('/uploadRoom',room.createRoom);
 
 //----------ROOM BUCKET ROUTES-----------
 router.post('/uploadModel',upload.single('model'), room.uploadModelToBucket);
@@ -28,7 +30,7 @@ router.post('/uploadImages',upload.array('images'), room.uploadImageToBucket);
 router.delete('/deleteImages/room-image-cover/:folder/:file', room.deleteImagesFromBucket);
 router.post('/uploadTexture',upload.single('texture'), room.uploadTextureToBucket);
 router.delete('/deleteTexture/textures/:file', room.deleteTextureFromBucket);
-router.post('/uploadRoom',room.createRoom);
+
 
 //----------CONTACT ROUTES-----------
 router.get('/contact', contact.getContacts);
@@ -52,6 +54,14 @@ router.get('/booking/room/:idRoom', booking.getBookingByRoom);
 router.post('/booking', booking.createBooking);
 router.put('/booking/:idBooking', booking.editBooking);
 router.delete('/booking/:idBooking', booking.deleteBooking);
+
+//----------HOUSE ROUTES-----------
+router.get('/house', house.getHouses);
+router.get('/house/:idHouse', house.getHouse);
+router.post('/house', house.createHouse);
+router.put('/house/:idHouse', house.editHouse);
+router.delete('/house/:idHouse', house.deleteHouse);
+
 
 
 module.exports = router;
