@@ -27,15 +27,11 @@ export class HouseviewComponent implements OnInit {
   }
 
   selectToEdit(item: House){
-
+    this.houseService.selectedHouse = item;
   }
 
   selectToDelete(item: House){
-
-  }
-
-  addHouse(){
-    
+    this.houseService.selectedHouse = item;
   }
 
   editHouse(){
@@ -43,6 +39,10 @@ export class HouseviewComponent implements OnInit {
   }
 
   deleteHouse(){
-
+    this.houseService.deleteHouse(this.houseService.selectedHouse._id.toString())
+      .subscribe(res => {
+        console.log(res);
+        this.getHouses();
+      });
   }
 }

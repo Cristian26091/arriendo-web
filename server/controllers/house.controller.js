@@ -53,9 +53,32 @@ houseCtrl.editHouse = async (req, res) => {
 }
 
 houseCtrl.deleteHouse = async (req, res) => {
-    const { id } = req.params;
-    await House.findByIdAndRemove(id);
-    res.json({status: 'House Deleted'});
+
+    try {
+        if (!req.body) {
+            return res.status(400).send({
+                message: "La casa no puede ser vacia!"
+            });
+        }
+    
+        const { idHouse } = req.params;
+        // Verifica si la casa existe en la base de datos
+        const existingHouse = await House.findById(idHouse);
+    
+        if (!existingHouse) {
+            return res.status(400).json({ message: 'La casa no existe!' });
+        }
+    
+        await House.findByIdAndDelete(idHouse);
+        res.status(200).json({ message: 'Casa eliminada con éxito' });
+    } catch (error) {
+        console.error('Error al eliminar casa:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
+    }
+
+    
+  
 }
+
 
 module.exports = houseCtrl

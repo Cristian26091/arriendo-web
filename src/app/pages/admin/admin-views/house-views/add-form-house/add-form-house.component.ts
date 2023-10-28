@@ -84,10 +84,20 @@ export class AddFormHouseComponent implements OnInit {
     this.errors = {};
   }
 
+  getHouses() {
+    this.houseService.getHouses().subscribe(
+      (res) => {
+        this.houseService.houses = res as House[];
+      },
+      (err) => console.log(err)
+    );
+  }
+
   createHouse() {
     this.houseService.postHouse(this.casa).subscribe(
       (res) => {
         console.log(res);
+        this.getHouses();
       },
       (err) => console.log(err)
     );
