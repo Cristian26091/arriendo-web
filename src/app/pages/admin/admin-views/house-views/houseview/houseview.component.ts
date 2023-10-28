@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { House } from '../../../../../models/house';
 import { HouseService } from '../../../../../services/house.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-houseview',
@@ -16,6 +17,10 @@ export class HouseviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.headTableContent = ["ID", "Fecha publicación", "Fecha Término", "Precio", "Dueño", "Acción"];
+
+
+
+
     this.getHouses();
   }
 
@@ -23,7 +28,7 @@ export class HouseviewComponent implements OnInit {
     this.houseService.getHouses()
       .subscribe(res => {
         this.houseService.houses = res as House[];
-      });
+    });
   }
 
   selectToEdit(item: House){
@@ -41,8 +46,9 @@ export class HouseviewComponent implements OnInit {
     return priceAsNumber;
   }
 
-  editHouse(){
-
+  formateDate(date: Date): string  {
+    const datePipe = new DatePipe('en-US');
+    return datePipe.transform(date, 'yyyy-MM-dd');
   }
 
   deleteHouse(){

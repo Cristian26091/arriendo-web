@@ -47,7 +47,7 @@
             <td>{{ formatPrice(house.precio) | currency:'CLP':'symbol-narrow'}}</td>
             <td>{{ house.duenio }}</td>
             <td>
-                <button class="btn btn-primary" (click)="selectToEdit(house)" data-bs-toggle="modal" data-bs-target="#editHouseModal" *ngIf="houseService.selectedHouse">Editar</button>
+                <button class="btn btn-primary" (click)="selectToEdit(house)" data-bs-toggle="modal" data-bs-target="#editHouseModal">Editar</button>
                 <button class="btn btn-danger" (click)="selectToDelete(house)" data-bs-toggle="modal" data-bs-target="#deleteHouseModal">Eliminar</button>
             </td>
         </tr>
@@ -90,7 +90,7 @@
         </div>
     </div>
 
-    <!-- MODAL EDITAR HABITACIÓN -->
+    <!-- MODAL EDITAR CASA -->
     <div class="modal fade" id="editHouseModal" tabindex="-1" aria-labelledby="editHouseModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered mx-auto">
             <div class="modal-content">
@@ -103,7 +103,7 @@
                 <!-- Cuerpo del Modal -->
                 <div class="modal-body text-center">
                     <div>
-                        <app-edit-form-house [house]="houseService.selectedHouse"></app-edit-form-house>
+                        <app-edit-form-house [house]="houseService.selectedHouse" [fechaTermino]="formateDate(houseService.selectedHouse.fecha_termino)"></app-edit-form-house>
                     </div>
                 </div>
 

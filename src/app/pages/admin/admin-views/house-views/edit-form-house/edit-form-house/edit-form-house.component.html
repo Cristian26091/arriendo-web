@@ -3,19 +3,16 @@
     <div class="mb-3">
         <label for="fechaPublicacion" class="form-label">Fecha de Publicación:</label>
         <span id="fechaPublicacion" class="form-control">{{ house.fecha_publicacion | date:'dd-MM-yyyy'}}</span>
-      </div>
-      
-      
+    </div>
   
     <div class="mb-3">
       <label for="fechaTermino" class="form-label">Fecha de Término:</label>
-      <input type="date" id="fechaTermino" name="fechaTermino" [(ngModel)]="house.fecha_termino" class="form-control" required (input)="validateFechaTermino">
+      <input type="date" id="fechaTermino" name="fechaTermino" [(ngModel)]="fechaTermino" class="form-control" required (input)="validateFechaTermino">
       <div class="invalid-feedback">
         Por favor, ingrese la fecha de término.
       </div>
       <div *ngIf="errors['fechaTermino']" class="text-danger">{{ errors['fechaTermino'] }}</div>
     </div>
-    <div *ngIf=""></div>
   
     <div class="mb-3">
       <label for="precio" class="form-label">Precio:</label>
@@ -36,6 +33,6 @@
       <div *ngIf="errors['nameDuenio']" class="text-danger">{{ errors['nameDuenio'] }}</div>
     </div>
   
-    <button type="submit" class="btn btn-primary">Editar Casa</button>
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
   </form>
   

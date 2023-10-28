@@ -41,15 +41,35 @@ houseCtrl.createHouse = async (req, res) => {
 }
 
 houseCtrl.editHouse = async (req, res) => {
-    const { id } = req.params;
-    const house = {
-        fecha_publicacion: req.body.fecha_publicacion,
-        fecha_termino: req.body.fecha_termino,
-        precio: req.body.precio,
-        duenio: req.body.duenio
-    };
-    await House.findByIdAndUpdate(id, {$set: house}, {new: true});
-    res.json({status: 'House Updated'});
+    try {
+        if(!req.body){
+            return res.status(400).send({
+                message: "La casa no puede ser vacia!"
+            });
+        }
+
+        console.log("caca");
+
+        const { idHouse } = req.params;
+        const existingHouse = await House.findById(idHouse);
+
+        if(!existingHouse){
+            return res.status(400).json({ message: 'La casa no está registrada!' });
+        }
+
+        const house = {
+            fecha_publicacion: req.body.fecha_publicacion,
+            fecha_termino: req.body.fecha_termino,
+            precio: req.body.precio,
+            duenio: req.body.duenio
+        };
+        await House.findByIdAndUpdate(idHouse, {$set: house}, {new: true});
+        res.json({status: 'Casa editada con exito!'});
+
+    } catch (error) {
+        console.error('Error al actualizar casa:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
+    }
 }
 
 houseCtrl.deleteHouse = async (req, res) => {
