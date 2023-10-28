@@ -1,5 +1,4 @@
 import { Component, OnInit , Output, EventEmitter} from '@angular/core';
-import { RoomService } from 'src/app/services/room.service';
 
 
 @Component({
@@ -11,9 +10,6 @@ export class FilterResultComponent implements OnInit {
 
   @Output() queryFilterEvent = new EventEmitter<string>();
 
-  minValueSlider: number = 0; // Establece el valor mínimo inicial
-  maxValueSlider: number = 250000; // Establece el valor máximo inicial
-
   selectedMinPrice: number = 0; // Establece el valor mínimo seleccionado
   selectedMaxPrice: number = 0; // Establece el valor máximo seleccionado
 
@@ -24,7 +20,7 @@ export class FilterResultComponent implements OnInit {
   errorMinPrice: string = ''; // Establece el mensaje de error para el valor mínimo
   erroMaxPrice: string = ''; // Establece el mensaje de error para el valor máximo
 
-  constructor(private roomService: RoomService) { 
+  constructor() { 
 
   }
 

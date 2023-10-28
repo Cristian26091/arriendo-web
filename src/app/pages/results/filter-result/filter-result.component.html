@@ -8,13 +8,13 @@
 
         <div class="mb-3">
             <label for="minPrice" class="form-label">Precio minimo:</label>
-            <mat-slider min="0" max="100000" step="1000" showTickMarks discrete [displayWith]="formatLabel" [thumbLabel]="true"  [(ngModel)]="selectedMinPrice" (ngModelChange)="applyFilter()" >
+            <mat-slider min="0" max="250000" step="1000" showTickMarks discrete [displayWith]="formatLabel" [thumbLabel]="true"  [(ngModel)]="selectedMinPrice" (ngModelChange)="applyFilter()" >
                 <input matSliderThumb>
             </mat-slider>
         </div>
         <div class="mb-3">
             <label for="maxPrice" class="form-label">Precio máximo:</label>
-            <mat-slider min="0" max="100000" step="1000" showTickMarks discrete [displayWith]="formatLabel" [thumbLabel]="true"  [(ngModel)]="selectedMaxPrice" (ngModelChange)="applyFilter()">
+            <mat-slider min="0" max="250000" step="1000" showTickMarks discrete [displayWith]="formatLabel" [thumbLabel]="true"  [(ngModel)]="selectedMaxPrice" (ngModelChange)="applyFilter()">
                 <input matSliderThumb>
             </mat-slider>
         </div>

@@ -41,7 +41,7 @@ export class ResultsComponentComponent {
   filterQuery(query: any) {
     console.log("query:",query);
     this.query = query;
-    this.resultsRooms = this.resultsRooms.filter((room) => this.getRoomsFiltered(room));
+    this.resultsRooms = this.roomService.rooms.filter((room) => this.getRoomsFiltered(room));
   }
 
   getRoomsFiltered = (room: Room) => {
