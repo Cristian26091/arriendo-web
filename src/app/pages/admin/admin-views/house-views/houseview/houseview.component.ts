@@ -34,6 +34,13 @@ export class HouseviewComponent implements OnInit {
     this.houseService.selectedHouse = item;
   }
 
+  formatPrice(price: String): number {
+    // Convierte el precio de String a número
+    const priceAsNumber: number = parseInt(price.toString());
+    // Formatea el número como moneda
+    return priceAsNumber;
+  }
+
   editHouse(){
 
   }

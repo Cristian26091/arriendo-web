@@ -72,6 +72,7 @@ import { HouseviewComponent } from './pages/admin/admin-views/house-views/housev
 import { AddFormHouseComponent } from './pages/admin/admin-views/house-views/add-form-house/add-form-house.component';
 
 import { DatePipe } from '@angular/common';
+import { EditFormHouseComponent } from './pages/admin/admin-views/house-views/edit-form-house/edit-form-house/edit-form-house.component';
 
 @NgModule({
   declarations: [
@@ -116,6 +117,7 @@ import { DatePipe } from '@angular/common';
     ViewInfoModalComponent,
     HouseviewComponent,
     AddFormHouseComponent,
+    EditFormHouseComponent,
   ],
   imports: [
     BrowserModule,

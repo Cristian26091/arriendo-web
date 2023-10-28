@@ -43,11 +43,11 @@
         <tr *ngFor="let house of houseService.houses">
             <th scope="row">{{ house._id }}</th>
             <td>{{ house.fecha_publicacion | dateFormat }}</td>
-            <td>{{ house.fecha_termino}}</td>
-            <td>{{ house.precio }}</td>
+            <td>{{ house.fecha_termino | dateFormat}}</td>
+            <td>{{ formatPrice(house.precio) | currency:'CLP':'symbol-narrow'}}</td>
             <td>{{ house.duenio }}</td>
             <td>
-                <button class="btn btn-primary" (click)="selectToEdit(house)" data-bs-toggle="modal" data-bs-target="#editHouseModal">Editar</button>
+                <button class="btn btn-primary" (click)="selectToEdit(house)" data-bs-toggle="modal" data-bs-target="#editHouseModal" *ngIf="houseService.selectedHouse">Editar</button>
                 <button class="btn btn-danger" (click)="selectToDelete(house)" data-bs-toggle="modal" data-bs-target="#deleteHouseModal">Eliminar</button>
             </td>
         </tr>
@@ -103,14 +103,14 @@
                 <!-- Cuerpo del Modal -->
                 <div class="modal-body text-center">
                     <div>
-                        <p>Acá va el modal para editar la casa</p>
+                        <app-edit-form-house [house]="houseService.selectedHouse"></app-edit-form-house>
                     </div>
                 </div>
 
                 <!-- Pie del Modal -->
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="editHouse()">Continuar</button>
-                </div>
+                </div> -->
 
             </div>
         </div>
