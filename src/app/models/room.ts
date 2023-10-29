@@ -7,10 +7,12 @@ export class Room {
     descripcion='', fecha_publicacion = null, region = '', ciudad = '',
     comuna = '', calle = '', numero = '', casa_depto = '', precio = '', esta_arrendado = '',
     url_model = '', url_texture = '', model_ref_bucket = '', texture_ref_bucket = '', reservas = [],
-    imgRefs = [], url_image_cover = '', url_model_LQ = '', url_texture_LQ = '', model_ref_bucket_LQ = '', texture_ref_bucket_LQ = ''
+    imgRefs = [], url_image_cover = '', url_model_LQ = '', url_texture_LQ = '', model_ref_bucket_LQ = '',
+    texture_ref_bucket_LQ = '', casa_id = ''
     ){
         this._id = _id;
         this.id_region = id_region;
+        this.id_casa = casa_id;
         this.latitude = latitude;
         this.longitud = longitud;
         this.banio_compartido = banio_compartido;
@@ -40,6 +42,7 @@ export class Room {
 
     _id: string;
     id_region: String
+    id_casa: String
     latitude: Number
     longitud: Number
     banio_compartido: Boolean

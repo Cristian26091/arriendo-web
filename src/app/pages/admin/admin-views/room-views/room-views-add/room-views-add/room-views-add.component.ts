@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, EventEmitter } from '@angular/core';
 import { RoomService } from 'src/app/services/room.service';
 import { RegionService } from 'src/app/services/region.service';
 import { Region } from 'src/app/models/region.model';
@@ -6,6 +6,8 @@ import { Room } from 'src/app/models/room';
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 import { ImageRef } from 'src/app/models/image-ref';
+import { HouseService } from '../../../../../../services/house.service';
+import { House } from 'src/app/models/house';
 
 
 
@@ -32,6 +34,7 @@ export class RoomViewsAddComponent implements OnInit {
   //Campos de la habitación
   selectedHome: string = '';
   selectedHouse: string = '';
+  selectedHouseObject: House = null;
   isShareBathroom = false;
   roomNumber: string = '';
   roomPrice: string = '';
@@ -63,17 +66,16 @@ export class RoomViewsAddComponent implements OnInit {
   streetErrorMessage: string = '';
   descriptionErrorMessage: string = '';
   imagesErrorMessage: string = '';
+  houseErrorMessage: string = '';
   errorMessage: string = '';
   
 
 
-  constructor(private roomService:RoomService, public regionService:RegionService) { }
+  constructor(private roomService:RoomService, public regionService:RegionService, public houseService: HouseService) { }
 
   ngOnInit(): void {
     this.getRegions();
-    // window.addEventListener('beforeunload', (event) => {
-    //   event.returnValue = '¿Seguro que quieres abandonar la página?';
-    // });
+    this.getHouses();
   }
 
   ngAfterViewInit(): void {
@@ -431,6 +433,17 @@ export class RoomViewsAddComponent implements OnInit {
     );
   }
 
+  private async getHouses(){
+    this.houseService.getHouses().subscribe(
+    (res) => {
+      this.houseService.houses = res as House[];
+    },
+    (error) => {
+      console.error('Error al obtener las casas:', error);
+    }
+    );
+  }
+
   onRegionSelect(event : Event){
     console.log(this.selectedRegion);
     const region = this.regionService.regions.find(r => r.nombre_region === this.selectedRegion);
@@ -444,7 +457,14 @@ export class RoomViewsAddComponent implements OnInit {
   }
 
   onSelectHome(event : Event){
-    console.log(this.selectedHome)
+    console.log(event.target as HTMLSelectElement);
+  }
+
+  onHouseSelect(event : Event) {
+    // Busca el objeto de la casa seleccionada en houseService.house
+    const selectedHousee = (event.target as HTMLSelectElement).value; 
+    this.selectedHouseObject = this.houseService.houses.find((casa) => casa.nombrePropiedad === selectedHousee);
+    console.log(this.selectedHouseObject._id);
   }
 
   onBathroomTypeSelect(event: Event) {
@@ -455,6 +475,7 @@ export class RoomViewsAddComponent implements OnInit {
 
     console.log(this.isShareBathroom);
   }
+
 
   getFileName(ruta: string): string {
     const partesRuta = ruta.split('/');
@@ -541,6 +562,7 @@ export class RoomViewsAddComponent implements OnInit {
     this.streetErrorMessage = '';
     this.descriptionErrorMessage = '';
     this.imagesErrorMessage = '';
+    this.houseErrorMessage = '';
     this.errorMessage = '';
   
     let formularioValido = true; // Esta variable se establecerá en falso si algún campo no es válido
@@ -610,6 +632,12 @@ export class RoomViewsAddComponent implements OnInit {
       this.imagesErrorMessage = 'Por favor, sube al menos una imagen.';
       formularioValido = false;
     }
+
+    if(this.selectedHouse === ''){
+      this.houseErrorMessage = 'Por favor, selecciona una casa.';
+      formularioValido = false;
+
+    }
   
     // Puedes agregar más validaciones según tus requerimientos
   
@@ -646,6 +674,8 @@ export class RoomViewsAddComponent implements OnInit {
     if (formularioValido) {
       // Si el formulario es válido, puedes continuar con la lógica de envío de datos o lo que sea necesario
       const room = new Room();
+      //id de la casa
+      room.id_casa = this.selectedHouseObject._id;
       // Asignar valores a la habitación
       room.region = this.selectedRegion;
       room.comuna = this.selectedComuna;

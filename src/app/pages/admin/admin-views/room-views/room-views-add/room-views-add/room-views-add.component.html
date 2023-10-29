@@ -112,12 +112,14 @@
             <div class="form-section">
 
                 <div class="row mb-3">
-                    <label for="casa" class="form-label">Agregue esta habitación a una casa</label>
-                    <select class="form-select" name="casa" [(ngModel)]="selectedHouse">
-                        <option disabled value = "">Seleccione una casa</option>
-                        <!-- <option *ngFor="let casa of houses" [value]="casa">{{casa.nombre_casa}}</option> -->
-                    </select>
-
+                    <div class="mb-3">
+                        <label for="casa" class="form-label">Seleccione una casa</label>
+                        <select class="form-select" name="casa" [(ngModel)]="selectedHouse" (change)="onHouseSelect($event)">
+                            <option disabled value = "">Seleccione una casa</option>
+                            <option *ngFor="let casa of houseService.houses" [value]="casa.nombrePropiedad">{{casa.nombrePropiedad}}</option>
+                        </select>
+                        <div *ngIf="houseErrorMessage" class="text-danger">{{ houseErrorMessage}}</div>
+                    </div>
                 </div>
 
                 <div class="row mb-3">

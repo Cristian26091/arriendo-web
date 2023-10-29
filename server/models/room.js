@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 
  const RoomSchema = new Schema({
     id_region : {type: String, required: false},
+    casa_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Casa' },
     latitude: {type: Number, required: true},
     longitud: {type: Number, required: true},
     banio_compartido: { type: Boolean, required: true },

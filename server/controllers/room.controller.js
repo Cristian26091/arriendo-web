@@ -329,9 +329,11 @@ roomCtrl.filterRoomsByResults = async (req, res) => {
 roomCtrl.createRoom = async (req, res) =>{
   // console.log(req.body);
   const roomDataFromClient = req.body;
+  console.log("roomDataFromClient:", roomDataFromClient);
   const room = new Room({
     _id: roomDataFromClient.id, // Asegúrate de que los nombres coincidan
     id_region: roomDataFromClient.id_region,
+    casa_id: roomDataFromClient.id_casa,
     latitude: roomDataFromClient.latitude,
     longitud: roomDataFromClient.longitud,
     banio_compartido: roomDataFromClient.banio_compartido,
