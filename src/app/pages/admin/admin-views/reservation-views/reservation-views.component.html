@@ -42,8 +42,8 @@
         <tbody>
             <tr *ngFor="let booking of bookingService.bookings">
                 <th scope="row">{{ booking._id }}</th>
-                <td>{{ booking.fecha_inicio }}</td>
-                <td>{{ booking.fecha_fin }}</td>
+                <td>{{ booking.fecha_inicio | dateFormat }}</td>
+                <td>{{ booking.fecha_fin | dateFormat}}</td>
                 <td>{{ booking.estado }}</td>
                 <td>
                     <button type="button" class="btn btn-danger" (click)="selectToDeleteItem(booking)" data-bs-toggle="modal" data-bs-target="#deleteBookingModal"> Eliminar</button>
