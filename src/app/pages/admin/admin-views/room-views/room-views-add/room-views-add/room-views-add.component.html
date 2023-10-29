@@ -4,6 +4,7 @@
     <div class="container mt-5">
         <h1 class="text-center">Registro de habitación</h1>
         
+        
         <div class="form-section">
             <h2>Información del Modelo Detallado</h2>
             <hr>
@@ -109,6 +110,16 @@
             <hr>
 
             <div class="form-section">
+
+                <div class="row mb-3">
+                    <label for="casa" class="form-label">Agregue esta habitación a una casa</label>
+                    <select class="form-select" name="casa" [(ngModel)]="selectedHouse">
+                        <option disabled value = "">Seleccione una casa</option>
+                        <!-- <option *ngFor="let casa of houses" [value]="casa">{{casa.nombre_casa}}</option> -->
+                    </select>
+
+                </div>
+
                 <div class="row mb-3">
                     <!-- tipo de casa -->
                     <div class="col-md-6">

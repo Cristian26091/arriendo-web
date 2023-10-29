@@ -7,6 +7,8 @@ const HouseSchema = new Schema({
     fecha_termino: { type: Date, required: true },
     precio: { type: String, required: true },
     duenio: { type: String, required: true },
+    nombrePropiedad: { type: String, required: true },
+    numPisos: { type: Number, required: true },
 });
 
 

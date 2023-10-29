@@ -76,9 +76,54 @@ export class AddFormHouseComponent implements OnInit {
     return true;
   }
 
-  validateForm() {
-    return this.validateFechaTermino() && this.validatePrecio() && this.validateNameDuenio();
+  validateNamePropiedad(): boolean {
+    this.clearErrors();
+
+    if(this.casa.nombrePropiedad == ''){
+      this.errors['namePropiedad'] = "Debes ingresar un nombre de propiedad para la publicación";
+      return false;
+    }
+
+    // Utilizar una expresión regular para verificar si el nombre de la propiedad contiene solo palabras
+    const namePattern = /^[A-Za-z\s]+$/;
+    if (!namePattern.test(this.casa.nombrePropiedad.toString())) {
+      this.errors['namePropiedad'] = "El nombre de la propiedad debe contener solo letras y espacios";
+      return false;
+    }
+    return true;
   }
+
+  validateNumPisos(): boolean {
+    this.clearErrors();
+
+    if(this.casa.numPisos == null){
+      this.errors['numPisos'] = "Debes ingresar un número de pisos para la publicación";
+      return false;
+    }
+
+    const number = new Number(this.casa.numPisos); 
+    if(number.valueOf() <= 0){
+      console.log("cacacaaaaa");
+      this.errors['numPisos'] = "El número de pisos debe ser mayor a 0";
+      return false;
+    }
+
+    // Utilizar una expresión regular para verificar si el número de pisos contiene solo números
+    const numberPattern = /^\d+$/;
+    if (!numberPattern.test(this.casa.numPisos.toString())) {
+      this.errors['numPisos'] = "El número de pisos debe contener solo números";
+      return false;
+    }
+
+    return true;
+
+  }
+
+  validateForm() {
+    return this.validateFechaTermino() && this.validatePrecio() && this.validateNameDuenio() && this.validateNamePropiedad() && this.validateNumPisos();
+  }
+
+ 
 
   clearErrors() {
     this.errors = {};

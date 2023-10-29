@@ -31,6 +31,7 @@ export class RoomViewsAddComponent implements OnInit {
   selectedLongitude: number = 0;
   //Campos de la habitación
   selectedHome: string = '';
+  selectedHouse: string = '';
   isShareBathroom = false;
   roomNumber: string = '';
   roomPrice: string = '';

@@ -8,14 +8,31 @@
     </div> -->
   
     <div class="mb-3">
+      <label for="nombreCasa" class="nombreCasa-label">Nombre de la Casa</label>
+        <input type="text" id="nombreCasa" name="nombreCasa" [(ngModel)]="casa.nombrePropiedad" class="form-control" required (input)="validateNamePropiedad()">
+        <div class="invalid-feedback">
+          Por favor, ingrese el nombre de la casa.
+        </div>
+        <div *ngIf="errors['namePropiedad']" class="text-danger">{{ errors['namePropiedad'] }}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="cantPisos" class="cantPisos">Cantidad de pisos</label>
+        <input type="number" id="cantPisos" name="cantPisos" [(ngModel)]="casa.numPisos" class="form-control" required (input)="validateNumPisos()">
+        <div class="invalid-feedback">
+          Por favor, ingrese la cantidad de pisos.
+        </div>
+        <div *ngIf="errors['numPisos']" class="text-danger">{{ errors['numPisos'] }}</div>
+    </div>
+
+    <div class="mb-3">
       <label for="fechaTermino" class="form-label">Fecha de Término:</label>
-      <input type="date" id="fechaTermino" name="fechaTermino" [(ngModel)]="casa.fecha_termino" class="form-control" required (input)="validateFechaTermino">
+      <input type="date" id="fechaTermino" name="fechaTermino" [(ngModel)]="casa.fecha_termino" class="form-control" required (input)="validateFechaTermino()">
       <div class="invalid-feedback">
         Por favor, ingrese la fecha de término.
       </div>
       <div *ngIf="errors['fechaTermino']" class="text-danger">{{ errors['fechaTermino'] }}</div>
     </div>
-    <div *ngIf=""></div>
   
     <div class="mb-3">
       <label for="precio" class="form-label">Precio:</label>

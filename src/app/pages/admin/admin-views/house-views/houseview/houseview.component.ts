@@ -24,6 +24,8 @@ export class HouseviewComponent implements OnInit {
     this.getHouses();
   }
 
+  
+
   getHouses(){
     this.houseService.getHouses()
       .subscribe(res => {
