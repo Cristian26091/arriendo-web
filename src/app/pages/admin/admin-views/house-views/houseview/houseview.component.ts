@@ -16,7 +16,7 @@ export class HouseviewComponent implements OnInit {
   constructor( public houseService: HouseService ) { }
 
   ngOnInit(): void {
-    this.headTableContent = ["ID", "Fecha publicación", "Fecha Término", "Precio", "Dueño", "Acción"];
+    this.headTableContent = ["ID", "Nombre Propiedad", "Número de pisos", "Fecha Publicación", "Fecha Término", "Precio", "Dueño", "Acción"];
 
 
 

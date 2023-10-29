@@ -63,7 +63,9 @@ houseCtrl.editHouse = async (req, res) => {
             fecha_publicacion: req.body.fecha_publicacion,
             fecha_termino: req.body.fecha_termino,
             precio: req.body.precio,
-            duenio: req.body.duenio
+            duenio: req.body.duenio,
+            nombrePropiedad: req.body.nombrePropiedad,
+            numPisos: req.body.numPisos,
         };
         await House.findByIdAndUpdate(idHouse, {$set: house}, {new: true});
         res.json({status: 'Casa editada con exito!'});

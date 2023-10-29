@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { House } from 'src/app/models/house';
-import { DatePipe } from '@angular/common';
 import { HouseService } from 'src/app/services/house.service';
 
 @Component({
