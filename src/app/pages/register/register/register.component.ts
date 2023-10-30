@@ -2,6 +2,11 @@ import { Component, OnInit, Output} from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { SignupService } from 'src/app/services/signup.service';
 import { User } from '../../../models/user';
+import { InterestService } from 'src/app/services/interest.service';
+import { Interest } from 'src/app/models/interest';
+import { Country } from 'src/app/models/country';
+import { CountryService } from 'src/app/services/country.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -16,14 +21,58 @@ export class RegisterComponent implements OnInit {
   registro: User = new User();
   confirmarPassword: string;
   registrationSuccessMessage: string = ''; // Para mostrar mensaje de éxito
-  errorMessage: string = ''; // Para mostrar mensajes de error
-  
+  //mensaje de error (cambiar?)
+  errorMessage: string = '';
+  //hobbies
+  interests!: Interest[];
+  selectedInterests: Interest[] = [];
+  //genero
+  generos!: string[];
+  selectedGender: string = '';
+  //ocupacion
+  ocupations!: string[];
+  selectedOccupation: string = '';
+  //paises
+  countrys!: Country[];
+  selectedCountry: Country = new Country();
 
-  constructor(private userService: UserService, private signupService: SignupService) { 
+  constructor(private userService: UserService, private signupService: SignupService, private interestService: InterestService, private countryService: CountryService) { 
     
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.getInterests();
+    await this.getCountrys();
+    console.log("asdasd",this.countrys );
+
+    this.generos = [
+      'Masculino',
+      'Femenino',
+      'Otro',
+    ];
+
+    this.ocupations = environment.ocupations;
+  }
+
+  async getInterests() : Promise<void>{
+    try{
+      const res = await this.interestService.getInterests().toPromise();
+      this.interestService.interests = res as Interest[];
+      this.interests = [...this.interestService.interests];
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  async getCountrys() : Promise<void>{
+    try{
+      const res = await this.countryService.getCountries().toPromise();
+      console.log("hoalasasda",res);
+      this.countryService.countries = res as Country[];
+      this.countrys = [...this.countryService.countries];
+    }catch(err){
+      console.log(err);
+    }
   }
 
   async onSubmit() {

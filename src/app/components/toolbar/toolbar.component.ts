@@ -4,7 +4,7 @@ import { SignupService } from '../../services/signup.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { TokenService } from '../../services/token.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subscription } from 'rxjs'; // Importa Subscription desde RxJS
 
@@ -24,7 +24,8 @@ export class ToolbarComponent implements OnInit {
   private signupSuccessSubscription: Subscription;
   
   constructor(private loginService: LoginService, private signupService: SignupService,
-     private userService: UserService, private TokenService: TokenService, private router: Router) {
+     private userService: UserService, private TokenService: TokenService, private router: Router,
+     private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -71,6 +72,11 @@ export class ToolbarComponent implements OnInit {
       backdropElement.remove();
     }
     this.loginSignupModal.nativeElement.classList.remove('show');
+  }
+
+  goToRegistration() {
+    this.closeModal();
+    this.router.navigate(['/signup']);
   }
 
   checkAuthentication() {

@@ -1,9 +1,28 @@
+.container{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  width: 60%;
+}
+
 .register-form {
-  max-width: 400px;
+  max-width: 100%; /* Cambiado a 100% para aprovechar todo el espacio */
   margin: 0 auto;
   padding: 20px;
   background-color: #f2f2f2;
   border-radius: 5px;
+}
+
+.register-form input:focus {
+  outline: none; /* Quita el borde al enfocar un campo */
+  border: 1px solid #4CAF50; /* Cambia el borde al enfocar */
+}
+
+.register-form button[type="submit"]:hover {
+  background-color: #45a049;
+  color: #fff; /* Cambia el color del texto al pasar el mouse */
 }
 
 .register-form h2 {
@@ -11,7 +30,7 @@
 }
 
 .register-form .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .register-form label {
@@ -21,11 +40,25 @@
 .register-form input[type="text"],
 .register-form input[type="email"],
 .register-form input[type="tel"],
-.register-form input[type="password"] {
+.register-form input[type="password"],
+.register-form input[type="date"],
+.register-form input[type="gender"],
+.register-form input[type="occupation"],
+.register-form input[type="activity"],
+.register-form input[type="nationality"]{
   width: 100%;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  background-color: white;
+}
+
+.register-form select{
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: white;
 }
 
 .register-form button[type="submit"] {
@@ -38,9 +71,52 @@
   cursor: pointer;
 }
 
+.error-message {
+  color: red;
+}
+
+.hobbies-columns {
+  display: flex;
+  justify-content: space-between; /* Alinea las columnas horizontalmente */
+}
+
+.hobby-column {
+  flex: 1; /* Divide el espacio disponible entre las columnas */
+  margin: 0 10px; /* Espaciado entre las columnas */
+}
+
+/* Estilos para los checkboxes y etiquetas (puedes personalizarlos según tu diseño) */
+label {
+  display: block;
+  margin: 5px 0;
+}
+
+
 .register-form button[type="submit"]:hover {
   background-color: #45a049;
 }
+
+/* Aplica estilos al p-multiSelect de PrimeNG */
+::ng-deep .p-multiselect {
+  width: 100%;
+  border-radius: 5px;
+}
+
+::ng-deep .p-multiselect .p-multiselect-label {
+  width: 100%;
+}
+
+::ng-deep .p-multiselect .p-multiselect-label-container {
+  width: 100%;
+}
+
+::ng-deep .p-multiselect .p-multiselect-label-container input {
+  width: 100%;
+}
+
+/* Aplica estilos adicionales según sea necesario */
+
+
 
 @media (max-width: 576px) {
   .register-form .row {

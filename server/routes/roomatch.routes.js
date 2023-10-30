@@ -11,6 +11,8 @@ const user = require('../controllers/user.controller');
 const help = require('../controllers/help.controller');
 const booking = require('../controllers/booking.controller');
 const house = require('../controllers/house.controller');
+const interest = require('../controllers/interest.controller');
+const country = require('../controllers/country.controller');
 
 // ----------- HELP ROUTES -----------
 router.get('/help', help.getHelps);
@@ -62,6 +64,10 @@ router.post('/house', house.createHouse);
 router.put('/house/:idHouse', house.editHouse);
 router.delete('/house/:idHouse', house.deleteHouse);
 
+//---------- INTEREST ROUTES -----------
+router.get('/interest', interest.getInterests);
 
+//---------- COUNTRYES ROUTES -----------
+router.get('/country', country.getCountries);
 
 module.exports = router;

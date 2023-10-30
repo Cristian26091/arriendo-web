@@ -13,6 +13,7 @@ import { AdminComponentComponent } from './pages/admin/admin-component/admin-com
 import { RoomViewsAddComponent } from './pages/admin/admin-views/room-views/room-views-add/room-views-add/room-views-add.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { BookingComponent } from './pages/userBooking/booking/booking.component';
+import { RegistrationStepComponent } from './pages/register/registrationStep/registration-step/registration-step.component';
 
 
 const routes: Routes = [
@@ -40,7 +41,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'register',
+    path: 'signup',
     component: RegisterComponent
   },
 

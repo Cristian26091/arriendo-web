@@ -35,7 +35,7 @@ import { NgFor } from '@angular/common'
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSliderModule} from '@angular/material/slider'; 
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder, FormGroup } from '@angular/forms';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -73,6 +73,11 @@ import { AddFormHouseComponent } from './pages/admin/admin-views/house-views/add
 
 import { DatePipe } from '@angular/common';
 import { EditFormHouseComponent } from './pages/admin/admin-views/house-views/edit-form-house/edit-form-house/edit-form-house.component';
+import { RegistrationStepComponent } from './pages/register/registrationStep/registration-step/registration-step.component';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
+
 
 @NgModule({
   declarations: [
@@ -118,6 +123,7 @@ import { EditFormHouseComponent } from './pages/admin/admin-views/house-views/ed
     HouseviewComponent,
     AddFormHouseComponent,
     EditFormHouseComponent,
+    RegistrationStepComponent,
   ],
   imports: [
     BrowserModule,
@@ -143,6 +149,9 @@ import { EditFormHouseComponent } from './pages/admin/admin-views/house-views/ed
     MatPaginatorModule,
     MatSliderModule,
     MatSlideToggleModule,
+    ButtonModule,
+    DropdownModule,
+    MultiSelectModule,
   ],
   providers: [CookieService, DatePipe],
   bootstrap: [AppComponent],

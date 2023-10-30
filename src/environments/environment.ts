@@ -13,6 +13,15 @@ export const environment = {
     cancelada: 'cancelada',
     finalizada: 'finalizada',
   },
+  ocupations: [
+    'Estudiante',
+    'Trabajador(a) a tiempo completo',
+    'Trabajador(a) a tiempo parcial',
+    'Desempleado(a)',
+    'Jubilado(a)',
+    'Empresario(a)',
+    'Profesional(a)',
+  ],
 };
 
 /*
