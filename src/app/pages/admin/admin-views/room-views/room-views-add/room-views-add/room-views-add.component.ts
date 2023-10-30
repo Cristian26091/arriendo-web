@@ -685,8 +685,9 @@ export class RoomViewsAddComponent implements OnInit {
       room.calle = this.roomStreet;
       room.precio = this.roomPrice;
       room.descripcion = this.roomDescription;
-      room.latitude = this.selectedLatitude;
-      room.longitud = this.selectedLongitude;
+      // Asignar valores de ubicación (invertidos porque Mapbox usa longitud, latitud)
+      room.latitude = this.selectedLongitude;
+      room.longitud = this.selectedLatitude;
       // Campos genéricos
       room.esta_arrendado = "false";
       room.reservas = [];

@@ -21,8 +21,8 @@ export class MapComponent implements AfterViewInit, OnInit {
     this.latitud = Number(this.roomService.selectedRoom.latitude);
     this.longitud = Number(this.roomService.selectedRoom.longitud);
 
-    // console.log(typeof(this.latitud));
-    // console.log(typeof(this.longitud));
+    console.log((this.latitud));
+    console.log((this.longitud));
   }
 
   ngAfterViewInit(): void {
