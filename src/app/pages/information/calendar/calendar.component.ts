@@ -30,6 +30,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       );
     }
   }
+  ngOnDestroy(): void {
+    // Elimina el ID de la habitación seleccionada de la cookie
+    this.cookieService.delete('selectedRoomId');
+  }
 
   ngAfterViewInit(): void {
     this.changeDetectorRef.detectChanges();
