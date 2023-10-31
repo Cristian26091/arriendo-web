@@ -54,7 +54,7 @@ router.get('/booking/:idBooking', booking.getBooking);
 router.get('/booking/user/:idUser', booking.getBookingByUser);
 router.get('/booking/room/:idRoom', booking.getBookingByRoom);
 router.post('/booking', booking.createBooking);
-router.put('/booking/:idBooking', booking.editBooking);
+router.put('/booking', booking.putBooking);
 router.delete('/booking/:idBooking', booking.deleteBooking);
 
 //----------HOUSE ROUTES-----------

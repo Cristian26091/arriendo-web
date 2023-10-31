@@ -39,7 +39,39 @@ bookingCtrl.createBooking = async (req, res) => {
     });
 }
 
-bookingCtrl.editBooking = async (req, res) => {
+bookingCtrl.putBooking = async (req, res) => {
+    
+    try {
+        if(!req.body){
+            return res.status(400).send({
+                message: "La reserva no puede estar vacia"
+            });
+        }
+    
+        const { _id } = req.body; // id de la reserva
+        const existingBooking = await Booking.findById(_id);
+        console.log(existingBooking);
+    
+        if(!existingBooking){
+            return res.status(400).json({ message: 'La reserva no está registrada!' });
+        }
+
+        const booking = {
+            userId: req.body.userId,
+            roomId: req.body.roomId,
+            fecha_inicio: req.body.fecha_inicio,
+            fecha_fin: req.body.fecha_fin,
+            fecha_creacion: req.body.fecha_creacion,
+            estado: req.body.estado,
+            precio: req.body.precio
+        }
+    
+        await Booking.findByIdAndUpdate(_id, {$set: booking}, {new: true} )
+        res.json({ message: 'Reserva actualizada con exito!' });
+
+    } catch (error) {
+        return res.status(400).json({ message: 'Ocurrio un error al actualizar la reserva!' });
+    }
 
 }
 

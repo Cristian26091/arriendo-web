@@ -45,9 +45,11 @@
                 <td>{{ booking.fecha_inicio | dateFormat }}</td>
                 <td>{{ booking.fecha_fin | dateFormat}}</td>
                 <td>{{ booking.estado }}</td>
+                
                 <td>
                     <button type="button" class="btn btn-danger" (click)="selectToDeleteItem(booking)" data-bs-toggle="modal" data-bs-target="#deleteBookingModal"> Eliminar</button>
                     <button type="button" class="btn btn-primary" (click)="selectToViewInfo(booking)" data-bs-toggle="modal" data-bs-target="#viewInfoBookingModal">Inspeccionar</button>
+                    <button type="button" class="btn btn-primary" (click)="selectToAprove(booking)"> Aprobar</button>
                 </td>
             </tr>
         </tbody>

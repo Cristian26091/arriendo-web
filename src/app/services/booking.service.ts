@@ -39,10 +39,9 @@ export class BookingService {
     return this.http.post(this.URL_API, booking);
   }
 
-  //editar booking
-  // putBooking(booking: Booking) {
-  //   return this.http.put(this.URL_API + `/${booking._id}`, booking);
-  // }
+  putBooking(booking: Booking): Observable<any>{
+    return this.http.put(this.URL_API, booking);
+  }
 
   deleteBooking(_id: string): Observable<any>{
     // console.log(_id);
