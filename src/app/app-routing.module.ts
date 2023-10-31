@@ -41,11 +41,6 @@ const routes: Routes = [
   },
 
   {
-    path: 'signup',
-    component: RegisterComponent
-  },
-
-  {
     path: 'faq',
     component: FAQComponent
 

@@ -74,6 +74,11 @@ import { AddFormHouseComponent } from './pages/admin/admin-views/house-views/add
 import { DatePipe } from '@angular/common';
 import { EditFormHouseComponent } from './pages/admin/admin-views/house-views/edit-form-house/edit-form-house/edit-form-house.component';
 import { RegistrationStepComponent } from './pages/register/registrationStep/registration-step/registration-step.component';
+
+import { RoomMateCardComponent } from './pages/information/room-mate-card/room-mate-card.component';
+
+//componentes prime ng
+import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -124,6 +129,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     AddFormHouseComponent,
     EditFormHouseComponent,
     RegistrationStepComponent,
+    RoomMateCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -152,6 +158,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     ButtonModule,
     DropdownModule,
     MultiSelectModule,
+    CardModule,
   ],
   providers: [CookieService, DatePipe],
   bootstrap: [AppComponent],

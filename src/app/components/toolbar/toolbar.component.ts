@@ -65,13 +65,17 @@ export class ToolbarComponent implements OnInit {
   }
 
   closeModal() {
+    // Get a reference to the trigger button that opened the modal
+    const triggerButton = document.querySelector('[data-bs-target="#loginSignupModal"]');
+
     // Obtén una referencia al elemento del backdrop
     const backdropElement = document.querySelector('.modal-backdrop');
-    // Verifica si el backdrop existe y elimínalo
+    
     if (backdropElement) {
       backdropElement.remove();
     }
     this.loginSignupModal.nativeElement.classList.remove('show');
+
   }
 
   goToRegistration() {
