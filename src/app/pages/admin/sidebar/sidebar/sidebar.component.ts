@@ -26,10 +26,6 @@ export class SidebarComponent implements OnInit {
     this.cambiarContenido.emit('reservas');
   }
 
-  mostrarReclamos() {
-    this.cambiarContenido.emit('reclamos');
-  }
-
   mostrarCasas(){
     this.cambiarContenido.emit('casas');
   }
