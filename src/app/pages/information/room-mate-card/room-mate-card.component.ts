@@ -7,6 +7,7 @@ import { RoomService } from 'src/app/services/room.service';
 
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-room-mate-card',
@@ -28,13 +29,17 @@ export class RoomMateCardComponent implements OnInit {
 
       await this.getBookingByRoom(this.selectedRoom._id);//obtengo todas las reservas asociadas a la habitación
 
+      // Filtra las reservas que tienen estado 'confirmado'
+      const confirmedBookings = this.bookingService.bookings.filter(booking => booking.estado === environment.estado.confirmada);
+
       // Crea un array de promesas para obtener los usuarios
       const userPromises = this.bookingService.bookings.map(booking => this.getUserById(booking.userId));
 
       // Espera a que todas las promesas se completen
       this.users = await Promise.all(userPromises);
 
-      console.log("Usuarios: ", this.users);
+      // elimina los usuarios repetidos
+      await this.removeDuplicateUsers();
 
     }
     else{
@@ -42,11 +47,18 @@ export class RoomMateCardComponent implements OnInit {
     }
   }
 
+  async removeDuplicateUsers() {
+    const uniqueUsers = new Map<string, User>();
+    this.users.forEach(user => {
+      uniqueUsers.set(user._id, user);
+    });
+    this.users = Array.from(uniqueUsers.values());
+  }
+
   async getBookingByRoom(id : string){
     try {
       const res = await this.bookingService.getBookingByRoom(id).toPromise();
       this.bookingService.bookings = res as Booking[];
-      // console.log("Reservaszzzsdasdadszz: ", this.bookingService.bookings);
     } catch (error) {
       console.log(error);
     }
