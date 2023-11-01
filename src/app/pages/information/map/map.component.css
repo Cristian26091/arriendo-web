@@ -1,5 +1,7 @@
-#mapa_mapbox{
+#mapa_mapbox {
     width: 100%;
-    height: 100%;
-    /* background-color: red; */
+    height: 400px;
+    margin-top: 2%;
+    border-radius: 10px; /* Agrega esquinas redondeadas */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Agrega una sombra */
 }
