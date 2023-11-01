@@ -1,31 +1,31 @@
-<!-- Categorías de ayuda -->
-<div class="row">
-
+<div class="container">
     <div class="row">
-      <div class="col-md-12 card-column" *ngFor="let user of users">
-        <!-- <div class="card mb-3" (click)="seleccionarCategoria(help)"></div> -->
-          <div class="card mb-3">
-              <div class="row g-0">
-                  <div class="col-2 d-flex align-items-center justify-content-center">
-                      <!-- Agregar un icono de Bootstrap centrado y que ocupe todo el espacio -->
-                      <div class="card-icon w-100 text-center">
-                          <!-- Utiliza estilos personalizados para aumentar el tamaño del icono -->
-                          <!-- <span [ngClass]="help.url_image" style="font-size: 200%;"></span> -->
-                          <i class="bi bi-person" style="font-size: 200%;"></i>
-                      </div>
+        <div class="companion-container">
+            <h2>Compañeros de Casa</h2>
+        </div>
+    
+        <ng-container *ngFor="let user of users">
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="text-center">
+                  <!-- Foto de perfil circular -->
+                  <div class="profile-image">
+                    <img class="rounded-circle" src="../assets/user-icon.png" alt="Foto de perfil">
                   </div>
-                  <div class="col-10">
-                      <div class="card-body">
-                          <h5 class="card-title">{{ user.nombre +" "+user.apellido}}</h5>
-                          <p class="card-text">{{ getAge(user.fecha_nacimiento) }}</p>
-                          <p class="card-text">{{ user.pais }}</p>
-                          <p class="card-text">{{ user.tipo_actividad }}</p>
-                          <p class="card-text">{{ user.ocupacion }}</p>
-                          <p class="card-text">{{ user.intereses }}</p>
-
-                      </div>
-                  </div>
+                </div>
+                <h5 class="card-title text-center font-weight-bold" style="font-size: 1rem;" >{{ user.nombre + " " + user.apellido }}</h5>
+                <p class="card-text text-center">Edad: {{ getAge(user.fecha_nacimiento) }}</p>
+                <p class="card-text text-center">Nacionalidad: {{ user.pais }}</p>
+                <p class="card-text text-center">Actividad: {{ user.tipo_actividad }}</p>
+                <p class="card-text text-center">Ocupación: {{ user.ocupacion }}</p>
+                <p class="card-text text-center">Intereses: {{ user.intereses }}</p>
               </div>
+            </div>
           </div>
-      </div>
-  </div>
+        </ng-container>
+    </div>
+</div>
+
+
+  
