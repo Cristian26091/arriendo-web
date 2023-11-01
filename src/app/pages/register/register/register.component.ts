@@ -55,11 +55,11 @@ export class RegisterComponent implements OnInit {
 
   onInterestsChange() {
     const interestNames = this.registro.intereses.map((interest) => interest);
-    console.log(interestNames);
+    // console.log(interestNames);
   }
 
   onCountryChange() {
-    console.log(this.registro.pais);
+    // console.log(this.registro.pais);
   }
 
   async ngOnInit(): Promise<void> {
@@ -96,7 +96,6 @@ export class RegisterComponent implements OnInit {
   async getCountrys() : Promise<void>{
     try{
       const res = await this.countryService.getCountries().toPromise();
-      console.log("hoalasasda",res);
       this.countryService.countries = res as Country[];
       this.countrys = [...this.countryService.countries];
     }catch(err){
@@ -208,7 +207,6 @@ export class RegisterComponent implements OnInit {
       return false;
     }
     const dob = new Date(this.registro.fecha_nacimiento);
-    console.log(dob);
     const currentYear = new Date().getFullYear();
     if (dob.getFullYear() < 1900 || dob.getFullYear() >= currentYear) {
       this.errorMessages.birthdate = 'Fecha de nacimiento no válida';

@@ -1,31 +1,28 @@
 <div class="container">
-    <div class="row">
-        <div class="companion-container">
-            <h2>Compañeros de Casa</h2>
-        </div>
-    
-        <ng-container *ngFor="let user of users">
-          <div class="col-md-3">
-            <div class="card">
-              <div class="card-body">
-                <div class="text-center">
-                  <!-- Foto de perfil circular -->
-                  <div class="profile-image">
-                    <img class="rounded-circle" src="../assets/user-icon.png" alt="Foto de perfil">
-                  </div>
-                </div>
-                <h5 class="card-title text-center font-weight-bold" style="font-size: 1rem;" >{{ user.nombre + " " + user.apellido }}</h5>
-                <p class="card-text text-center">Edad: {{ getAge(user.fecha_nacimiento) }}</p>
-                <p class="card-text text-center">Nacionalidad: {{ user.pais }}</p>
-                <p class="card-text text-center">Actividad: {{ user.tipo_actividad }}</p>
-                <p class="card-text text-center">Ocupación: {{ user.ocupacion }}</p>
-                <p class="card-text text-center">Intereses: {{ user.intereses }}</p>
+  <div class="row">
+    <div class="companion-container">
+      <h2>Compañeros de Casa</h2>
+    </div>
+
+    <ng-container *ngFor="let user of users">
+      <div class="col-md-3">
+        <div class="card mb-4"> <!-- Agrega la clase "mb-4" para el espaciado inferior -->
+          <div class="card-body">
+            <div class="text-center">
+              <!-- Foto de perfil circular -->
+              <div class="profile-image">
+                <img class="rounded-circle" src="../assets/user-icon.png" alt="Foto de perfil">
               </div>
             </div>
+            <h5 class="card-title text-center font-weight-bold" style="font-size: 1rem;">{{ user.nombre + " " + user.apellido }}</h5>
+            <p class="card-text text-center"><span>Edad:</span> <span style="color: gray;">{{ getAge(user.fecha_nacimiento) }}</span></p>
+            <p class="card-text text-center"><span>Nacionalidad:</span> <span style="color: gray;">{{ user.pais }}</span></p>
+            <p class="card-text text-center"><span>Actividad:</span> <span style="color: gray;">{{ user.tipo_actividad }}</span></p>
+            <p class="card-text text-center"><span>Ocupación:</span> <span style="color: gray;">{{ user.ocupacion }}</span></p>
+            <p class="card-text text-center"><span>Intereses:</span> <span style="color: gray;">{{ user.intereses }}</span></p>
           </div>
-        </ng-container>
-    </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
 </div>
-
-
-  

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component} from '@angular/core';
 import { RoomService } from 'src/app/services/room.service';
 
 @Component({
@@ -13,7 +13,6 @@ export class DataRoomContainerComponent {
 
 
   ngOnInit(): void {
-    
     this.parserTipoBanio(this.roomService.selectedRoom.banio_compartido);
     console.log(this.roomService.selectedRoom);
   }

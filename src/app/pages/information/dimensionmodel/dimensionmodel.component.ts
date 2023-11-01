@@ -189,7 +189,7 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
         loader.load(
           urlModel,
           (gltf) => {
-            console.log("gltf name: ", gltf.scene.name);
+        
             if (gltf.scene) {
               // gltf.scene.scale.set(0.5, 0.5, 0.5);
               this.scene.add(gltf.scene);

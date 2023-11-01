@@ -15,7 +15,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./room-mate-card.component.css']
 })
 export class RoomMateCardComponent implements OnInit {
-  selectedRoom : Room = null;
   users: User[] = []; // Array para almacenar los usuarios de las reservas
   
 
@@ -24,16 +23,11 @@ export class RoomMateCardComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     if(this.roomService.selectedRoom != null){
-      //obtenemos una copia de lo que se encuentra en el servicio seleccionado
-      this.selectedRoom = this.roomService.selectedRoom;
-
-      await this.getBookingByRoom(this.selectedRoom._id);//obtengo todas las reservas asociadas a la habitación
-
       // Filtra las reservas que tienen estado 'confirmado'
       const confirmedBookings = this.bookingService.bookings.filter(booking => booking.estado === environment.estado.confirmada);
 
       // Crea un array de promesas para obtener los usuarios
-      const userPromises = this.bookingService.bookings.map(booking => this.getUserById(booking.userId));
+      const userPromises = confirmedBookings.map(booking => this.getUserById(booking.userId));
 
       // Espera a que todas las promesas se completen
       this.users = await Promise.all(userPromises);
@@ -53,15 +47,6 @@ export class RoomMateCardComponent implements OnInit {
       uniqueUsers.set(user._id, user);
     });
     this.users = Array.from(uniqueUsers.values());
-  }
-
-  async getBookingByRoom(id : string){
-    try {
-      const res = await this.bookingService.getBookingByRoom(id).toPromise();
-      this.bookingService.bookings = res as Booking[];
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   async getUserById(id : string){
