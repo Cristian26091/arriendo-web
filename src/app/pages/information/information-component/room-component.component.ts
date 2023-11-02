@@ -29,7 +29,7 @@ export class RoomComponentComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     // // Obtén el ID de la habitación seleccionada desde la cookie
     const selectedRoomId = this.cookieService.get('selectedRoomId');
-    console.log(selectedRoomId);
+    // console.log(selectedRoomId);
     // Si se encuentra el ID en la cookie, carga la habitación correspondiente
     if (selectedRoomId) {
       await this.getRoomByID(selectedRoomId);
@@ -47,7 +47,7 @@ export class RoomComponentComponent implements OnInit {
     try {
       const res = await this.roomService.getRoom(id).toPromise();
       this.roomService.selectedRoom = res as Room;
-      console.log("Habitación obtenida: ", this.roomService.selectedRoom);
+      // console.log("Habitación obtenida: ", this.roomService.selectedRoom);
     } catch (error) {
       console.log("Error al obtener la habitación", error);
     }
@@ -57,7 +57,7 @@ export class RoomComponentComponent implements OnInit {
     try {
       const res = await this.bookingService.getBookingByRoom(id).toPromise();
       this.bookingService.bookings = res as Booking[];
-      console.log("Reservas obtenidas: ", this.bookingService.bookings);
+      // console.log("Reservas obtenidas: ", this.bookingService.bookings);
     } catch (error) {
       console.log("Error al obtener las reservas de la habitación", error);
     }
