@@ -13,6 +13,7 @@ const booking = require('../controllers/booking.controller');
 const house = require('../controllers/house.controller');
 const interest = require('../controllers/interest.controller');
 const country = require('../controllers/country.controller');
+const service = require('../controllers/service.controller');
 
 // ----------- HELP ROUTES -----------
 router.get('/help', help.getHelps);
@@ -69,5 +70,10 @@ router.get('/interest', interest.getInterests);
 
 //---------- COUNTRYES ROUTES -----------
 router.get('/country', country.getCountries);
+
+//---------- SERVICE ROUTES -----------
+router.get('/service', service.getServices);
+router.get('/service/:idService', service.getService);
+
 
 module.exports = router;
