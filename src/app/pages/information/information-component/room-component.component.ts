@@ -6,8 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Booking } from 'src/app/models/booking';
 import { BookingService } from 'src/app/services/booking.service';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/models/user';
-import { environment } from 'src/environments/environment';
+
 
 
 @Component({
@@ -25,12 +24,12 @@ export class RoomComponentComponent implements OnInit {
     public loginService: LoginService, 
     private cookieService: CookieService,
     private bookingService: BookingService,
-    private userService : UserService) { }
+    ) { }
 
   async ngOnInit(): Promise<void> {
     // // Obtén el ID de la habitación seleccionada desde la cookie
     const selectedRoomId = this.cookieService.get('selectedRoomId');
-  
+    console.log(selectedRoomId);
     // Si se encuentra el ID en la cookie, carga la habitación correspondiente
     if (selectedRoomId) {
       await this.getRoomByID(selectedRoomId);

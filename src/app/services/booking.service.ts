@@ -26,12 +26,12 @@ export class BookingService {
   }
 
   getBookingByUser(_id: string) {
-    console.log(_id);
+    // console.log(_id);
     return this.http.get(this.URL_API + `/user/${_id}`);
   }
 
   getBookingByRoom(_id: string) {
-    console.log(_id);
+    // console.log(_id);
     return this.http.get(this.URL_API + `/room/${_id}`);
   }
 

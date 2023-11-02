@@ -14,7 +14,7 @@ export class DataRoomContainerComponent {
 
   ngOnInit(): void {
     this.parserTipoBanio(this.roomService.selectedRoom.banio_compartido);
-    console.log(this.roomService.selectedRoom);
+    // console.log(this.roomService.selectedRoom);
   }
 
   parserTipoBanio(isCompartido: Boolean){

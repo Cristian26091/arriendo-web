@@ -4,6 +4,8 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomService } from 'src/app/services/room.service';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { CookieService } from 'ngx-cookie-service';
+import { Room } from 'src/app/models/room';
 
 @Component({
   selector: 'app-dimensionmodel',
@@ -35,7 +37,7 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
 
 
 
-  constructor(public roomService: RoomService) {
+  constructor(public roomService: RoomService, private cookieService: CookieService) {
     // Establecer la instancia Singleton
     DimensionmodelComponent.instance = this;
     // Inicializar cargadores Singleton
@@ -84,6 +86,12 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
   }
 
   async ngOnInit(): Promise<void> {
+
+    if(this.cookieService.check('selectedRoomId')){
+      const selectedRoomId = this.cookieService.get('selectedRoomId');
+      await this.getRoomByID(selectedRoomId);
+
+    }    
 
     this.initscene();
 
@@ -151,6 +159,15 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
   private animate(): void {
     requestAnimationFrame(() => this.animate());
     this.renderer.render(this.scene, this.camera);
+  }
+
+  async getRoomByID(id:string){
+    try {
+      const res = await this.roomService.getRoom(id).toPromise();
+      this.roomService.selectedRoom = res as Room;
+    } catch (error) {
+      console.log("Error al obtener la habitación", error);
+    }
   }
 
   // ----------------------------- LOADS -------------------------------

@@ -35,7 +35,7 @@ export class ResultsComponentComponent {
   }
 
   ngOnDestroy(){
-    this.cookieService.delete('busquedaResultados');
+    // this.cookieService.delete('busquedaResultados');
   }
 
   filterQuery(query: any) {
