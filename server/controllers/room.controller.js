@@ -16,6 +16,8 @@ const bucketName = 'bucket-arriendo-web';
 //bucket para carga de archivos.
 const gcBucket = gc.bucket(bucketName);
 
+//-------------------- METODOS --------------------
+
 // Función para cargar el modelo 3D en el bucket de GCS
 roomCtrl.uploadModelToBucket = async (req, res) => {
   try {

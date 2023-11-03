@@ -218,6 +218,8 @@ submitForm(){
       estado : environment.estado.pendiente,
       precio : totalPrice,
       pdf:contractContent,
+      ref_pdf_user: '',
+      url_pdf_user: '',
     }
   
     this.bookingService.postBooking(bookingData).subscribe(

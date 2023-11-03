@@ -12,6 +12,7 @@ export class BookingService {
   bookings: Booking[];
 
   readonly URL_API = environment.uri + '/api/booking';
+  readonly URL_PDF_USER = environment.uri + '/api/uploadPdfUser';
 
   constructor(private http: HttpClient) {
     this.bookings = []
@@ -48,6 +49,14 @@ export class BookingService {
     // console.log(this.URL_API + `/${_id}`);
     return this.http.delete(this.URL_API + `/${_id}`);
   }
+
+  uploadPDFUser(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('pdf', file);
+    return this.http.post(this.URL_PDF_USER, formData);
+  }
+
+
 
 
 }

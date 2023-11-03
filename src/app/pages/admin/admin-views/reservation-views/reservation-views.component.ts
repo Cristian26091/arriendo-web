@@ -27,6 +27,7 @@ export class ReservationViewsComponent implements OnInit {
   ngOnInit(): void {
     this.getBookings();
   }
+  
 
   getBookings(){
     if(this.bookingService.bookings){
@@ -82,6 +83,10 @@ export class ReservationViewsComponent implements OnInit {
       this.roomService.selectedRoom = res as Room;
       // this.roomService.selectedRoom = res as Room;
     })
+  }
+
+  downloadPdf(booking: Booking){
+    
   }
 
 }

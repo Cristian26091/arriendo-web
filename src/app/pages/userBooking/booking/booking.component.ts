@@ -11,7 +11,6 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -78,6 +77,41 @@ export class BookingComponent implements OnInit {
 
   goToPayment(){
     this.router.navigate(['/payment']);
+  }
+
+  capturarPDF(event: any, booking: Booking){
+    const selectedFile = event.target.files[0]; // Obtiene el primer archivo seleccionado
+
+    if (selectedFile) {
+      // console.log('Archivo seleccionado:', selectedFile.name);
+      this.uploadPDFUser(selectedFile, booking);
+    
+    } else {
+      console.log('Ningún archivo seleccionado');
+    }
+  }
+
+  async uploadPDFUser(file: File, booking: Booking){
+    try {
+      const  res = await this.bookingService.uploadPDFUser(file).toPromise();
+      console.log(res.message);
+      booking.url_pdf_user = res.downloadLink;
+      booking.ref_pdf_user = res.fileName;
+
+      console.log(booking.url_pdf_user, booking.ref_pdf_user);
+      const resPutBooking = await this.putBooking(booking);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async putBooking(booking: Booking){
+    try {
+      const res = await this.bookingService.putBooking(booking).toPromise();
+      console.log(res);
+    } catch (error) {
+      console.log(error); 
+    }
   }
 
   generateContract(booking: Booking): void {

@@ -57,6 +57,9 @@ router.get('/booking/room/:idRoom', booking.getBookingByRoom);
 router.post('/booking', booking.createBooking);
 router.put('/booking', booking.putBooking);
 router.delete('/booking/:idBooking', booking.deleteBooking);
+//----------RUTA BOOKING PDF BUCKET-----------
+router.post ('/uploadPdfUser',upload.single('pdf'), booking.uploadPdfToBucket);
+
 
 //----------HOUSE ROUTES-----------
 router.get('/house', house.getHouses);

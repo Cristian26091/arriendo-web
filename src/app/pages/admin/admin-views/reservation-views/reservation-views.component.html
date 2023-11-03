@@ -49,7 +49,9 @@
                 <td>
                     <button type="button" class="btn btn-danger" (click)="selectToDeleteItem(booking)" data-bs-toggle="modal" data-bs-target="#deleteBookingModal"> Eliminar</button>
                     <button type="button" class="btn btn-primary" (click)="selectToViewInfo(booking)" data-bs-toggle="modal" data-bs-target="#viewInfoBookingModal">Inspeccionar</button>
+                    <a [href]="booking.url_pdf_user" target="_blank" class="btn btn-primary">Ver contrato</a>
                     <button type="button" class="btn btn-primary" (click)="selectToAprove(booking)"> Aprobar</button>
+
                 </td>
             </tr>
         </tbody>
