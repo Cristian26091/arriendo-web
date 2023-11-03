@@ -5,6 +5,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { Booking } from 'src/app/models/booking';
 import { RoomService } from 'src/app/services/room.service';
 import { Room } from 'src/app/models/room';
+import { environment } from 'src/environments/environment';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-booking',
@@ -13,7 +15,7 @@ import { Room } from 'src/app/models/room';
 })
 export class BookingComponent implements OnInit {
 
-  constructor(public bookingService: BookingService, private cookieService: CookieService, private roomService: RoomService) {}
+  constructor(public bookingService: BookingService, private cookieService: CookieService, private roomService: RoomService, private router: Router) {}
 
   async ngOnInit(): Promise<void> {
 
@@ -64,7 +66,14 @@ export class BookingComponent implements OnInit {
       );
     }
     return;
-    
+  }
+
+  isConfirmed(booking: Booking): boolean {
+    return booking.estado === environment.estado.confirmada;
+  }
+
+  goToPayment(){
+    this.router.navigate(['/payment']);
   }
    
 

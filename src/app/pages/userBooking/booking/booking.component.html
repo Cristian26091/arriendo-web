@@ -10,7 +10,12 @@
                     <p class="card-text">Precio: ${{ booking.precio }}</p>
                     <div class="d-flex justify-content-end">
                         <a class="btn btn-danger ml-2" (click)="cancelBooking(booking._id)">Cancelar Reserva</a>
-                        <a href="#" class="btn btn-primary ml-2">Cargar Contrato</a>
+                        <a class="btn btn-primary ml-2">Descargar contrato</a>
+                        <a class="btn btn-primary ml-2">Cargar Contrato</a>
+                        <div *ngIf="isConfirmed(booking)">
+                            <a class="btn btn-primary ml-2" (click)="goToPayment()">Completar Pago</a>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -23,3 +28,5 @@
         No tienes reservas
     </div>
 </ng-template>
+
+
