@@ -45,6 +45,8 @@ bookingCtrl.getBookingByRoom = async (req, res) => {
 
 bookingCtrl.createBooking = async (req, res) => {
 
+    console.log(req.body);
+
     const booking = new Booking({
         userId: req.body.userId,
         roomId: req.body.roomId,
@@ -54,8 +56,8 @@ bookingCtrl.createBooking = async (req, res) => {
         estado: req.body.estado,
         precio: req.body.precio,
         pdf: req.body.pdf,
-        url_pdf_user: url_pdf_user,
-        ref_pdf_user: ref_pdf_user,
+        url_pdf_user: " ",
+        ref_pdf_user: " "
 
     });
     await booking.save();
