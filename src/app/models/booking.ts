@@ -1,6 +1,6 @@
 export class Booking {
     constructor(
-        _id: '', userId: '', roomId = '', fecha_inicio: null, fecha_fin: null, fecha_creacion: null, estado: '', precio = 0,
+        _id: '', userId: '', roomId = '', fecha_inicio: null, fecha_fin: null, fecha_creacion: null, estado: '', precio = 0, pdf = '',
     ){
         this._id = _id;
         this.userId = userId;
@@ -10,6 +10,7 @@ export class Booking {
         this.fecha_creacion = fecha_creacion;
         this.estado = estado;
         this.precio = precio;
+        this.pdf = this.pdf;
     }
     
     _id: string;
@@ -20,5 +21,6 @@ export class Booking {
     fecha_creacion: Date;
     estado : string;
     precio : number;
+    pdf : string;
     
 }

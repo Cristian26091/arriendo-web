@@ -182,19 +182,32 @@ generatePdfContract(contractContent: string) {
   };
 
   const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
-
   // Genera el PDF y lo abre en una nueva ventana o pestaña del navegador
   pdfDocGenerator.open();
 }
+
+uploadContractToBucket(contractContent: string) {
+  
+}
+
 
  
 submitForm(){
   //además debo validar las fechas que ya tienen reserva
   if(this.validateInputs() && this.validateDates(this.fechaInicio, this.fechaTermino)){
-    //calcular el precio
     const dayCount = this.calculateDays(this.fechaInicio, this.fechaTermino);
     const numberPrice = parseFloat(this.roomService.selectedRoom.precio.toString());
     const totalPrice = this.calculatePrice(dayCount, numberPrice);
+    
+    const contractContent = this.generateGenericContract(
+      this.userService.selectedUser, 
+      this.roomService.selectedRoom, 
+      this.fechaInicio, 
+      this.fechaTermino,
+      totalPrice,
+      dayCount,
+    );
+
     const bookingData = {
       _id: '',
       userId : this.userService.selectedUser._id,
@@ -204,24 +217,15 @@ submitForm(){
       fecha_creacion: new Date(),
       estado : environment.estado.pendiente,
       precio : totalPrice,
+      pdf:contractContent,
     }
-    const contractContent = this.generateGenericContract(
-      this.userService.selectedUser, 
-      this.roomService.selectedRoom, 
-      this.fechaInicio, 
-      this.fechaTermino,
-      totalPrice,
-      dayCount,
-    );
-    // console.log("bookingdata:",bookingData)
-    // console.log("contractContent:",contractContent);
   
     this.bookingService.postBooking(bookingData).subscribe(
       (res) => {
         console.log(res);
         // Genera un enlace al contrato genérico y ábrelo en una nueva ventana o pestaña del navegador
         this.generatePdfContract(contractContent);
-        // alert("Reserva realizada con éxito");
+        
       },
       (error) => {
         console.log(error);

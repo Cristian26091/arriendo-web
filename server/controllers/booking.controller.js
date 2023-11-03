@@ -1,6 +1,9 @@
 const Booking = require('../models/booking');
 const bookingCtrl = {};
 
+const bcrypt = require('bcrypt');
+const saltRounds = 10; // Número de rondas de sal
+
 bookingCtrl.getBookings = async (req, res) => {
     const bookings = await Booking.find();
     res.json(bookings);
@@ -24,6 +27,10 @@ bookingCtrl.getBookingByRoom = async (req, res) => {
 }
 
 bookingCtrl.createBooking = async (req, res) => {
+    const {pdf} = req.body;
+    //encryptar la contraseña
+    const hashedContract = await bcrypt.hash(pdf, saltRounds);
+
     const booking = new Booking({
         userId: req.body.userId,
         roomId: req.body.roomId,
@@ -31,7 +38,8 @@ bookingCtrl.createBooking = async (req, res) => {
         fecha_fin: req.body.fecha_fin,
         fecha_creacion: req.body.fecha_creacion,
         estado: req.body.estado,
-        precio: req.body.precio
+        precio: req.body.precio,
+        pdf: hashedContract,
     });
     await booking.save();
     res.json({
@@ -80,6 +88,10 @@ bookingCtrl.deleteBooking = async (req, res) => {
     res.json({
         'status': 'Booking deleted'
     });
+}
+
+bookingCtrl.postContractPDF = async (req, res) => {
+
 }
 
 module.exports = bookingCtrl;
