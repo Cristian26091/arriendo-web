@@ -15,33 +15,28 @@ export class BookingComponent implements OnInit {
 
   constructor(public bookingService: BookingService, private cookieService: CookieService, private roomService: RoomService) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
 
       const userID = this.cookieService.get('user_id');
-      console.log(userID);
-      this.bookingService.getBookingByUser(userID).subscribe(
-        (res : Booking[]) => {
-          this.bookingService.bookings = res;
-          console.log(res);
-          if(this.bookingService.bookings){
-            // Ahora, para cada reserva, obtén la información de la habitación correspondiente
-            this.bookingService.bookings.forEach((booking: Booking) => {
+
+      try {
+        const res = await this.bookingService.getBookingByUser(userID).toPromise();
+        this.bookingService.bookings = res as Booking[];
+
+        if (this.bookingService.bookings) {
+          for (const booking of this.bookingService.bookings) {
               const roomId = booking.roomId;
-              this.roomService.getRoom(roomId).subscribe(
-                (room: Room) => {
-                  this.roomService.rooms.push(room);
-                },
-                (err) => console.log(err)
-              )
-            });
+              const room = await this.roomService.getRoom(roomId).toPromise();
+              this.roomService.rooms.push(room);
           }
-          else{
-            this.bookingService.bookings = [];
-            console.log("No hay reservas");
-          }
-        },
-        err => console.log(err)
-      );
+      } else {
+          this.bookingService.bookings = [];
+          console.log("No hay reservas");
+      }
+
+      } catch (error) {
+        console.error(error);
+      }
   }
 
   getRoomName(roomId: string): string {
