@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingService } from 'src/app/services/booking.service';
-import { UserService } from 'src/app/services/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Booking } from 'src/app/models/booking';
 import { RoomService } from 'src/app/services/room.service';
-import { Room } from 'src/app/models/room';
 import { environment } from 'src/environments/environment';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Router } from '@angular/router';
+
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 
 @Component({
   selector: 'app-booking',
@@ -75,6 +79,46 @@ export class BookingComponent implements OnInit {
   goToPayment(){
     this.router.navigate(['/payment']);
   }
+
+  generateContract(booking: Booking): void {
+
+    const documentDefinition = {
+      content: [
+        { 
+          text: 'CONTRATO DE ARRIENDO DE CASA O DEPARTAMENTO', 
+          style: 'header',
+          alignment: 'center',
+          margin: [0, 0, 0, 20], // [left, top, right, bottom]
+        },
+        
+        { 
+          text: booking.pdf,
+          style: 'contractText',
+          alignment: 'justify',
+          margin: [10, 0], // Márgenes izquierdo y derecho
+        },
+        
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+        },
+        contractText: {
+          fontSize: 12,
+          lineHeight: 1.5, // Espacio entre líneas
+        },
+      },
+    };
+  
+    // Genera el PDF
+    const pdfDoc = pdfMake.createPdf(documentDefinition);
+  
+    // Muestra el PDF en una ventana nueva
+    pdfDoc.open();
+  }
+
+  
    
 
 }
