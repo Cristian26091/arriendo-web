@@ -77,11 +77,15 @@ import { RegistrationStepComponent } from './pages/register/registrationStep/reg
 
 import { RoomMateCardComponent } from './pages/information/room-mate-card/room-mate-card.component';
 
+
+
 //componentes prime ng
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -159,8 +163,9 @@ import { MultiSelectModule } from 'primeng/multiselect';
     DropdownModule,
     MultiSelectModule,
     CardModule,
+    ToastModule,
   ],
-  providers: [CookieService, DatePipe],
+  providers: [CookieService, DatePipe, MessageService],
   bootstrap: [AppComponent],
   
   schemas: [ 

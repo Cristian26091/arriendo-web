@@ -10,7 +10,9 @@
                     <p class="card-text">Precio: ${{ booking.precio }}</p>
                     <div class="d-flex justify-content-end">
 
-                        <a class="btn btn-danger ml-2" (click)="cancelBooking(booking._id)">Cancelar Reserva</a>
+                        <a class="btn btn-danger ml-2" (click)="cancelBooking(booking._id)"  toast="cancelToast">Cancelar Reserva</a>
+                        <p-toast position="bottom-center" key="cancelToast"></p-toast>
+
                         <a class="btn btn-primary ml-2" (click)="generateContract(booking)" >Descargar contrato</a>
 
                         <input type="file" (change)="capturarPDF($event, booking)" accept=".pdf" multiple="false" id="fileInput" style="display: none;">

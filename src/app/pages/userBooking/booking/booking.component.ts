@@ -6,6 +6,8 @@ import { RoomService } from 'src/app/services/room.service';
 import { environment } from 'src/environments/environment';
 import {Router } from '@angular/router';
 
+import { MessageService } from 'primeng/api';
+
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
@@ -18,7 +20,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class BookingComponent implements OnInit {
 
-  constructor(public bookingService: BookingService, private cookieService: CookieService, private roomService: RoomService, private router: Router) {}
+  constructor(public bookingService: BookingService, private cookieService: CookieService, private roomService: RoomService, private router: Router, private messageService: MessageService) {}
 
   async ngOnInit(): Promise<void> {
 
@@ -44,6 +46,10 @@ export class BookingComponent implements OnInit {
       }
   }
 
+  showCancelToast() {
+    this.messageService.add({ key: 'cancelToast', severity: 'success', summary: 'Reserva Cancelada', detail: 'La reserva ha sido cancelada con éxito' });
+  }
+
   getRoomName(roomId: string): string {
     // Busca la información de la habitación por su roomId
     const room = this.roomService.rooms.find((room) => room._id === roomId);
@@ -61,10 +67,11 @@ export class BookingComponent implements OnInit {
           this.bookingService.bookings = this.bookingService.bookings.filter(
             (booking) => booking._id !== bookingId
           );
-          console.log(res);
+          this.showCancelToast(); // Mostrar el toast de éxito
         },
         (error) => {
           console.error('Error al cancelar la reserva:', error);
+          // Muestra un toast de error si la cancelación falla
         }
       );
     }
