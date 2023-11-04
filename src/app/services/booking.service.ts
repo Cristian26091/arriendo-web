@@ -41,6 +41,7 @@ export class BookingService {
   }
 
   putBooking(booking: Booking): Observable<any>{
+    // console.log("putBooking", booking);
     return this.http.put(this.URL_API, booking);
   }
 

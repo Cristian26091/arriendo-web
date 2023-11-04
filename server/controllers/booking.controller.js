@@ -56,8 +56,8 @@ bookingCtrl.createBooking = async (req, res) => {
         estado: req.body.estado,
         precio: req.body.precio,
         pdf: req.body.pdf,
-        url_pdf_user: " ",
-        ref_pdf_user: " "
+        url_pdf_user: 'null',
+        ref_pdf_user: 'null',
 
     });
     await booking.save();

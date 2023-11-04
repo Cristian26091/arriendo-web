@@ -17,6 +17,14 @@ export class ReservationViewsComponent implements OnInit {
   currentRoute: string = "";
   currentRouteParts: string[] = ["primero", "segundo"];
   headTableContent: string[];
+  estados = [
+    environment.estado.pendiente,
+    environment.estado.confirmada,
+    environment.estado.finalizada,
+  ];
+
+  estado : string = "";
+
   
   selectedBooking: Booking | undefined;
 
@@ -85,8 +93,16 @@ export class ReservationViewsComponent implements OnInit {
     })
   }
 
-  downloadPdf(booking: Booking){
-    
+  validateUploadDocument(item: Booking): boolean{
+    return item.url_pdf_user != 'null' || item.url_pdf_user != 'null';
   }
+
+  updateBookingState(booking: Booking) {
+    // Llama a tu servicio para actualizar la reserva en la base de datos
+    this.bookingService.putBooking(booking).subscribe(res => {
+      this.getBookings();
+    });
+  }
+  
 
 }
