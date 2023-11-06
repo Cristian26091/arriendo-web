@@ -7,7 +7,12 @@ serviceCtrl.getServices = async (req, res) => {
 }
 
 serviceCtrl.getService = async (req, res) => {
-    console.log(req.body);
+    try {
+        const house = await Service.findById(req.params.idService);
+    res.json(house);
+    }catch(err) {
+        console.log(err);
+    }
 }
 
 module.exports = serviceCtrl;

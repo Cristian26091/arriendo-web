@@ -22,6 +22,7 @@ export class ServiceService {
   }
 
   getService(_id: string): Observable<Service>{
+    console.log(`${this.URL_API}/${_id}`);
     return this.htttp.get<Service>(`${this.URL_API}/${_id}`);
   }
 }

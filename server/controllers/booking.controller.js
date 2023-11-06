@@ -45,7 +45,7 @@ bookingCtrl.getBookingByRoom = async (req, res) => {
 
 bookingCtrl.createBooking = async (req, res) => {
 
-    console.log(req.body);
+    // console.log(req.body);
 
     const booking = new Booking({
         userId: req.body.userId,
