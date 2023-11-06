@@ -1,22 +1,23 @@
 <div class="container">
-    <div class="row">
+    <div class="row g-3">
+      <h2 class="text-left">¿Necesitas añadir un servicio?</h2>
       <div class="col-md-4" *ngFor="let service of services">
-        <div class="card">
+        <div class="card" [ngClass]="{'selected-service': isServiceSelected(service._id)}">
           <!-- <img [src]="service.imagen" class="card-img-top" alt="{{service.nombre}}"> -->
           <div class="card-body">
             <h5 class="card-title">{{service.nombre}}</h5>
             <p class="card-text">{{service.descripcion}}</p>
-            <p class="card-text">Precio: {{service.precio | currency:'USD'}}</p>
+            <p class="card-text">Precio: {{service.precio | currency:'CLP':'symbol-narrow' }}</p>
             <div class="form-check">
               <input
-                type="radio"
+                type="checkbox"
                 class="form-check-input"
-                [id]="'radio_' + service._id"
-                [name]="'selectedService'"
+                [id]="'checkbox_' + service._id"
+                [name]="'selectedServices'"
                 [value]="service._id"
-                (change)="selectService(service._id)"
+                (change)="toggleServiceSelection(service._id)"
               >
-              <label [for]="'radio_' + service._id" class="form-check-label">Seleccionar</label>
+              <label [for]="'checkbox_' + service._id" class="form-check-label">Seleccionar</label>
             </div>
           </div>
         </div>

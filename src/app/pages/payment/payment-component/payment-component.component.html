@@ -2,16 +2,18 @@
 <!-- Stepper -->
 <div class="container mt-4">
     
-    <div class="row">
-      <div class="col">
-        <ul class="stepper">
-          <li class="step" *ngFor="let step of steps; let i = index" [ngClass]="{ 'active': currentStep === i + 1 }">
-            <span class="step-number">{{ i + 1 }}</span>
-            <span class="step-title">{{ step.title }}</span>
-          </li>
-        </ul>
-      </div>
-</div>
+  <div class="row">
+    <div class="col">
+      <ul class="stepper">
+        <li class="step" *ngFor="let step of steps; let i = index" [ngClass]="{ 'active': currentStep === i + 1 }">
+          <span class="step-number">{{ i + 1 }}</span>
+          <span class="step-title">{{ step.title }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <br>
 
 <!-- Container -->
 <div class="row">
