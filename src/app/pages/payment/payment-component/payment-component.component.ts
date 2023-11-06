@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-payment-component',
@@ -16,18 +17,26 @@ export class PaymentComponentComponent implements OnInit {
 
   // Dentro de tu componente
   steps = [
-    { title: 'Tus datos', content: 'data' },
-    { title: 'Detalles', content: 'details' },
-    { title: 'Pago', content: 'payment' }
+    { title: 'Servicios', content: 'services'},
+    { title: 'Tus datos', content: 'details' },
+    { title: 'Detalles', content: 'data' },
+    { title: 'Pago', content: 'payment' },
+    
   ];
 
-
-
-  constructor() { }
+  constructor(private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.currentContent = this.steps[0].content;
   }
+
+  ngOnDestroy(): void {
+    this.cookieService.delete('booking_id');
+  }
+
+
+
+
 
   previousStep() {
     if (this.currentStep > 1) {
@@ -46,7 +55,7 @@ export class PaymentComponentComponent implements OnInit {
   }
 
   updateButtonVisibility() {
-    this.hideNextButton = this.currentStep === 3;
+    this.hideNextButton = this.currentStep === 4;
     this.hidePreviousButton = this.currentStep === 1;
   }
 

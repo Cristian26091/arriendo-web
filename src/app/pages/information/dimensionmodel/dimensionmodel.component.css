@@ -1,40 +1,42 @@
 .model-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .loading-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .loader {
-    width: 200px;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  }
-  
-  .progress-bar {
-    width: 100%;
-    height: 20px;
-    background-color: #3498db;
-    border-radius: 10px;
-  }
-  
-  .loading-text {
-    margin-top: 10px;
-    font-size: 18px;
-    color: #333;
-  }
-  
+  position: relative;
+  width: 100%;
+  height: 550px;
+  margin-top: 2%;
+  border-radius: 10px; /* Agrega esquinas redondeadas */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Agrega una sombra */
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1; /* Asegura que la capa de progreso esté encima del canvas */
+}
+
+.progress-bar {
+  width: 200px; /* Ajusta el ancho de la barra de progreso según tus preferencias */
+  height: 20px;
+  background-color: #ddd; /* Color de fondo de la barra de progreso */
+  border-radius: 10px;
+}
+
+.progress {
+  width: 0;
+  height: 100%;
+  background-color: #3498db; /* Color de la barra de progreso */
+  border-radius: 10px;
+}
+
+.loading-text {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #fff; /* Color del texto de carga */
+}

@@ -10,6 +10,10 @@ const region = require('../controllers/region.controller');
 const user = require('../controllers/user.controller');
 const help = require('../controllers/help.controller');
 const booking = require('../controllers/booking.controller');
+const house = require('../controllers/house.controller');
+const interest = require('../controllers/interest.controller');
+const country = require('../controllers/country.controller');
+const service = require('../controllers/service.controller');
 
 // ----------- HELP ROUTES -----------
 router.get('/help', help.getHelps);
@@ -19,6 +23,8 @@ router.get('/room', room.getRooms);
 router.get('/room/:idRoom', room.getRoom);
 router.get('/filterRooms', room.getRoomByFilter);
 router.delete('/room/:idRoom', room.deleteRoom);
+router.get('/filterRoomsResults', room.filterRoomsByResults);
+router.post('/uploadRoom',room.createRoom);
 
 //----------ROOM BUCKET ROUTES-----------
 router.post('/uploadModel',upload.single('model'), room.uploadModelToBucket);
@@ -27,7 +33,7 @@ router.post('/uploadImages',upload.array('images'), room.uploadImageToBucket);
 router.delete('/deleteImages/room-image-cover/:folder/:file', room.deleteImagesFromBucket);
 router.post('/uploadTexture',upload.single('texture'), room.uploadTextureToBucket);
 router.delete('/deleteTexture/textures/:file', room.deleteTextureFromBucket);
-router.post('/uploadRoom',room.createRoom);
+
 
 //----------CONTACT ROUTES-----------
 router.get('/contact', contact.getContacts);
@@ -49,8 +55,28 @@ router.get('/booking/:idBooking', booking.getBooking);
 router.get('/booking/user/:idUser', booking.getBookingByUser);
 router.get('/booking/room/:idRoom', booking.getBookingByRoom);
 router.post('/booking', booking.createBooking);
-router.put('/booking/:idBooking', booking.editBooking);
+router.put('/booking', booking.putBooking);
 router.delete('/booking/:idBooking', booking.deleteBooking);
+//----------RUTA BOOKING PDF BUCKET-----------
+router.post ('/uploadPdfUser',upload.single('pdf'), booking.uploadPdfToBucket);
+
+
+//----------HOUSE ROUTES-----------
+router.get('/house', house.getHouses);
+router.get('/house/:idHouse', house.getHouse);
+router.post('/house', house.createHouse);
+router.put('/house/:idHouse', house.editHouse);
+router.delete('/house/:idHouse', house.deleteHouse);
+
+//---------- INTEREST ROUTES -----------
+router.get('/interest', interest.getInterests);
+
+//---------- COUNTRYES ROUTES -----------
+router.get('/country', country.getCountries);
+
+//---------- SERVICE ROUTES -----------
+router.get('/service', service.getServices);
+router.get('/service/:idService', service.getService);
 
 
 module.exports = router;

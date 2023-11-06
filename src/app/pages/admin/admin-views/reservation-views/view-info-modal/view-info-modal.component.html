@@ -1,0 +1,113 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="reservation-details">
+          <h2 class="text-center">Detalles de la Reserva</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <label>ID de Reserva:</label>
+            </div>
+            <div class="col-md-6">
+              <p>{{ bookingService.selectedBookin._id }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Fecha de Inicio:</label>
+            </div>
+            <div class="col-md-6">
+              <p>{{ bookingService.selectedBookin.fecha_inicio | date: 'dd/MM/yyyy' }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Fecha de Fin:</label>
+            </div>
+            <div class="col-md-6">
+              <p>{{ bookingService.selectedBookin.fecha_fin | date: 'dd/MM/yyyy' }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Estado:</label>
+            </div>
+            <div class="col-md-6">
+              <p>{{ bookingService.selectedBookin.estado }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Precio:</label>
+            </div>
+            <div class="col-md-6">
+              <p>{{ bookingService.selectedBookin.precio | currency }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Fecha de Creación:</label>
+            </div>
+            <div class="col-md-6">
+              <p>{{ bookingService.selectedBookin.fecha_creacion | date: 'dd/MM/yyyy' }}</p>
+            </div>
+          </div>
+  
+          <!-- Mostrar detalles del usuario -->
+          <h2 class="text-center">Detalles del Usuario</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Nombre:</label>
+            </div>
+            <div class="col-md-6">
+              <p>{{ userService.selectedUser.nombre }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Apellido:</label>
+            </div>
+            <div class="col-md-6">
+              <p>{{ userService.selectedUser.apellido }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>RUT:</label>
+            </div>
+            <div class="col-md-6">
+              <p>{{ userService.selectedUser.rut }}</p>
+            </div>
+          </div>
+          <!-- Agregar más detalles del usuario según sea necesario -->
+  
+          <!-- Mostrar detalles de la habitación -->
+          <h2 class="text-center">Detalles de la Habitación</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Región:</label>
+            </div>
+            <div class="col-md-6">
+              <p>{{ roomService.selectedRoom.region }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Ciudad:</label>
+            </div>
+            <div class="col-md-6">
+              <p>{{ roomService.selectedRoom.ciudad }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Comuna:</label>
+            </div>
+            <div class="col-md-6">
+              <p>{{ roomService.selectedRoom.comuna }}</p>
+            </div>
+          </div>
+          <!-- Agregar más detalles de la habitación según sea necesario -->
+  
+        </div>
+    </div>
+  </div>
+  

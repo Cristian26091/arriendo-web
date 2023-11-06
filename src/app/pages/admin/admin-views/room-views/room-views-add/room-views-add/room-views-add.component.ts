@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, EventEmitter } from '@angular/core';
 import { RoomService } from 'src/app/services/room.service';
 import { RegionService } from 'src/app/services/region.service';
 import { Region } from 'src/app/models/region.model';
@@ -6,6 +6,9 @@ import { Room } from 'src/app/models/room';
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 import { ImageRef } from 'src/app/models/image-ref';
+import { HouseService } from '../../../../../../services/house.service';
+import { House } from 'src/app/models/house';
+
 
 
 @Component({
@@ -30,22 +33,29 @@ export class RoomViewsAddComponent implements OnInit {
   selectedLongitude: number = 0;
   //Campos de la habitación
   selectedHome: string = '';
+  selectedHouse: string = '';
+  selectedHouseObject: House = null;
   isShareBathroom = false;
   roomNumber: string = '';
   roomPrice: string = '';
   roomDescription: string = '';
   //Campos del modelo 3D
-  isUploadModel: boolean = false;
-  url_model :string = '';
-  model_ref: string = ''; //referencia del nombre del modelo en el bucket
+  url_modelHQ :string = '';
+  model_refHQ: string = ''; //referencia del nombre del modelo en el bucket
+  url_modelLQ :string = '';
+  model_refLQ: string = ''; //referencia del nombre del modelo en el bucket
   //Campos de las imagenes
   imagesRefs : ImageRef[] = [];
-  texture_ref: string = ''; //referencia de la textura en el bucket
-  texture_url: string = ''; //url de la textura en el bucket
+  texture_refHQ: string = ''; //referencia de la textura en el bucket
+  texture_urlHQ: string = ''; //url de la textura en el bucket
+  texture_refLQ: string = ''; //referencia de la textura en el bucket
+  texture_urlLQ: string = ''; //url de la textura en el bucket
   cover_image_url: String = ''; //url de la imagen de portada en el bucket
   //mensajes de error
-  ModelErrorMessage: string = '';
-  textureErroMessage: string = '';
+  ModelErrorMessageHQ: string = '';
+  textureErroMessageHQ: string = '';
+  ModelErrorMessageLQ: string = '';
+  textureErroMessageLQ: string = '';
   regionErrorMessage: string = '';
   comunaErrorMessage: string = '';
   locationErrorMessage: string = '';
@@ -56,17 +66,16 @@ export class RoomViewsAddComponent implements OnInit {
   streetErrorMessage: string = '';
   descriptionErrorMessage: string = '';
   imagesErrorMessage: string = '';
+  houseErrorMessage: string = '';
   errorMessage: string = '';
   
 
 
-  constructor(private roomService:RoomService, public regionService:RegionService) { }
+  constructor(private roomService:RoomService, public regionService:RegionService, public houseService: HouseService) { }
 
   ngOnInit(): void {
     this.getRegions();
-    // window.addEventListener('beforeunload', (event) => {
-    //   event.returnValue = '¿Seguro que quieres abandonar la página?';
-    // });
+    this.getHouses();
   }
 
   ngAfterViewInit(): void {
@@ -112,61 +121,120 @@ export class RoomViewsAddComponent implements OnInit {
     });
   }
 
-  // ---------------------- MODELADO 3D ----------------------
+  //----------------------- DRAG -----------------------
   onDragOver(event: DragEvent) {  
     event.preventDefault();
     event.stopPropagation();
   }
 
-  onDrop(event: DragEvent) {
+  // ---------------------- MODELADO 3D ----------------------
+
+  onDropModelHQ(event: DragEvent) {
     event.preventDefault();
     const files = event.dataTransfer.files;
-    this.handle3DFiles(files);
+    if(files.length > 1){
+      this.ModelErrorMessageHQ = 'Solo se puede cargar un archivo a la vez.';
+      return;
+    }
+    else{
+      const file = files[0];
+      this.handle3DFileHQ(file);
+    }
   }
 
-  private handle3DFiles(files: FileList) {
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      
-      // Validar el tipo de archivo [obj]
-      if (!this.isValidFileType(file)) {
-        this.ModelErrorMessage = 'Tipo de archivo no válido. Por favor, sube archivos OBJ o el rar de tu proyecto .';
-        continue; // Saltar este archivo y continuar con el siguiente
-      }
-
-      // Validar el tamaño del archivo (por ejemplo, limitar a un tamaño máximo en bytes)
-      if (!this.isValidFileSize(file)) {
-        this.ModelErrorMessage = 'Tamaño de archivo no válido. El tamaño máximo permitido es 300 MB.';
-        continue; // Saltar este archivo y continuar con el siguiente
-      }
-
-      //Cargar el archivo si es obj o rar jpg o png
-      this.roomService.uploadModelFile(file).subscribe(
-        (res) => {
-          // Maneja la respuesta del servidor (por ejemplo, actualiza la URL del modelo en tu formulario)
-          console.log('Archivo cargado con éxito:', res);
-          this.url_model = res.downloadLink;
-          this.model_ref = res.fileName;
-        },
-        (error) => {
-          console.error('Error al cargar el archivo:', error);
-        }
-      );
-      // Establece la bandera de carga del modelo
-      this.isUploadModel = true;
+  onDropModelLQ(event: DragEvent) {
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+    if(files.length > 1){
+      this.ModelErrorMessageLQ = 'Solo se puede cargar un archivo a la vez.';
+      return;
     }
+    else{
+      const file = files[0];
+      this.handle3DFileLQ(file);
+    }
+  }
+  
+
+  //Manejo de un solo modelo 3D
+  private handle3DFileHQ(file: File) {
+      
+    // Validar el tipo de archivo obj
+    if (!this.isValidModelType(file)) {
+      this.ModelErrorMessageHQ = 'Tipo de archivo no válido. Por favor, sube archivos con extensión obj, glb o gltf.';
+      return; // Saltar este archivo y continuar con el siguiente
+    }
+
+    // Validar el tamaño del archivo (por ejemplo, limitar a un tamaño máximo en bytes)
+    if (!this.isValidModelFileSize(file)) {
+      this.ModelErrorMessageHQ = 'Tamaño de archivo no válido. El tamaño máximo permitido es 300 MB.';
+      return; // Saltar este archivo y continuar con el siguiente
+    }
+
+    this.roomService.uploadModelFile(file).subscribe(
+      (res) => {
+        // Maneja la respuesta del servidor (por ejemplo, actualiza la URL del modelo en tu formulario)
+        console.log('Archivo cargado con éxito:', res);
+        this.url_modelHQ = res.downloadLink;
+        this.model_refHQ = res.fileName;
+      },
+      (error) => {
+        console.error('Error al cargar el archivo:', error);
+      }
+    );
+  
+  }
+
+  //Manejo de un solo modelo 3D
+  private handle3DFileLQ(file: File) {
+      
+    // Validar el tipo de archivo obj
+    if (!this.isValidModelType(file)) {
+      this.ModelErrorMessageLQ = 'Tipo de archivo no válido. Por favor, sube archivos .obj.';
+      return; // Saltar este archivo y continuar con el siguiente
+    }
+
+    // Validar el tamaño del archivo (por ejemplo, limitar a un tamaño máximo en bytes)
+    if (!this.isValidModelFileSize(file)) {
+      this.ModelErrorMessageLQ = 'Tamaño de archivo no válido. El tamaño máximo permitido es 300 MB.';
+      return; // Saltar este archivo y continuar con el siguiente
+    }
+
+    this.roomService.uploadModelFile(file).subscribe(
+      (res) => {
+        // Maneja la respuesta del servidor (por ejemplo, actualiza la URL del modelo en tu formulario)
+        console.log('Archivo cargado con éxito:', res);
+        this.url_modelLQ = res.downloadLink;
+        this.model_refLQ = res.fileName;
+      },
+      (error) => {
+        console.error('Error al cargar el archivo:', error);
+      }
+    );
   }
 
   // Método que se ejecutará antes de cerrar/cambiar la página
   onBeforeUnloadModel() {
-    if (this.model_ref) {
+    if (this.model_refHQ) {
       // Elimina el modelo del bucket usando el nombre del archivo
-      this.roomService.deleteModelFile(this.model_ref).subscribe(
+      this.roomService.deleteModelFile(this.model_refHQ).subscribe(
         (res) => {
           console.log('Modelo eliminado del bucket con éxito:', res.message);
           // Limpia la referencia del modelo en la variable
-          this.model_ref = '';
+          this.model_refHQ = '';
+        },
+        (error) => {
+          console.error('Error al eliminar el modelo del bucket:', error);
+        }
+      );
+    }
+    if(this.model_refLQ){
+      //elimina el modelo del bucket usando el nombre del archivo
+      this.roomService.deleteModelFile(this.model_refLQ).subscribe(
+        (res) => {
+          console.log('Modelo eliminado del bucket con éxito:', res.message);
+          // Limpia la referencia del modelo en la variable
+          this.model_refLQ = '';
         },
         (error) => {
           console.error('Error al eliminar el modelo del bucket:', error);
@@ -177,54 +245,123 @@ export class RoomViewsAddComponent implements OnInit {
 
   // ----------------------- TEXTURA -----------------------
  
-
-  onDropTexture(event: DragEvent) {
+  onDropTextureHQ(event: DragEvent) {
     event.preventDefault();
     const files = event.dataTransfer.files;
-    this.handleTextureFiles(files);
-  }
+    if(files.length > 1){
+      this.textureErroMessageHQ = 'Solo se puede cargar un archivo a la vez.';
+      return;
+    }
+    else{
+      const file = files[0];
+      this.handleTextureFileHQ(file);
 
-  handleTextureFiles(files: FileList) {
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      
-      // Validar el tipo de archivo [jpg o png]
-      if (!this.isValidTextureType(file)) {
-        this.textureErroMessage = 'Tipo de archivo no válido. Por favor, sube archivos JPG o PNG.';
-        continue; // Saltar este archivo y continuar con el siguiente
-      }
-
-      //Cargar el archivo si es jpg o png
-      this.roomService.uploadTextureFile(file).subscribe(
-        (res) => {
-          // Maneja la respuesta del servidor (por ejemplo, actualiza la URL del modelo en tu formulario)
-          console.log('Archivo cargado con éxito:', res);
-          this.texture_ref = res.fileName;
-          this.texture_url = res.downloadLink;
-        },
-        (error) => {
-          console.error('Error al cargar el archivo:', error);
-        }
-      );
-      // Establece la bandera de carga del modelo
-      this.isUploadModel = true;
     }
   }
 
+  onDropTextureLQ(event: DragEvent) {
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+    if(files.length > 1){
+      this.textureErroMessageLQ = 'Solo se puede cargar un archivo a la vez.';
+      return;
+    }
+    else{
+      const file = files[0];
+      this.handleTextureFileLQ(file);
+    }
+  }
+
+  handleTextureFileHQ(file: File) {
+
+    // Validar el tipo de archivo [jpg o png]
+    if (!this.isValidTextureType(file)) {
+      this.textureErroMessageHQ = 'Tipo de archivo no válido. Por favor, sube archivos JPG o PNG.';
+      return; // Saltar este archivo y continuar con el siguiente
+    }
+
+    if(!this.isValidTextureFileSize(file)){
+      this.textureErroMessageHQ = 'Tamaño de archivo no válido. El tamaño máximo permitido es 25 MB.';
+      return;
+    }
+
+    this.processTextureImage(file);
+
+    //Cargar el archivo si es jpg o png
+    this.roomService.uploadTextureFile(file).subscribe(
+      (res) => {
+        // Maneja la respuesta del servidor (por ejemplo, actualiza la URL del modelo en tu formulario)
+        console.log('Archivo cargado con éxito:', res);
+        this.texture_refHQ = res.fileName;
+        this.texture_urlHQ = res.downloadLink;
+      },
+      (error) => {
+        console.error('Error al cargar el archivo:', error);
+      }
+    );
+
+  }
+
+  handleTextureFileLQ(file: File) {
+
+    // Validar el tipo de archivo [jpg o png]
+    if (!this.isValidTextureType(file)) {
+      this.textureErroMessageLQ = 'Tipo de archivo no válido. Por favor, sube archivos JPG o PNG.';
+      return; // Saltar este archivo y continuar con el siguiente
+    }
+
+    if(!this.isValidTextureFileSize(file)){
+      this.textureErroMessageLQ = 'Tamaño de archivo no válido. El tamaño máximo permitido es 25 MB.';
+      return;
+    }
+
+    this.processTextureImage(file);
+
+    //Cargar el archivo si es jpg o png
+    this.roomService.uploadTextureFile(file).subscribe(
+      (res) => {
+        // Maneja la respuesta del servidor (por ejemplo, actualiza la URL del modelo en tu formulario)
+        console.log('Archivo cargado con éxito:', res);
+        this.texture_refLQ = res.fileName;
+        this.texture_urlLQ = res.downloadLink;
+      },
+      (error) => {
+        console.error('Error al cargar el archivo:', error);
+      }
+    );
+  }
+
   onBeforeUnloadTexture() {
-    if (this.texture_ref) {
-      // Elimina el modelo del bucket usando el nombre del archivo
-      this.roomService.deleteTextureFile(this.texture_ref).subscribe(
+    if (this.texture_refHQ) {
+      // Elimina la textura del bucket usando el nombre del archivo
+      this.roomService.deleteTextureFile(this.texture_refHQ).subscribe(
         (res) => {
           console.log('Textura eliminada del bucket con éxito:', res.message);
-          // Limpia la referencia del modelo en la variable
-          this.texture_ref = '';
+          this.texture_refHQ = '';
         },
         (error) => {
           console.error('Error al eliminar la textura del bucket:', error);
         }
       );
     }
+
+    if(this.texture_refLQ){
+      //elimina la textura del bucket usando el nombre del archivo
+      this.roomService.deleteTextureFile(this.texture_refLQ).subscribe(
+        (res) => {
+          console.log('Textura eliminada del bucket con éxito:', res.message);
+          this.texture_refLQ = '';
+        },
+        (error) => {
+          console.error('Error al eliminar la textura del bucket:', error);
+        }
+      );
+    }
+  }
+
+  processTextureImage(file: File): File{
+    console.log("File", file);
+    return null;
   }
 
   // ---------------------- IAMGENES----------------------
@@ -296,6 +433,17 @@ export class RoomViewsAddComponent implements OnInit {
     );
   }
 
+  private async getHouses(){
+    this.houseService.getHouses().subscribe(
+    (res) => {
+      this.houseService.houses = res as House[];
+    },
+    (error) => {
+      console.error('Error al obtener las casas:', error);
+    }
+    );
+  }
+
   onRegionSelect(event : Event){
     console.log(this.selectedRegion);
     const region = this.regionService.regions.find(r => r.nombre_region === this.selectedRegion);
@@ -309,7 +457,14 @@ export class RoomViewsAddComponent implements OnInit {
   }
 
   onSelectHome(event : Event){
-    console.log(this.selectedHome)
+    console.log(event.target as HTMLSelectElement);
+  }
+
+  onHouseSelect(event : Event) {
+    // Busca el objeto de la casa seleccionada en houseService.house
+    const selectedHousee = (event.target as HTMLSelectElement).value; 
+    this.selectedHouseObject = this.houseService.houses.find((casa) => casa.nombrePropiedad === selectedHousee);
+    console.log(this.selectedHouseObject._id);
   }
 
   onBathroomTypeSelect(event: Event) {
@@ -320,6 +475,7 @@ export class RoomViewsAddComponent implements OnInit {
 
     console.log(this.isShareBathroom);
   }
+
 
   getFileName(ruta: string): string {
     const partesRuta = ruta.split('/');
@@ -363,14 +519,15 @@ export class RoomViewsAddComponent implements OnInit {
     }
   }
 
-  private isValidFileType(file: File): boolean {
+
+  private isValidModelType(file: File): boolean {
     const fileExtension = file.name.split('.').pop().toLowerCase();
-    // Verificar si la extensión es "obj" o "rar", jpg o png para texturas
-    const allowedFileExtensions = ['obj', 'rar', 'jpg', 'png'];
+    // Verificar si la extensión es "obj"
+    const allowedFileExtensions = ['obj', 'glb', 'gltf'];
     return allowedFileExtensions.includes(fileExtension);
   }
 
-  private isValidFileSize(file: File): boolean {
+  private isValidModelFileSize(file: File): boolean {
     // Verificar si el tamaño del archivo es aceptable
     const maxSizeBytes = 300 * 1024 * 1024; // 300 MB
     return file.size <= maxSizeBytes;
@@ -383,10 +540,18 @@ export class RoomViewsAddComponent implements OnInit {
     return allowedFileExtensions.includes(fileExtension);
   }
 
+  private isValidTextureFileSize(file: File): boolean {
+    // Verificar si el tamaño del archivo es aceptable
+    const maxSizeBytes = 25 * 1024 * 1024; // 10 MB
+    return file.size <= maxSizeBytes;
+  }
+
   validarFormulario(): boolean {
     // Inicializa todas las banderas de error a vacío
-    this.ModelErrorMessage = '';
-    this.textureErroMessage = '';
+    this.ModelErrorMessageHQ = '';
+    this.textureErroMessageHQ = '';
+    this.ModelErrorMessageLQ = '';
+    this.textureErroMessageLQ = '';
     this.regionErrorMessage = '';
     this.comunaErrorMessage = '';
     this.locationErrorMessage = '';
@@ -397,18 +562,29 @@ export class RoomViewsAddComponent implements OnInit {
     this.streetErrorMessage = '';
     this.descriptionErrorMessage = '';
     this.imagesErrorMessage = '';
+    this.houseErrorMessage = '';
     this.errorMessage = '';
   
     let formularioValido = true; // Esta variable se establecerá en falso si algún campo no es válido
   
     // Valida cada campo individualmente y establece las banderas de error correspondientes
-    if (!this.model_ref) {
-      this.ModelErrorMessage = 'Por favor, sube un modelo 3D.';
+    if (!this.model_refHQ) {
+      this.ModelErrorMessageHQ = 'Por favor, sube un modelo 3D.';
       formularioValido = false;
     }
   
-    if (!this.texture_ref) {
-      this.textureErroMessage = 'Por favor, sube una textura.';
+    if (!this.texture_refHQ) {
+      this.textureErroMessageHQ = 'Por favor, sube una textura.';
+      formularioValido = false;
+    }
+
+    if (!this.model_refLQ) {
+      this.ModelErrorMessageLQ = 'Por favor, sube un modelo 3D.';
+      formularioValido = false;
+    }
+
+    if (!this.texture_refLQ) {
+      this.textureErroMessageLQ = 'Por favor, sube una textura.';
       formularioValido = false;
     }
 
@@ -456,6 +632,12 @@ export class RoomViewsAddComponent implements OnInit {
       this.imagesErrorMessage = 'Por favor, sube al menos una imagen.';
       formularioValido = false;
     }
+
+    if(this.selectedHouse === ''){
+      this.houseErrorMessage = 'Por favor, selecciona una casa.';
+      formularioValido = false;
+
+    }
   
     // Puedes agregar más validaciones según tus requerimientos
   
@@ -473,11 +655,15 @@ export class RoomViewsAddComponent implements OnInit {
     this.roomNumber = '';
     this.roomPrice = '';
     this.roomDescription = '';
-    this.url_model = '';
-    this.model_ref = '';
+    this.url_modelHQ = '';
+    this.model_refHQ = '';
+    this.url_modelLQ = '';
+    this.model_refLQ = '';
     this.imagesRefs = [];
-    this.texture_ref = '';
-    this.texture_url = '';
+    this.texture_refHQ = '';
+    this.texture_urlHQ = '';
+    this.texture_refLQ = '';
+    this.texture_urlLQ = '';
     this.cover_image_url = '';
   }
   
@@ -488,6 +674,8 @@ export class RoomViewsAddComponent implements OnInit {
     if (formularioValido) {
       // Si el formulario es válido, puedes continuar con la lógica de envío de datos o lo que sea necesario
       const room = new Room();
+      //id de la casa
+      room.id_casa = this.selectedHouseObject._id;
       // Asignar valores a la habitación
       room.region = this.selectedRegion;
       room.comuna = this.selectedComuna;
@@ -497,19 +685,24 @@ export class RoomViewsAddComponent implements OnInit {
       room.calle = this.roomStreet;
       room.precio = this.roomPrice;
       room.descripcion = this.roomDescription;
-      room.latitude = this.selectedLatitude;
-      room.longitud = this.selectedLongitude;
+      // Asignar valores de ubicación (invertidos porque Mapbox usa longitud, latitud)
+      room.latitude = this.selectedLongitude;
+      room.longitud = this.selectedLatitude;
       // Campos genéricos
       room.esta_arrendado = "false";
       room.reservas = [];
       room.fecha_publicacion = new Date(); // Fecha actual
   
       // Campos modelo 3D
-      room.url_model = this.url_model; // URL del modelo
-      room.model_ref_bucket = this.model_ref; // Nombre del archivo del modelo en el bucket
-      room.url_texture = this.texture_url; // URL de la textura
-      room.texture_ref_bucket = this.texture_ref; // Nombre del archivo de la textura en el bucket
+      room.url_model = this.url_modelHQ; // URL del modelo
+      room.model_ref_bucket = this.model_refHQ; // Nombre del archivo del modelo en el bucket
+      room.url_texture = this.texture_urlHQ; // URL de la textura
+      room.texture_ref_bucket = this.texture_refHQ; // Nombre del archivo de la textura en el bucket
       room.bucket_ref_imgs = this.imagesRefs; // Referencia de las imágenes en el bucket (nombre, url)
+      room.url_model_LQ = this.url_modelLQ; // URL del modelo
+      room.model_ref_bucket_LQ = this.model_refLQ; // Nombre del archivo del modelo en el bucket
+      room.url_texture_LQ = this.texture_urlLQ; // URL de la textura
+      room.texture_ref_bucket_LQ = this.texture_refLQ; // Nombre del archivo de la textura en el bucket
 
       //Campo imagen de portada
       this.chooseCoverImage();

@@ -8,7 +8,10 @@ const bookingSchema = new Schema({
     fecha_fin: { type: Date, required: true },
     fecha_creacion: { type: Date, required: true },
     estado: { type: String, required: true },
-    precio: { type: Number, required: true }
+    precio: { type: Number, required: true },
+    pdf: { type: String, required: true },
+    url_pdf_user: { type: String, required: true },
+    ref_pdf_user: { type: String, required: true },
 });
 
 const Booking = mongoose.model('Booking', bookingSchema);

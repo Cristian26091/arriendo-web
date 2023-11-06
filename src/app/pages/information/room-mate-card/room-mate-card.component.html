@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="companion-container">
+      <h2>Compañeros de Casa</h2>
+    </div>
+
+    <ng-container *ngIf="users.length; else noCompanerosTemplate">
+      <ng-container *ngFor="let user of users">
+        <div class="col-md-3">
+          <div class="card mb-4"> <!-- Agrega la clase "mb-4" para el espaciado inferior -->
+            <div class="card-body">
+              <div class="text-center">
+                <!-- Foto de perfil circular -->
+                <div class="profile-image">
+                  <img class="rounded-circle" src="../assets/user-icon.png" alt="Foto de perfil">
+                </div>
+              </div>
+              <h5 class="card-title text-center font-weight-bold" style="font-size: 1rem;">{{ user.nombre + " " + user.apellido }}</h5>
+              <p class="card-text text-center"><span>Edad:</span> <span style="color: gray;">{{ getAge(user.fecha_nacimiento) }}</span></p>
+              <p class="card-text text-center"><span>Nacionalidad:</span> <span style="color: gray;">{{ user.pais }}</span></p>
+              <p class="card-text text-center"><span>Actividad:</span> <span style="color: gray;">{{ user.tipo_actividad }}</span></p>
+              <p class="card-text text-center"><span>Ocupación:</span> <span style="color: gray;">{{ user.ocupacion }}</span></p>
+              <p class="card-text text-center"><span>Intereses:</span> <span style="color: gray;">{{ user.intereses }}</span></p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+  </div>
+</div>
+
+<ng-template #noCompanerosTemplate>
+  <!-- Manejar el caso en el que no se encuentren compañeros de piso -->
+  <p>No se encontraron compañeros de piso.</p>
+</ng-template> 

@@ -14,21 +14,14 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   selected = null;
   tooltip: string = ''; // Inicialmente, el tooltip está vacío
 
-  constructor(private bookingService: BookingService, private cookieService: CookieService, private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private bookingService: BookingService, private changeDetectorRef: ChangeDetectorRef) { }
   
 
   async ngOnInit(): Promise<void> {
-    const roomId = this.cookieService.get('selectedRoomId');
-    if (roomId) {
-      this.bookingService.getBookingByRoom(roomId).subscribe(
-        (res) => {
-          this.bookingService.bookings = res as Booking[];
-          console.log("Reservas: ", this.bookingService.bookings);
-          // this.changeDetectorRef.detectChanges(); // Forzar una actualización de la vista
-        },
-        (err) => console.log(err)
-      );
-    }
+    
+  }
+  ngOnDestroy(): void {
+   
   }
 
   ngAfterViewInit(): void {

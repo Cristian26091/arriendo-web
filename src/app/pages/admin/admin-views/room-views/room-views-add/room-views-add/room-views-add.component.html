@@ -4,35 +4,69 @@
     <div class="container mt-5">
         <h1 class="text-center">Registro de habitación</h1>
         
+        
         <div class="form-section">
-            <h2>Información del Modelo</h2>
+            <h2>Información del Modelo Detallado</h2>
             <hr>
             <div class="row mb-3">
                 <div class="col md-6">
                     <!-- Modelo 3D: Zona de arrastre (Drop Zone) -->
-                    <div id="dropZone" class="drop-zone form-control" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                    <div id="dropZone" class="drop-zone form-control" (drop)="onDropModelHQ($event)" (dragover)="onDragOver($event)">
                         <!-- Icono de carga centrado arriba del texto -->
                         <div class="d-flex flex-column align-items-center">
-                            <i class="bi bi-badge-3d-fill h1 mb-3" *ngIf="getFileName(model_ref)"></i>
-                            <i class="bi bi-upload h1 mb-3" *ngIf="!getFileName(model_ref)"></i>
-                            <p class="mb-0" *ngIf="!getFileName(model_ref)">Arrastra y suelta tu modelo 3D aquí</p>
-                            <p *ngIf="getFileName(model_ref)" style="color: skyblue;"> Modelo cargado: {{getFileName(model_ref)}}</p>
+                            <i class="bi bi-badge-3d-fill h1 mb-3" *ngIf="getFileName(model_refHQ)"></i>
+                            <i class="bi bi-upload h1 mb-3" *ngIf="!getFileName(model_refHQ)"></i>
+                            <p class="mb-0" *ngIf="!getFileName(model_refHQ)">Arrastra y suelta tu modelo 3D detallado aquí</p>
+                            <p *ngIf="getFileName(model_refHQ)" style="color: skyblue;"> Modelo cargado: {{getFileName(model_refHQ)}}</p>
                         </div>
                     </div>
-                    <div *ngIf="ModelErrorMessage" class="text-danger"> {{ModelErrorMessage}}</div>
+                    <div *ngIf="ModelErrorMessageHQ" class="text-danger"> {{ModelErrorMessageHQ}}</div>
                 </div>
                 <div class="col md-6">
                     <!-- TEXTURA DEL MODELO 3D -->
-                    <div id="dropZone" class="drop-zone form-control" (drop)="onDropTexture($event)" (dragover)="onDragOver($event)">
+                    <div id="dropZone" class="drop-zone form-control" (drop)="onDropTextureHQ($event)" (dragover)="onDragOver($event)">
                         <!-- Icono de carga centrado arriba del texto -->
                         <div class="d-flex flex-column align-items-center">
-                            <i class="bi bi-image h1 mb-3" *ngIf="getFileName(texture_ref)"></i>
-                            <i class="bi bi-upload h1 mb-3" *ngIf="!getFileName(texture_ref)"></i>
-                            <p class="mb-0" *ngIf="!getFileName(texture_ref)">Arrastra y suelta tu textura del modelo aquí</p>
-                            <p *ngIf="getFileName(texture_ref)" style="color: skyblue;">Textura cargada:{{getFileName(texture_ref)}} </p>
+                            <i class="bi bi-image h1 mb-3" *ngIf="getFileName(texture_refHQ)"></i>
+                            <i class="bi bi-upload h1 mb-3" *ngIf="!getFileName(texture_refHQ)"></i>
+                            <p class="mb-0" *ngIf="!getFileName(texture_refHQ)">Arrastra y suelta tu textura del modelo detallado aquí</p>
+                            <p *ngIf="getFileName(texture_refHQ)" style="color: skyblue;">Textura cargada:{{getFileName(texture_refHQ)}} </p>
                         </div>
                     </div>
-                    <div *ngIf="textureErroMessage" class="text-danger">{{textureErroMessage}}</div>
+                    <div *ngIf="textureErroMessageHQ" class="text-danger">{{textureErroMessageHQ}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2>Información del Modelo de Baja Calidad </h2>
+            <hr>
+            <div class="row mb-3">
+                <div class="col md-6">
+                    <!-- Modelo 3D: Zona de arrastre (Drop Zone) -->
+                    <div id="dropZone" class="drop-zone form-control" (drop)="onDropModelLQ($event)" (dragover)="onDragOver($event)">
+                        <!-- Icono de carga centrado arriba del texto -->
+                        <div class="d-flex flex-column align-items-center">
+                            <i class="bi bi-badge-3d-fill h1 mb-3" *ngIf="getFileName(model_refLQ)"></i>
+                            <i class="bi bi-upload h1 mb-3" *ngIf="!getFileName(model_refLQ)"></i>
+                            <p class="mb-0" *ngIf="!getFileName(model_refLQ)">Arrastra y suelta tu modelo 3D de baja calidad aquí</p>
+                            <p *ngIf="getFileName(model_refLQ)" style="color: skyblue;"> Modelo cargado: {{getFileName(model_refLQ)}}</p>
+                        </div>
+                    </div>
+                    <div *ngIf="ModelErrorMessageLQ" class="text-danger"> {{ModelErrorMessageLQ}}</div>
+                </div>
+                <div class="col md-6">
+                    <!-- TEXTURA DEL MODELO 3D -->
+                    <div id="dropZone" class="drop-zone form-control" (drop)="onDropTextureLQ($event)" (dragover)="onDragOver($event)">
+                        <!-- Icono de carga centrado arriba del texto -->
+                        <div class="d-flex flex-column align-items-center">
+                            <i class="bi bi-image h1 mb-3" *ngIf="getFileName(texture_refLQ)"></i>
+                            <i class="bi bi-upload h1 mb-3" *ngIf="!getFileName(texture_refLQ)"></i>
+                            <p class="mb-0" *ngIf="!getFileName(texture_refLQ)">Arrastra y suelta tu textura del modelo de baja calidad aquí</p>
+                            <p *ngIf="getFileName(texture_refLQ)" style="color: skyblue;">Textura cargada:{{getFileName(texture_refLQ)}} </p>
+                        </div>
+                    </div>
+                    <div *ngIf="textureErroMessageLQ" class="text-danger">{{textureErroMessageLQ}}</div>
                 </div>
             </div>
         </div>
@@ -76,6 +110,18 @@
             <hr>
 
             <div class="form-section">
+
+                <div class="row mb-3">
+                    <div class="mb-3">
+                        <label for="casa" class="form-label">Seleccione una casa</label>
+                        <select class="form-select" name="casa" [(ngModel)]="selectedHouse" (change)="onHouseSelect($event)">
+                            <option disabled value = "">Seleccione una casa</option>
+                            <option *ngFor="let casa of houseService.houses" [value]="casa.nombrePropiedad">{{casa.nombrePropiedad}}</option>
+                        </select>
+                        <div *ngIf="houseErrorMessage" class="text-danger">{{ houseErrorMessage}}</div>
+                    </div>
+                </div>
+
                 <div class="row mb-3">
                     <!-- tipo de casa -->
                     <div class="col-md-6">

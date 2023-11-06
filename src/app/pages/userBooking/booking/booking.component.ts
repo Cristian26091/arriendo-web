@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingService } from 'src/app/services/booking.service';
-import { UserService } from 'src/app/services/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Booking } from 'src/app/models/booking';
 import { RoomService } from 'src/app/services/room.service';
-import { Room } from 'src/app/models/room';
+import { environment } from 'src/environments/environment';
+import {Router } from '@angular/router';
+
+import { MessageService } from 'primeng/api';
+
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-booking',
@@ -13,35 +20,34 @@ import { Room } from 'src/app/models/room';
 })
 export class BookingComponent implements OnInit {
 
-  constructor(public bookingService: BookingService, private cookieService: CookieService, private roomService: RoomService) {}
+  constructor(public bookingService: BookingService, private cookieService: CookieService, private roomService: RoomService, private router: Router, private messageService: MessageService) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
 
       const userID = this.cookieService.get('user_id');
-      console.log(userID);
-      this.bookingService.getBookingByUser(userID).subscribe(
-        (res : Booking[]) => {
-          this.bookingService.bookings = res;
-          console.log(res);
-          if(this.bookingService.bookings){
-            // Ahora, para cada reserva, obtén la información de la habitación correspondiente
-            this.bookingService.bookings.forEach((booking: Booking) => {
+
+      try {
+        const res = await this.bookingService.getBookingByUser(userID).toPromise();
+        this.bookingService.bookings = res as Booking[];
+
+        if (this.bookingService.bookings) {
+          for (const booking of this.bookingService.bookings) {
               const roomId = booking.roomId;
-              this.roomService.getRoom(roomId).subscribe(
-                (room: Room) => {
-                  this.roomService.rooms.push(room);
-                },
-                (err) => console.log(err)
-              )
-            });
+              const room = await this.roomService.getRoom(roomId).toPromise();
+              this.roomService.rooms.push(room);
           }
-          else{
-            this.bookingService.bookings = [];
-            console.log("No hay reservas");
-          }
-        },
-        err => console.log(err)
-      );
+      } else {
+          this.bookingService.bookings = [];
+          console.log("No hay reservas");
+      }
+
+      } catch (error) {
+        console.error(error);
+      }
+  }
+
+  showCancelToast() {
+    this.messageService.add({ key: 'cancelToast', severity: 'success', summary: 'Reserva Cancelada', detail: 'La reserva ha sido cancelada con éxito' });
   }
 
   getRoomName(roomId: string): string {
@@ -61,16 +67,100 @@ export class BookingComponent implements OnInit {
           this.bookingService.bookings = this.bookingService.bookings.filter(
             (booking) => booking._id !== bookingId
           );
-          console.log(res);
+          this.showCancelToast(); // Mostrar el toast de éxito
         },
         (error) => {
           console.error('Error al cancelar la reserva:', error);
+          // Muestra un toast de error si la cancelación falla
         }
       );
     }
     return;
-    
   }
+
+  isConfirmed(booking: Booking): boolean {
+    return booking.estado === environment.estado.confirmada;
+  }
+
+  goToPayment(bookingID : string){
+    this.cookieService.set('booking_id', bookingID);
+    this.router.navigate(['/payment']);
+  }
+
+  capturarPDF(event: any, booking: Booking){
+    const selectedFile = event.target.files[0]; // Obtiene el primer archivo seleccionado
+
+    if (selectedFile) {
+      // console.log('Archivo seleccionado:', selectedFile.name);
+      this.uploadPDFUser(selectedFile, booking);
+    
+    } else {
+      console.log('Ningún archivo seleccionado');
+    }
+  }
+
+  async uploadPDFUser(file: File, booking: Booking){
+    try {
+      const  res = await this.bookingService.uploadPDFUser(file).toPromise();
+      console.log(res.message);
+      booking.url_pdf_user = res.downloadLink;
+      booking.ref_pdf_user = res.fileName;
+
+      console.log(booking.url_pdf_user, booking.ref_pdf_user);
+      const resPutBooking = await this.putBooking(booking);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async putBooking(booking: Booking){
+    try {
+      const res = await this.bookingService.putBooking(booking).toPromise();
+      console.log(res);
+    } catch (error) {
+      console.log(error); 
+    }
+  }
+
+  generateContract(booking: Booking): void {
+
+    const documentDefinition = {
+      content: [
+        { 
+          text: 'CONTRATO DE ARRIENDO DE CASA O DEPARTAMENTO', 
+          style: 'header',
+          alignment: 'center',
+          margin: [0, 0, 0, 20], // [left, top, right, bottom]
+        },
+        
+        { 
+          text: booking.pdf,
+          style: 'contractText',
+          alignment: 'justify',
+          margin: [10, 0], // Márgenes izquierdo y derecho
+        },
+        
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+        },
+        contractText: {
+          fontSize: 12,
+          lineHeight: 1.5, // Espacio entre líneas
+        },
+      },
+    };
+  
+    // Genera el PDF
+    const pdfDoc = pdfMake.createPdf(documentDefinition);
+  
+    // Muestra el PDF en una ventana nueva
+    pdfDoc.open();
+  }
+
+  
    
 
 }

@@ -5,13 +5,13 @@
     <div class="row">
 
         <div class="col-3">
-            <app-filter-result></app-filter-result>
+            <app-filter-result (queryFilterEvent)="filterQuery($event)"></app-filter-result>
         </div>
 
         <div class="col-9">
             <!-- SI HAY RESUSLTADOS -->
             <div *ngIf="!isRoomServiceVoid; else noRooms">
-                <div class="container" *ngFor="let room of roomService.rooms" >
+                <div class="container" *ngFor="let room of resultsRooms" >
                     <app-card-room [room] = "room"></app-card-room>
                 </div>
             </div>

@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatSelectChange } from '@angular/material/select';
-import { RegionService } from '../../../services/region.service';
-import { Region } from '../../../models/region.model';
+import { Component, OnInit , Output, EventEmitter} from '@angular/core';
+
 
 @Component({
   selector: 'app-filter-result',
@@ -9,37 +7,77 @@ import { Region } from '../../../models/region.model';
   styleUrls: ['./filter-result.component.css']
 })
 export class FilterResultComponent implements OnInit {
-  regiones : Region[];
-  comunas: string[];
-  selectedRegion: Region;
-  selectedComuna: string;
-  filteredContent: any[];//filtra el tipo de dato dependiendo de la estructura del contenido
-  originalContent: any[];//actualiza el tipo de dato dependiendo de la estructura del contenido
 
-  constructor(public RegionService: RegionService) { 
-    this.filteredContent = []
-    this.regiones = [];
-    this.originalContent = [];
-    this.comunas = [];
+  @Output() queryFilterEvent = new EventEmitter<string>();
+
+  selectedMinPrice: number = 0; // Establece el valor mínimo seleccionado
+  selectedMaxPrice: number = 0; // Establece el valor máximo seleccionado
+
+  selectedTypeHouse: string = ''; // Establece el tipo de casa seleccionado
+
+  isShareBathroom: boolean = false; // Establece si el baño es compartido o no
+
+  errorMinPrice: string = ''; // Establece el mensaje de error para el valor mínimo
+  erroMaxPrice: string = ''; // Establece el mensaje de error para el valor máximo
+
+  constructor() { 
+
   }
 
   ngOnInit(): void {
     
   }
 
-  getRegions(){
-  
-  }
-
-  onRegionSelected(event: MatSelectChange){
-   
-  }
-
-  onComunaSelected(event: MatSelectChange){
-   
-  }
-
   applyFilter() {
-   
+    // Limpia los mensajes de error al principio de la validación
+    this.errorMinPrice = '';
+    this.erroMaxPrice = '';
+
+    // Verifica si se encontraron errores y detiene el procesamiento si es necesario
+    if (!this.validateMaxPrice() || !this.validateMinPrice()) {
+      return; // Detener la función si hay errores
+    }
+
+    // Filtra las habitaciones
+    this.filterRooms();
+
   }
+
+  filterRooms() {
+    const params = {
+      minPrice: this.selectedMinPrice,
+      maxPrice: this.selectedMaxPrice,
+      typeHouse: this.selectedTypeHouse,
+      isShareBathroom: this.isShareBathroom
+    }
+    this.emitParams(params);
+  }
+
+  emitParams(value: any) {
+    this.queryFilterEvent.emit(value);
+  }
+
+  formatLabel(value: number): string {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }
+    return `${value}`;
+  }
+
+  validateMinPrice(): boolean{
+    if(this.selectedMinPrice > this.selectedMaxPrice){
+      this.errorMinPrice = 'Valor minimo invalido';
+      return false;
+    }
+    return true;
+  } 
+
+  validateMaxPrice(){
+    if(this.selectedMaxPrice < this.selectedMinPrice){
+      this.erroMaxPrice = 'Valor máximo invalido';
+      return false;
+    }
+    return true;
+  }
+
 }

@@ -1,46 +1,41 @@
 <div class="container">
+    <div class="card">
+      <div class="card-header">
+        Filtro
+      </div>
 
-    <mat-card class="mat-card-container">
-        <mat-card-title>Filtro</mat-card-title>
+      <div class="card-body">
 
-        <div class="filter-element-container">
-            <mat-card-subtitle>Precio</mat-card-subtitle>
-            <mat-slider min="200" max="500">
-                <input value="10" matSliderStartThumb>
-                <input value="" matSliderEndThumb>
+        <div class="mb-3">
+            <label for="minPrice" class="form-label">Precio minimo:</label>
+            <mat-slider min="0" max="250000" step="1000" showTickMarks discrete [displayWith]="formatLabel" [thumbLabel]="true"  [(ngModel)]="selectedMinPrice" (ngModelChange)="applyFilter()" >
+                <input matSliderThumb>
             </mat-slider>
         </div>
-        
-        <div class="filter-element-container">
-            <mat-card-subtitle>Baño compartido</mat-card-subtitle>
-            <mat-slide-toggle></mat-slide-toggle>
+        <div class="mb-3">
+            <label for="maxPrice" class="form-label">Precio máximo:</label>
+            <mat-slider min="0" max="250000" step="1000" showTickMarks discrete [displayWith]="formatLabel" [thumbLabel]="true"  [(ngModel)]="selectedMaxPrice" (ngModelChange)="applyFilter()">
+                <input matSliderThumb>
+            </mat-slider>
+        </div>
+          
+        <div class="mb-3">
+          <label for="tipoPropiedad" class="form-label">Tipo de Propiedad</label>
+          <select class="form-select" id="tipoPropiedad" [(ngModel)]="selectedTypeHouse" (ngModelChange)="applyFilter()">
+            <option value="default" disabled selected>Seleccione una opción</option>
+            <option value="casa">Casa</option>
+            <option value="depto">Departamento</option>
+          </select>
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="banioCompartido" [(ngModel)]="isShareBathroom" (ngModelChange)="applyFilter()">
+          <label class="form-check-label" for="banioCompartido">Baño compartido</label>
         </div>
 
-        <div class="filter-element-container">
-            <mat-card-subtitle>Región</mat-card-subtitle>
-            <mat-form-field appearance="fill">
-                <mat-label>Escoge una región</mat-label>
-                <mat-select [(ngModel)]="selectedRegion" (selectionChange)="onRegionSelected($event)">
-                
-                    <mat-option *ngFor="let region of regiones" [value]="region">
-                    {{region.nombre_region}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+        <div *ngIf="errorMinPrice" class="error-message" style="color: red;" >{{ errorMinPrice }}</div>
+        <div *ngIf="erroMaxPrice" class="error-message" style="color: red;">{{ erroMaxPrice }}</div>
 
-        <div class="filter-element-container">
-            <mat-card-subtitle>Comuna</mat-card-subtitle>
-            <mat-form-field appearance="fill">
-                <mat-label>Escoge una Comuna</mat-label>
-                <mat-select [(ngModel)]="selectedComuna" (selectionChange)="onComunaSelected($event)">
-                    <mat-option *ngFor="let comuna of comunas" [value]="comuna">
-                        {{comuna}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div> 
-
-    </mat-card>
+      </div>
+    </div>
+  </div>
   
-</div>

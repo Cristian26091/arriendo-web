@@ -33,7 +33,7 @@ userCtrl.getUser = async (req, res) => {
 userCtrl.createUser= async (req, res) =>{
     try {
         
-        const { nombre, apellido, email, telefono, pass, fecha_nacimiento, rut} = req.body; // Obtén los datos del cuerpo de la solicitud
+        const { nombre, apellido, email, telefono, pass, fecha_nacimiento, rut, genero, ocupacion, tipo_actividad, pais, intereses} = req.body; // Obtén los datos del cuerpo de la solicitud
         // console.log("req body_", req.body);
         
         // Verifica si el correo ya existe en la base de datos
@@ -49,7 +49,8 @@ userCtrl.createUser= async (req, res) =>{
         if (existingRut) {
             return res.status(400).json({ message: 'El rut ya está registrado!' });
         }
-        console.log("hola")
+
+        // console.log(req.params);
 
         // encriptar la contraseña
         const hashedPassword = await bcrypt.hash(pass, saltRounds);
@@ -58,9 +59,24 @@ userCtrl.createUser= async (req, res) =>{
         // Generar un token de autenticación
         // const userToken = jwt.sign({ userId: user._id }, 'secreto_registro');
         // Crear un nuevo usuario
+
+        // Extraer solo los nombres de intereses
+        const interesesNombres = intereses.map((interes) => interes.name);
+
         const newUser = new User({ 
-          nombre, apellido, email, telefono, pass: hashedPassword, 
-          fecha_nacimiento, rut, role: userRole}
+          nombre, 
+          apellido, 
+          email,
+          rut, 
+          telefono, 
+          pass: hashedPassword, 
+          fecha_nacimiento,
+          genero,
+          ocupacion,
+          tipo_actividad,
+          pais,
+          intereses: interesesNombres,
+          role: userRole}
         );
         
         await newUser.save();
