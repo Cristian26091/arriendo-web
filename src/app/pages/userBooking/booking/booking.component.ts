@@ -82,7 +82,8 @@ export class BookingComponent implements OnInit {
     return booking.estado === environment.estado.confirmada;
   }
 
-  goToPayment(){
+  goToPayment(bookingID : string){
+    this.cookieService.set('booking_id', bookingID);
     this.router.navigate(['/payment']);
   }
 

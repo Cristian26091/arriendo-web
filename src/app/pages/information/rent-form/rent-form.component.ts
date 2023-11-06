@@ -220,6 +220,8 @@ submitForm(){
       pdf:contractContent,
       ref_pdf_user: '',
       url_pdf_user: '',
+      precio_servicio : 0,
+      precio_total : 0,
     }
   
     this.bookingService.postBooking(bookingData).subscribe(

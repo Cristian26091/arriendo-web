@@ -19,18 +19,27 @@
       <div class="content-container">
         <!-- Aquí puedes agregar el contenido adicional que deseas colocar entre el stepper y los botones -->
         <div class="content-container">
+
           <div *ngIf="currentContent === 'details'" class="slide-in">
             <!-- DATOS -->
             <app-payment-data></app-payment-data>
           </div>
+
           <div *ngIf="currentContent === 'data'" class="slide-in">
             <!-- DETALLES -->
             <app-details></app-details>
           </div>
+
           <div *ngIf="currentContent === 'payment'" class="slide-in">
             <!-- PAYMENT -->
             <app-payment-payment></app-payment-payment>
           </div>
+
+          <div *ngIf="currentContent === 'services'" class="slide-in" >
+            <!-- SERVICES -->
+            <app-service></app-service>
+          </div>
+
         </div>
         
       </div>

@@ -86,6 +86,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { ServiceComponent } from './pages/payment/service/service.component';
 
 
 @NgModule({
@@ -134,6 +135,7 @@ import { MessageService } from 'primeng/api';
     EditFormHouseComponent,
     RegistrationStepComponent,
     RoomMateCardComponent,
+    ServiceComponent,
   ],
   imports: [
     BrowserModule,

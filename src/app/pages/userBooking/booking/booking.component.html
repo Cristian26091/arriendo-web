@@ -18,7 +18,7 @@
                         <input type="file" (change)="capturarPDF($event, booking)" accept=".pdf" multiple="false" id="fileInput" style="display: none;">
                         <label for="fileInput" class="btn btn-primary ml-2">Cargar contrato</label>
 
-                        <a  *ngIf="isConfirmed(booking)" class="btn btn-primary ml-2" (click)="goToPayment()">Completar Pago</a>
+                        <a  *ngIf="isConfirmed(booking)" class="btn btn-primary ml-2" (click)="goToPayment(booking._id)">Completar Pago</a>
                        
                     </div>
                 </div>

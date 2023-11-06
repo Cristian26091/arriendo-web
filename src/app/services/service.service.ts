@@ -17,6 +17,7 @@ export class ServiceService {
   constructor(private htttp : HttpClient) { }
 
   getServices(){
+    console.log(this.URL_API);
     return this.htttp.get(this.URL_API);
   }
 
