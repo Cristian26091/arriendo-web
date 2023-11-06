@@ -1,55 +1,61 @@
-import { Component, AfterViewInit,OnInit, Input} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import * as Mapboxgl from 'mapbox-gl';
 import { RoomService } from 'src/app/services/room.service';
+import { Room } from 'src/app/models/room';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit, OnInit {
+export class MapComponent implements OnInit {
 
   mapa: Mapboxgl.Map;
-  longitud: Number = 0;
-  latitud: Number = 0;
 
-  constructor(public roomService: RoomService){}
+  constructor(public roomService: RoomService, private cookieService : CookieService){}
 
-  ngOnInit(): void {
-    //console.log("caca");
-    this.latitud = Number(this.roomService.selectedRoom.latitude);
-    this.longitud = Number(this.roomService.selectedRoom.longitud);
+  async ngOnInit(): Promise<void> {
 
-    // console.log(typeof(this.latitud));
-    // console.log(typeof(this.longitud));
-  }
+    if(this.cookieService.check('selectedRoomId')){
+      const selectedRoomId = this.cookieService.get('selectedRoomId');
+      await this.getRoomByID(selectedRoomId);
+      console.log(this.roomService.selectedRoom);
+      
+      Mapboxgl.accessToken = environment.mapBoxToken;
 
-  ngAfterViewInit(): void {
-    //console.log(this.roomService.selectedRoom);
-    Mapboxgl.accessToken = environment.mapBoxToken;
-
-    // console.log(this.latitud);
-    // console.log(this.longitud);
-
-    this.mapa = new Mapboxgl.Map({
-      container: 'mapa_mapbox', // container ID
-      style: 'mapbox://styles/mapbox/streets-v10', // style URL
-      center: [this.latitud, this.longitud], // starting position [Lat, Long]
-      zoom: 16 // starting zoom
-    });
+      this.mapa = new Mapboxgl.Map({
+        container: 'mapa_mapbox', // container ID
+        style: 'mapbox://styles/mapbox/streets-v10', // style URL
+        center: [Number(this.roomService.selectedRoom.latitude), Number(this.roomService.selectedRoom.longitud)], // starting position [Lat, Long]
+        zoom: 16 // starting zoom
+      });
      
-    // Add zoom and rotation controls to the map.
-    this.mapa.addControl(new Mapboxgl.NavigationControl());
-    this.crearMarcador(this.latitud, this.longitud);
+      // Add zoom and rotation controls to the map.
+      this.mapa.addControl(new Mapboxgl.NavigationControl());
+      await this.crearMarcador();
+
+    }
   }
 
-  crearMarcador(lng: Number, lat: Number){
+  async crearMarcador(){
     const marker = new Mapboxgl.Marker({
       draggable: false
     })
-      .setLngLat([lng, lat])
+      .setLngLat([Number(this.roomService.selectedRoom.latitude), Number(this.roomService.selectedRoom.longitud)])
       .addTo(this.mapa);
+  }
+
+  async getRoomByID(id:string){
+    try {
+      const res = await this.roomService.getRoom(id).toPromise();
+      this.roomService.selectedRoom = res as Room;
+   
+    } catch (error) {
+      console.log("Error al obtener la habitación", error);
+    }
   }
 
   

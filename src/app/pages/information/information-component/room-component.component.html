@@ -1,25 +1,26 @@
 <div class="container bg-light ">
   <div class="row row-cols-2">
-
     <div class="col-md-8 col-sm-12">
-      <app-dimensionmodel></app-dimensionmodel>
+      <app-dimensionmodel  class="mb-4"></app-dimensionmodel>
     </div>
-
     <div class="col-md-4 col-sm-12">
-      <!-- Boton arrendar  -->
-      <button type="button" *ngIf="loginService.isAuthenticated()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rentModal">Reservar</button>
-      <button type="button" *ngIf="!loginService.isAuthenticated()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginSignupModal">Reservar</button>
-      <app-data-room-container></app-data-room-container>
+      <!-- Boton arrendar -->
+      <button type="button" *ngIf="loginService.isAuthenticated()" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#rentModal">Reservar</button>
+      <button type="button" *ngIf="!loginService.isAuthenticated()" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#loginSignupModal">Reservar</button>
+      <app-data-room-container class="mb-4"></app-data-room-container>
     </div>
-
-    <div class="col-md-8 col-sm-12">
-      <app-map></app-map> 
+    <div class="col-md-8 col-sm-12 mb-4">
+      <app-map></app-map>
     </div>
-
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-4 col-sm-12 mb-4">
       <app-calendar></app-calendar>
     </div>
+    <div class="col-md-8 col-sm-12 mb-4">
+      <app-room-mate-card></app-room-mate-card>
+    </div>
 
+    <div class="col-md-4 col-sm-12 mb-4">
+      <app-service></app-service>
   </div>
 
   

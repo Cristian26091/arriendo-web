@@ -35,7 +35,7 @@ import { NgFor } from '@angular/common'
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSliderModule} from '@angular/material/slider'; 
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder, FormGroup } from '@angular/forms';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -68,6 +68,26 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { BookingComponent } from './pages/userBooking/booking/booking.component';
 import { HistoryComponent } from './pages/userBooking/history/history.component';
 import { ViewInfoModalComponent } from './pages/admin/admin-views/reservation-views/view-info-modal/view-info-modal.component';
+import { HouseviewComponent } from './pages/admin/admin-views/house-views/houseview/houseview.component';
+import { AddFormHouseComponent } from './pages/admin/admin-views/house-views/add-form-house/add-form-house.component';
+
+import { DatePipe } from '@angular/common';
+import { EditFormHouseComponent } from './pages/admin/admin-views/house-views/edit-form-house/edit-form-house/edit-form-house.component';
+import { RegistrationStepComponent } from './pages/register/registrationStep/registration-step/registration-step.component';
+
+import { RoomMateCardComponent } from './pages/information/room-mate-card/room-mate-card.component';
+
+
+
+//componentes prime ng
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ServiceComponent } from './pages/payment/service/service.component';
+
 
 @NgModule({
   declarations: [
@@ -110,7 +130,12 @@ import { ViewInfoModalComponent } from './pages/admin/admin-views/reservation-vi
     BookingComponent,
     HistoryComponent,
     ViewInfoModalComponent,
-
+    HouseviewComponent,
+    AddFormHouseComponent,
+    EditFormHouseComponent,
+    RegistrationStepComponent,
+    RoomMateCardComponent,
+    ServiceComponent,
   ],
   imports: [
     BrowserModule,
@@ -136,8 +161,13 @@ import { ViewInfoModalComponent } from './pages/admin/admin-views/reservation-vi
     MatPaginatorModule,
     MatSliderModule,
     MatSlideToggleModule,
+    ButtonModule,
+    DropdownModule,
+    MultiSelectModule,
+    CardModule,
+    ToastModule,
   ],
-  providers: [CookieService],
+  providers: [CookieService, DatePipe, MessageService],
   bootstrap: [AppComponent],
   
   schemas: [ 

@@ -42,13 +42,24 @@
         <tbody>
             <tr *ngFor="let booking of bookingService.bookings">
                 <th scope="row">{{ booking._id }}</th>
-                <td>{{ booking.fecha_inicio }}</td>
-                <td>{{ booking.fecha_fin }}</td>
-                <td>{{ booking.estado }}</td>
+                <td>{{ booking.fecha_inicio | dateFormat }}</td>
+                <td>{{ booking.fecha_fin | dateFormat}}</td>
+                <!-- <td>{{ booking.estado }}</td> -->
+                <td>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="booking.estado" (ngModelChange)="updateBookingState(booking)">
+                        <ng-container *ngFor="let estado of estados">
+                          <option [value]="estado">{{estado}}</option>
+                        </ng-container>
+                    </select>
+                </td>
+                
                 <td>
                     <button type="button" class="btn btn-danger" (click)="selectToDeleteItem(booking)" data-bs-toggle="modal" data-bs-target="#deleteBookingModal"> Eliminar</button>
                     <button type="button" class="btn btn-primary" (click)="selectToViewInfo(booking)" data-bs-toggle="modal" data-bs-target="#viewInfoBookingModal">Inspeccionar</button>
+                    <!-- <button type="button" class="btn btn-primary" (click)="selectToAprove(booking)"> Aprobar</button> -->
+                    <a *ngIf="validateUploadDocument(booking)" [href]="booking.url_pdf_user" target="_blank" class="btn btn-primary">Ver contrato</a>
                 </td>
+
             </tr>
         </tbody>
     </table>

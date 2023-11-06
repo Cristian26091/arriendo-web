@@ -2,7 +2,8 @@
 export class User {
     constructor(
       _id = '', nombre = '', apellido = '', rut = '', fecha_nacimiento = '', 
-      telefono = '', email= '', pass = '', role = '', token = ''
+      telefono = '', email= '', pass = '', role = '', token = '', genero = '',
+      ocupacion = '', tipo_actividad = '', pais = '', intereses = [],
     ) {
         this._id = _id;
         this.nombre = nombre;
@@ -14,6 +15,10 @@ export class User {
         this.pass = pass;
         this.role = role;
         this.token = token;
+        this.ocupacion = ocupacion;
+        this.tipo_actividad = tipo_actividad;
+        this.pais = pais;
+        this.intereses = intereses;
     }
     _id: string;
     nombre: string;
@@ -25,4 +30,9 @@ export class User {
     pass: string;
     role: string;
     token: string;
+    genero: string;
+    ocupacion: string;
+    tipo_actividad: string;
+    pais: string;
+    intereses: string[];
   }

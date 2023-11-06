@@ -1,0 +1,146 @@
+<header>
+    <h1>GESTIÓN DE CASAS</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
+            <li class="breadcrumb-item" *ngFor="let part of currentRouteParts; let last = last" [ngClass]="{ 'active': last }">{{ part }}</li>
+        </ol>
+    </nav>
+</header>
+
+<!-- FILTROS -->
+<div class="container filter-container align-items-center justify-content-center">
+    <div class="row">
+        <div class="col-md-2 mx-auto my-auto text-center">  
+            <button class="btn btn-primary add-button"  data-bs-toggle="modal" data-bs-target="#addHouseModal">Añadir Casa</button>
+        </div>
+        <div class="col-md-4 text-center">
+            <select class="form-select sort-select">
+                <option value="precio">Ordenar por Precio</option>
+                <option value="fecha">Ordenar por Fecha</option>
+                <!-- Agrega más opciones según sea necesario -->
+            </select>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="input-group">
+                <input type="text" class="form-control search-input" placeholder="Buscar habitación...">
+                <button class="btn btn-primary search-button">
+                <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TABLA -->
+<table class="table-responsive" >
+    <thead>
+        <tr>
+            <th scope="col" *ngFor="let headName of headTableContent">{{ headName }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let house of houseService.houses">
+            <th scope="row">{{ house._id }}</th>
+            <td>{{ house.nombrePropiedad }}</td>
+            <td>{{ house.numPisos }}</td>
+            <td>{{ house.fecha_publicacion | dateFormat }}</td>
+            <td>{{ house.fecha_termino | dateFormat}}</td>
+            <td>{{ formatPrice(house.precio) | currency:'CLP':'symbol-narrow'}}</td>
+            <td>{{ house.duenio }}</td>
+            <td>
+                <button class="btn btn-primary" (click)="selectToEdit(house)" data-bs-toggle="modal" data-bs-target="#editHouseModal">Editar</button>
+                <button class="btn btn-danger" (click)="selectToDelete(house)" data-bs-toggle="modal" data-bs-target="#deleteHouseModal">Eliminar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- PAGINACIÓN -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
+
+    <!-- MODAL AÑADIDR Casa -->
+    <div class="modal fade" id="addHouseModal" tabindex="-1" aria-labelledby="addHouseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mx-auto">
+            <div class="modal-content">
+
+                <!-- Encabezado del Modal -->
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                </div>
+
+                <!-- Cuerpo del Modal -->
+                <div class="modal-body text-center">
+                    <div>
+                        <app-add-form-house></app-add-form-house>
+                    </div>
+                </div>
+
+                <!-- Pie del Modal
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="addHouse()">Continuar</button>
+                </div> -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR CASA -->
+    <div class="modal fade" id="editHouseModal" tabindex="-1" aria-labelledby="editHouseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mx-auto">
+            <div class="modal-content">
+
+                <!-- Encabezado del Modal -->
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Cuerpo del Modal -->
+                <div class="modal-body text-center">
+                    <div>
+                        <app-edit-form-house [house]="houseService.selectedHouse" [fechaTermino]="formateDate(houseService.selectedHouse.fecha_termino)"></app-edit-form-house>
+                    </div>
+                </div>
+
+                <!-- Pie del Modal -->
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="editHouse()">Continuar</button>
+                </div> -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ELIMINAR HABITACIÓN -->
+    <div class="modal fade" id="deleteHouseModal" tabindex="-1" aria-labelledby="deleteHouseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mx-auto">
+            <div class="modal-content">
+
+                <!-- Encabezado del Modal -->
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Cuerpo del Modal -->
+                <div class="modal-body text-center">
+                    <div>
+                        <p>¿Estás seguro de que deseas eliminar esta Casa?</p>
+                    </div>
+                </div>
+
+                <!-- Pie del Modal -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="deleteHouse()">Continuar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+

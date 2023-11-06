@@ -16,6 +16,8 @@ const bucketName = 'bucket-arriendo-web';
 //bucket para carga de archivos.
 const gcBucket = gc.bucket(bucketName);
 
+//-------------------- METODOS --------------------
+
 // Función para cargar el modelo 3D en el bucket de GCS
 roomCtrl.uploadModelToBucket = async (req, res) => {
   try {
@@ -293,14 +295,47 @@ roomCtrl.getRoomByFilter = async (req, res) => {
       console.error(error);
       res.status(500).json({ message: 'Error en el servidor' });
     }
-  };
+};
+
+roomCtrl.filterRoomsByResults = async (req, res) => {
+  const { minPrice, maxPrice, typeHouse, isSharedBathroom} = req.query;
+  console.log(req.query);
+
+  let query = {};
+
+  // Agregar criterios de filtro según los parámetros de consulta
+  if (minPrice) {
+    query.precio = { $gte: minPrice };
+  }
+  if (maxPrice) {
+    query.precio = { ...query.precio, $lte: maxPrice };
+  }
+  if (typeHouse) {
+    query.casa_depto = typeHouse;
+  }
+  if (isSharedBathroom) {
+    query.banio_compartido = true;
+  }
+
+  try {
+    const rooms = await Room.find(query);
+
+    res.json(rooms);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error en el servidor' });
+  }
+
+}
 
 roomCtrl.createRoom = async (req, res) =>{
   // console.log(req.body);
   const roomDataFromClient = req.body;
+  console.log("roomDataFromClient:", roomDataFromClient);
   const room = new Room({
     _id: roomDataFromClient.id, // Asegúrate de que los nombres coincidan
     id_region: roomDataFromClient.id_region,
+    casa_id: roomDataFromClient.id_casa,
     latitude: roomDataFromClient.latitude,
     longitud: roomDataFromClient.longitud,
     banio_compartido: roomDataFromClient.banio_compartido,
@@ -321,7 +356,11 @@ roomCtrl.createRoom = async (req, res) =>{
     image_ref_bucket: roomDataFromClient.image_ref_bucket,
     texture_ref_bucket: roomDataFromClient.texture_ref_bucket,
     reservas: roomDataFromClient.reservas,
-    bucket_ref_imgs: roomDataFromClient.bucket_ref_imgs
+    bucket_ref_imgs: roomDataFromClient.bucket_ref_imgs,
+    url_model_LQ: roomDataFromClient.url_model_LQ,
+    model_LQ_ref_bucket: roomDataFromClient.model_ref_bucket_LQ,
+    url_texture_LQ: roomDataFromClient.url_texture_LQ ,
+    texture_LQ_ref_bucket: roomDataFromClient.texture_ref_bucket_LQ,
   });
   console.log(room);
   await room.save();

@@ -5,11 +5,16 @@
   </a>
   <!-- Listado de los botones -->
   <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-      <!-- Home -->
+      <!-- Habitaciones -->
       <li class="nav-item">
         <a (click)="mostrarHome()" class="nav-link align-middle px-0">
-            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">  Gestionar habitaciones</span>
+            <i class="fs-4 bi-door-open-fill"></i> <span class="ms-1 d-none d-sm-inline">  Gestionar habitaciones</span>
         </a>
+      </li>
+      <!-- Casa -->
+      <li>
+        <a (click)="mostrarCasas()" class="nav-link px-0 align-middle">
+          <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Gestionar Casas</span> </a>
       </li>
       <!-- Usuarios -->
       <li>
@@ -21,11 +26,6 @@
       <li>
         <a (click)="mostrarReservas()" class="nav-link px-0 align-middle">
           <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">Gestionar reservas</span></a>
-      </li>
-      <!-- reclamos -->
-      <li>
-        <a (click)="mostrarReclamos()" class="nav-link px-0 align-middle">
-          <i class="fs-4 bi-megaphone"></i> <span class="ms-1 d-none d-sm-inline">Gestionar reclamos</span> </a>
       </li>
   
   </ul>

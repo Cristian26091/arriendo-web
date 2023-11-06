@@ -5,6 +5,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { RoomService } from 'src/app/services/room.service';
 import { Room } from 'src/app/models/room';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-reservation-views',
@@ -16,16 +17,25 @@ export class ReservationViewsComponent implements OnInit {
   currentRoute: string = "";
   currentRouteParts: string[] = ["primero", "segundo"];
   headTableContent: string[];
+  estados = [
+    environment.estado.pendiente,
+    environment.estado.confirmada,
+    environment.estado.finalizada,
+  ];
+
+  estado : string = "";
+
   
   selectedBooking: Booking | undefined;
 
   constructor(public bookingService: BookingService, public userService: UserService, public roomService: RoomService) { 
-    this.headTableContent = ["ID", "Fecha reserva","Fecha termino", "Estado", "Aciones"];
+    this.headTableContent = ["ID", "Fecha reserva","Fecha termino", "Estado", "Acciones"];
   }
 
   ngOnInit(): void {
     this.getBookings();
   }
+  
 
   getBookings(){
     if(this.bookingService.bookings){
@@ -61,6 +71,14 @@ export class ReservationViewsComponent implements OnInit {
 
   }
 
+  selectToAprove(item:Booking){
+    this.bookingService.selectedBookin = item;
+    this.bookingService.selectedBookin.estado = environment.estado.confirmada;
+    this.bookingService.putBooking(this.bookingService.selectedBookin).subscribe(res =>{
+      this.getBookings();
+    })
+  }
+
   getUser(_id: string){
     this.userService.getUser(_id).subscribe(res =>{
       this.userService.selectedUser = res as User;
@@ -74,5 +92,17 @@ export class ReservationViewsComponent implements OnInit {
       // this.roomService.selectedRoom = res as Room;
     })
   }
+
+  validateUploadDocument(item: Booking): boolean{
+    return item.url_pdf_user != 'null' || item.url_pdf_user != 'null';
+  }
+
+  updateBookingState(booking: Booking) {
+    // Llama a tu servicio para actualizar la reserva en la base de datos
+    this.bookingService.putBooking(booking).subscribe(res => {
+      this.getBookings();
+    });
+  }
+  
 
 }

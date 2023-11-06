@@ -23,6 +23,10 @@
         <!-- Contenido para Reclamos -->
         <app-claims-views></app-claims-views>
       </ng-container>
+      <ng-container *ngIf="contenidoActual === 'casas'">
+        <!-- Contenido para Reclamos -->
+        <app-houseview></app-houseview>
+      </ng-container>
       <ng-container *ngIf="contenidoActual === 'salir'">
         <!-- Lógica para la acción de salida -->
       </ng-container>

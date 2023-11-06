@@ -9,8 +9,17 @@
                     <p class="card-text">Estado: {{ booking.estado }}</p>
                     <p class="card-text">Precio: ${{ booking.precio }}</p>
                     <div class="d-flex justify-content-end">
-                        <a class="btn btn-danger ml-2" (click)="cancelBooking(booking._id)">Cancelar Reserva</a>
-                        <a href="#" class="btn btn-primary ml-2">Cargar Contrato</a>
+
+                        <a class="btn btn-danger ml-2" (click)="cancelBooking(booking._id)"  toast="cancelToast">Cancelar Reserva</a>
+                        <p-toast position="bottom-center" key="cancelToast"></p-toast>
+
+                        <a class="btn btn-primary ml-2" (click)="generateContract(booking)" >Descargar contrato</a>
+
+                        <input type="file" (change)="capturarPDF($event, booking)" accept=".pdf" multiple="false" id="fileInput" style="display: none;">
+                        <label for="fileInput" class="btn btn-primary ml-2">Cargar contrato</label>
+
+                        <a  *ngIf="isConfirmed(booking)" class="btn btn-primary ml-2" (click)="goToPayment(booking._id)">Completar Pago</a>
+                       
                     </div>
                 </div>
             </div>
@@ -23,3 +32,5 @@
         No tienes reservas
     </div>
 </ng-template>
+
+
