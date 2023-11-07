@@ -110,7 +110,7 @@ export class DimensionmodelComponent implements OnInit, AfterViewInit {
       //tiempo en milisegundos
       this.lqModelDownloadTime = endTime - startTime;
   
-      if (this.lqModelDownloadTime < 5000) {
+      if (this.lqModelDownloadTime < 1000) {
         // Si la descarga del modelo LQ es rápida, cargar el modelo HQ
         await this.loadHighQualityModel(urlHQModel, urlTexture);
       }
