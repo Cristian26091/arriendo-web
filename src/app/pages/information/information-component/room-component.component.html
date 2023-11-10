@@ -6,7 +6,7 @@
     <div class="col-md-4 col-sm-12">
       <!-- Boton arrendar -->
       <button type="button" *ngIf="loginService.isAuthenticated()" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#rentModal">Reservar</button>
-      <button type="button" *ngIf="!loginService.isAuthenticated()" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#loginSignupModal">Reservar</button>
+      <button type="button" *ngIf="!loginService.isAuthenticated()" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#messageLogin">Reservar</button>
       <app-data-room-container class="mb-4"></app-data-room-container>
     </div>
     <div class="col-md-8 col-sm-12 mb-4">
@@ -18,12 +18,8 @@
     <div class="col-md-8 col-sm-12 mb-4">
       <app-room-mate-card></app-room-mate-card>
     </div>
+</div>
 
-    <div class="col-md-4 col-sm-12 mb-4">
-      <app-service></app-service>
-  </div>
-
-  
   <!-- MODAL RESERVA-->
 <div class="modal fade" id="rentModal" aria-labelledby="rentModal" aria-hidden="true">
   <div class="modal-dialog">
@@ -40,49 +36,32 @@
       <!-- <div class="modal-footer">
         <button type="button" class="btn btn-primary"  (click)="reserveRoom()" data-bs-dismiss="modal" >Reservar</button>
       </div> -->
-    
     </div>
   </div>
 </div>
 
-<!-- MODAL INICIO DE SESIÓN-->
-<div class="modal fade custom-modal"  id="loginSignupModal"  #loginSignupModal aria-labelledby="loginSignupModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-
+  <!-- MODAL RESERVA-->
+  <div class="modal fade" id="messageLogin" aria-labelledby="messageLogin" aria-hidden="true">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-            <!-- <h5 class="modal-title" id="loginSignupModalLabel">Iniciar sesión o Registrarse</h5> -->
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <!-- <h5 class="modal-title" id="loginSignupModalLabel">Iniciar sesión o Registrarse</h5> -->
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Contenido del formulario de inicio de sesión y registro -->
+          <p>Es necesario iniciar sesión primero.</p>
+        </div>
+        <!-- Pie del Modal -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" >Cerrar</button>
+        </div> 
       </div>
-
-      <div class="modal-body">
-
-          <div *ngIf="showSuccessAlert" class="alert alert-success">
-              Registro exitoso. Por favor, inicia sesión.
-          </div>
-
-          <div id="loginForm" *ngIf="showLoginForm" >
-              <!-- Contenido del formulario de inicio de sesión -->
-              <app-login></app-login>
-          </div>
-
-          <div id="registerForm" *ngIf="!showLoginForm" >
-              <!-- Contenido del formulario de registro -->
-              <app-register ></app-register>
-          </div>
-
-          <div class="modal-footer">
-          <p> {{showLoginForm ? '¿Aún no tienes una cuenta?': '¿Ya tienes una?'}}        
-              <a (click)="toggleForms()" style="cursor: pointer; color: skyblue;">
-              {{ showLoginForm ? 'Crea una' : 'Iniciar sesión' }}
-              </a>
-          </p>
-          </div>
-
-          </div>
-      </div>
+    </div>
   </div>
-</div>
+
+
+
   
   
     
