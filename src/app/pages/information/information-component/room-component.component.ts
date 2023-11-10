@@ -5,7 +5,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Booking } from 'src/app/models/booking';
 import { BookingService } from 'src/app/services/booking.service';
-import { UserService } from 'src/app/services/user.service';
+
 
 
 
@@ -61,10 +61,6 @@ export class RoomComponentComponent implements OnInit {
     } catch (error) {
       console.log("Error al obtener las reservas de la habitación", error);
     }
-  }
-
-  toggleForms(){
-    this.showLoginForm = !this.showLoginForm;
   }
 
 }
