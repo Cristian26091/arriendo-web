@@ -1,31 +1,38 @@
-
 <div class="container">
 
-    <div class="select-group">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-3 mb-3">
+            <!-- Region -->
+            <select class="form-select" [(ngModel)]="selectedRegion" (change)="onRegionSelected($event)">
+                <option class="start-input-text" value="" disabled selected>Seleccione una región</option>
+                <option *ngFor="let region of RegionService.regions" [value]="region.nombre_region">{{ region.numero + '-' +region.nombre_region}}</option>
+            </select>
+        </div>
 
-        <!-- Region -->
-        <select class="form-select" [(ngModel)]="selectedRegion" (change)="onRegionSelected($event)">
-            <option class="start-input-text" value="" disabled selected>Seleccione una región</option>
-            <option *ngFor="let region of RegionService.regions" [value]="region.nombre_region">{{ region.numero + '-' +region.nombre_region}}</option>
-        </select>
-        
-        <!-- Ciudad o Comuna -->
-        <select class="form-select" [(ngModel)]="selectedComuna" (change)="onComunaSelected($event)">
-            <option class="start-input-text" value="" disabled selected>Seleccione una comuna</option>
-            <option *ngFor="let comuna of comunasOptions" [value]="comuna">{{comuna}}</option>
-        </select>      
-    
-        <!-- Tipo vivienda -->
-        <select class="form-select" [(ngModel)]="selectedTipoVivienda" (change)="onTipoViviendaSelected($event)"> 
-            <option class="start-input-text" value="" disabled selected>Seleccione un tipo de vivienda</option>
-            <option value="depto">Departamento</option>
-            <option value="casa">Casa</option>
-        </select>          
-    
-        <!-- Boton buscar  -->
-        <button type="button" class="btn btn-primary" (click)="buscar()">Buscar</button>
-    
+        <div class="col-md-3 mb-3">
+            <!-- Ciudad o Comuna -->
+            <select class="form-select" [(ngModel)]="selectedComuna" (change)="onComunaSelected($event)">
+                <option class="start-input-text" value="" disabled selected>Seleccione una comuna</option>
+                <option *ngFor="let comuna of comunasOptions" [value]="comuna">{{comuna}}</option>
+            </select>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <!-- Tipo vivienda -->
+            <select class="form-select" [(ngModel)]="selectedTipoVivienda" (change)="onTipoViviendaSelected($event)"> 
+                <option class="start-input-text" value="" disabled selected>Seleccione un tipo de vivienda</option>
+                <option value="depto">Departamento</option>
+                <option value="casa">Casa</option>
+            </select>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="col-md-12">
+                <!-- Boton buscar  -->
+                <button type="button" class="btn btn-primary" (click)="buscar()">Buscar</button>
+            </div>
+        </div>
+
     </div>
-    
-</div> 
 
+</div>
