@@ -11,11 +11,24 @@
   scale : 5.0;
 }
 
-.navbar-nav .nav-item .nav-link:hover {
+.navbar-nav .nav-item a.nav-link:hover {
+  padding: 15px; /* Ajusta el padding al hacer hover según tus necesidades */
   color: #2a67a3;
   background-color: #f0f0f0;
-  transition: background-color 0.2s ease; /* Agrega una transición suave */
+  transition: background-color 0.2s ease;
   border-radius: 10%;
+}
+
+/* Agrandar los botones de Ayuda e Ingresar */
+.navbar-nav .nav-item a.nav-link {
+  padding: 15px; /* Ajusta el padding según tus necesidades */
+}
+
+/* Estilo para pantallas más grandes */
+@media (min-width: 1200px) {
+  .navbar-nav .nav-item a.nav-link {
+    font-size: 18px; /* Ajusta el tamaño de la letra para pantallas más grandes */
+  }
 }
 
 
