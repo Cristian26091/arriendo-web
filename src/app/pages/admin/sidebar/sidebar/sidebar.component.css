@@ -1,0 +1,45 @@
+.logo-image{
+    scale: 0.4;
+    width: 100%;
+    height: 100%;
+}
+
+.container-bar{
+    color: red;
+    background-color: white;
+}
+
+.bi{
+    color: #2a67a3;
+    font-size: 1.6rem;
+    margin: 10px;
+}
+
+.ms-1{
+    color : #2a67a3;
+    font-size: 18px;
+}
+
+/* Estilos por defecto para los enlaces */
+.botonera .nav-link {
+    background-color: white; /* Color de texto por defecto */
+    transition: color 0.3s ease; /* Transición suave de color durante 0.3 segundos */
+    border-bottom: 1px solid #e9ecef; /* Línea divisora */
+    padding-bottom: 5px; /* Ajusta según sea necesario para el espaciado entre elementos */
+    border-radius: 0%;
+    margin: 10px;
+}
+
+/* Elimina el borde inferior de la última nav-link para evitar una línea divisora adicional */
+.botonera .nav-item:last-child .nav-link {
+    border-bottom: none;
+}
+
+/* Estilos al pasar el ratón sobre los enlaces */
+.botonera .nav-link:hover {
+    background-color: #e9ecef; /* Cambia a tu color deseado al pasar el ratón */
+}
+
+#menu{
+    width: 100%;
+}
