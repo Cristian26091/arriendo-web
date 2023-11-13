@@ -44,11 +44,11 @@
 @media (min-width: 1200px) {
   .form-select{
     height: 65px;
-    font-size: 18px;
+    font-size: 16px;
   }
   .btn {
     height: 65px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
   }
 }
