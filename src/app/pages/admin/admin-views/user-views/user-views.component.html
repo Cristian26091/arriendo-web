@@ -20,7 +20,7 @@
         <div class="col-md-4">
             <div class="input-group">
                 <input type="text" class="form-control search-input" placeholder="Buscar habitación...">
-                <button class="btn btn-primary search-button">
+                <button class="search-btn btn btn-primary">
                   <i class="bi bi-search"></i>
                 </button>
             </div>
@@ -37,26 +37,32 @@
         </thead>
         <tbody>
             <tr *ngFor="let user of userService.users">
-                <th scope="row">{{ user.nombre }}</th>
+                <td>{{ user.nombre }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.telefono }}</td>
                 <td>{{ user.rut }}</td>
                 <td>
-                    <button type="button" class="btn btn-danger" (click)="selectToDelete(user)" data-bs-toggle="modal" data-bs-target="#deleteUserModal"> Eliminar</button>
+                    <button type="button" class="btn btn-danger" (click)="selectToDelete(user)" data-bs-toggle="modal" data-bs-target="#deleteUserModal"> 
+                        <i class="bi bi-trash3-fill"></i>
+                        Eliminar
+                    </button>
                 </td>
             </tr>
         </tbody>
     </table>
-<!-- PAGINACIÓN -->
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-    </nav>
+
+    <footer>
+         <!-- PAGINACIÓN -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+    </footer>
 
     <!-- MODAL ELIMINAR USUARIO -->
     <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
