@@ -30,6 +30,10 @@ export class SidebarComponent implements OnInit {
     this.cambiarContenido.emit('casas');
   }
 
+  mostrarIndex(){
+    this.cambiarContenido.emit('index');
+  }
+
   //evento para cerrar sesión
   salir() {
     this.cambiarContenido.emit('salir');

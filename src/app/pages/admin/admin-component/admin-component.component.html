@@ -7,26 +7,37 @@
       <app-sidebar (cambiarContenido)="contenidoActual = $event"></app-sidebar>
     </div>
     <div class="col py-3">
+
       <ng-container *ngIf="contenidoActual === 'home'">
         <!-- Contenido para Home -->
         <app-room-views></app-room-views>
       </ng-container>
+
       <ng-container *ngIf="contenidoActual === 'usuarios'">
         <!-- Contenido para Usuarios -->
         <app-user-views></app-user-views>
       </ng-container>
+
       <ng-container *ngIf="contenidoActual === 'reservas'">
         <!-- Contenido para Reservas -->
         <app-reservation-views></app-reservation-views>
       </ng-container>
+
       <ng-container *ngIf="contenidoActual === 'reclamos'">
         <!-- Contenido para Reclamos -->
         <app-claims-views></app-claims-views>
       </ng-container>
+
       <ng-container *ngIf="contenidoActual === 'casas'">
         <!-- Contenido para Reclamos -->
         <app-houseview></app-houseview>
       </ng-container>
+
+      <ng-container *ngIf="contenidoActual === 'index'">
+        <!-- Contenido para Reclamos -->
+        <app-index-admin></app-index-admin>
+      </ng-container>
+
       <ng-container *ngIf="contenidoActual === 'salir'">
         <!-- Lógica para la acción de salida -->
       </ng-container>

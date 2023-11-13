@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-component.component.css']
 })
 export class AdminComponentComponent implements OnInit {
-  contenidoActual: string = '';
+  contenidoActual: string = 'index';
   
   constructor() { }
 
