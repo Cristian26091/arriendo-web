@@ -6,7 +6,10 @@
 <div class="container filter-container align-items-center justify-content-center">
     <div class="row">
         <div class="col-md-2 mx-auto my-auto text-center">  
-            <button class="btn btn-primary add-button"  data-bs-toggle="modal" data-bs-target="#addHouseModal">Añadir Casa</button>
+            <button class="add-btn btn btn-primary"  data-bs-toggle="modal" data-bs-target="#addHouseModal">
+                <i class="bi bi-house-add-fill"></i>
+                Añadir Casa
+            </button>
         </div>
         <div class="col-md-4 text-center">
             <select class="form-select sort-select">
@@ -18,7 +21,7 @@
         <div class="col-md-4 text-center">
             <div class="input-group">
                 <input type="text" class="form-control search-input" placeholder="Buscar habitación...">
-                <button class="btn btn-primary search-button">
+                <button class="search-btn btn btn-primary">
                 <i class="bi bi-search"></i>
                 </button>
             </div>
@@ -35,7 +38,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let house of houseService.houses">
-            <th scope="row">{{ house._id }}</th>
+            <td>{{ house._id }}</td>
             <td>{{ house.nombrePropiedad }}</td>
             <td>{{ house.numPisos }}</td>
             <td>{{ house.fecha_publicacion | dateFormat }}</td>
@@ -43,8 +46,13 @@
             <td>{{ formatPrice(house.precio) | currency:'CLP':'symbol-narrow'}}</td>
             <td>{{ house.duenio }}</td>
             <td>
-                <button class="btn btn-primary" (click)="selectToEdit(house)" data-bs-toggle="modal" data-bs-target="#editHouseModal">Editar</button>
-                <button class="btn btn-danger" (click)="selectToDelete(house)" data-bs-toggle="modal" data-bs-target="#deleteHouseModal">Eliminar</button>
+                <button class="edit-btn btn btn-primary" (click)="selectToEdit(house)" data-bs-toggle="modal" data-bs-target="#editHouseModal">
+                    <i class="bi bi-pencil-fill"></i>
+                </button>
+
+                <button class="btn btn-danger" (click)="selectToDelete(house)" data-bs-toggle="modal" data-bs-target="#deleteHouseModal">
+                    <i class="bi bi-trash3-fill"></i>
+                </button>
             </td>
         </tr>
     </tbody>
