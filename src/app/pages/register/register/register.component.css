@@ -10,7 +10,7 @@
   max-width: 100%; /* Cambiado a 100% para aprovechar todo el espacio */
   margin: 0 auto;
   padding: 20px;
-  background-color: #f2f2f2;
+  background-color: white;
   border-radius: 5px;
 }
 
@@ -20,7 +20,7 @@
 }
 
 .register-form button[type="submit"]:hover {
-  background-color: #45a049;
+  background-color: #2a67a3;
   color: #fff; /* Cambia el color del texto al pasar el mouse */
 }
 
@@ -63,7 +63,7 @@
 .register-form button[type="submit"] {
   width: 100%;
   padding: 10px;
-  background-color: #4CAF50;
+  background-color: #2a67a3;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -92,7 +92,7 @@ label {
 
 
 .register-form button[type="submit"]:hover {
-  background-color: #45a049;
+  background-color: #1478DB;
 }
 
 /* Aplica estilos al p-multiSelect de PrimeNG */
@@ -113,15 +113,3 @@ label {
   width: 100%;
 }
 
-/* Aplica estilos adicionales según sea necesario */
-
-
-
-@media (max-width: 576px) {
-  .register-form .row {
-    flex-direction: column;
-  }
-  .register-form .col-md-6 {
-    width: 100%;
-  }
-}
