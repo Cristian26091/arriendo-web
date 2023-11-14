@@ -44,7 +44,6 @@
         <tr *ngFor="let house of houseService.houses">
             <td>{{ house._id }}</td>
             <td>{{ house.nombrePropiedad }}</td>
-            <td>{{ house.numPisos }}</td>
             <td>{{ house.fecha_publicacion | dateFormat }}</td>
             <td>{{ house.fecha_termino | dateFormat}}</td>
             <td>{{ formatPrice(house.precio) | currency:'CLP':'symbol-narrow'}}</td>

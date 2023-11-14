@@ -1,58 +1,114 @@
 <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
-    <!-- <div class="mb-3">
-      <label for="fechaPublicacion" class="form-label">Fecha de Publicación:</label>
-      <input type="date" id="fechaPublicacion" name="fechaPublicacion" [(ngModel)]="casa.fecha_publicacion" class="form-control" required>
-      <div class="invalid-feedback">
-        Por favor, ingrese la fecha de publicación.
-      </div>
-    </div> -->
-  
-    <div class="mb-3">
-      <label for="nombreCasa" class="nombreCasa-label">Nombre de la Casa</label>
-        <input type="text" id="nombreCasa" name="nombreCasa" [(ngModel)]="casa.nombrePropiedad" class="form-control" required (input)="validateNamePropiedad()">
-        <div class="invalid-feedback">
-          Por favor, ingrese el nombre de la casa.
-        </div>
-        <div *ngIf="errors['namePropiedad']" class="text-danger">{{ errors['namePropiedad'] }}</div>
+
+  <!-- FILA 1 -->
+  <div class="row mb-2">
+
+    <div class="col-md-6">
+      <!-- Nombre casa -->
+      <label for="nombreCasa" class="form-label">Nombre de la Casa:</label>
+      <input type="text" id="nombreCasa" name="nombreCasa" [(ngModel)]="casa.nombrePropiedad" class="form-control" required (input)="validateNamePropiedad()">
+      <div *ngIf="errors['namePropiedad']" class="text-danger">{{ errors['namePropiedad'] }}</div>
     </div>
 
-    <div class="mb-3">
-      <label for="cantPisos" class="cantPisos">Cantidad de pisos</label>
-        <input type="number" id="cantPisos" name="cantPisos" [(ngModel)]="casa.numPisos" class="form-control" required (input)="validateNumPisos()">
-        <div class="invalid-feedback">
-          Por favor, ingrese la cantidad de pisos.
-        </div>
-        <div *ngIf="errors['numPisos']" class="text-danger">{{ errors['numPisos'] }}</div>
-    </div>
-
-    <div class="mb-3">
-      <label for="fechaTermino" class="form-label">Fecha de Término:</label>
-      <input type="date" id="fechaTermino" name="fechaTermino" [(ngModel)]="casa.fecha_termino" class="form-control" required (input)="validateFechaTermino()">
-      <div class="invalid-feedback">
-        Por favor, ingrese la fecha de término.
-      </div>
-      <div *ngIf="errors['fechaTermino']" class="text-danger">{{ errors['fechaTermino'] }}</div>
-    </div>
-  
-    <div class="mb-3">
-      <label for="precio" class="form-label">Precio:</label>
-      <input type="text" id="precio" name="precio" [(ngModel)]="casa.precio" class="form-control" required (input)="validatePrecio()">
-      <div class="invalid-feedback">
-        Por favor, ingrese el precio.
-      </div>
-      <div *ngIf="errors['precio']" class="text-danger">{{ errors['precio'] }}</div>
-    </div>
-    
-  
-    <div class="mb-3">
+    <div class="col-md-6">
+      <!-- Nombre del duenio -->
       <label for="dueno" class="form-label">Dueño:</label>
       <input type="text" id="dueno" name="dueno" [(ngModel)]="casa.duenio" class="form-control" required (input)="validateNameDuenio()">
-      <div class="invalid-feedback">
-        Por favor, ingrese el nombre del dueño.
-      </div>
       <div *ngIf="errors['nameDuenio']" class="text-danger">{{ errors['nameDuenio'] }}</div>
     </div>
+
+  </div>
+
+  <!-- FILA 2 -->
+  <div class="row mb-2">
+
+    <div class="col-md-6">
+      <!-- Fecha termino contrato casa  -->
+      <label for="fechaTermino" class="form-label">Fecha de Término:</label>
+      <input type="date" id="fechaTermino" name="fechaTermino" [(ngModel)]="casa.fecha_termino" class="form-control" required (input)="validateFechaTermino()">
+      <div *ngIf="errors['fechaTermino']" class="text-danger">{{ errors['fechaTermino'] }}</div>
+    </div>
+
+    <div class="col-md-6">
+      <!-- Precio -->
+      <label for="precio" class="form-label">Precio:</label>
+      <input type="text" id="precio" name="precio" [(ngModel)]="casa.precio" class="form-control" required (input)="validatePrecio()">
+      <div *ngIf="errors['precio']" class="text-danger">{{ errors['precio'] }}</div>
+    </div>
+
+  </div>
+
+  <!-- FILA 3 -->
+  <div class="row mb-2">
+
+    <div class="col-md-6">
+      <!-- Numero de habitaciones -->
+      <label for="numHabitaciones" class="form-label">Numero de habitaciones</label>
+      <input type="number" id="numHabitaciones" name="numHabitaciones" [(ngModel)]="casa.numHabitaciones" class="form-control" required (input)="validateNumHabitaciones()">
+      <div *ngIf="errors['numHabitaciones']" class="text-danger">{{ errors['numHabitaciones'] }}</div>
+    </div>
+
+    <div class="col-md-6">
+      <!-- Numero de banios -->
+      <label for="numBanios" class="form-label">Numero de baños:</label>
+      <input type="number" id="numBanios" name="numBanios" [(ngModel)]="casa.numBanios" class="form-control" required (input)="validateNumBanios()">
+      <div *ngIf="errors['numBanios']" class="text-danger">{{ errors['numBanios'] }}</div>
+    </div>
+
+  </div>
+
+  <!-- FILA 4 -->
+  <div class="row mb-2">
+
+    <div class="col-md-6">
+      <!-- Region -->
+      <label for="region" class="form-label" >Región:</label>
+      <select class="form-select"  name="region" id="region" [(ngModel)]="casa.region" (change)="onRegionSelected($event)">
+        <option class="start-input-text" value="" disabled selected>Seleccione una Region</option>
+        <option *ngFor="let region of regionService.regions" [value]="region.nombre_region">{{region.nombre_region}}</option>
+      </select>
+      <div *ngIf="errors['region']" class="text-danger">{{ errors['region'] }}</div>
+    </div>
+
+    <div class="col-md-6">
+      <!-- Comuna -->
+      <label for="comuna" class="form-label">Comuna:</label>
+      <select class="form-select" name="comuna" id="comuna" [(ngModel)]="casa.comuna" (change)="onComunaSelected($event)">
+        <option class="start-input-text" value="" disabled selected>Seleccione una comuna</option>
+        <option *ngFor="let comuna of comunasOptions" [value]="comuna">{{comuna}}</option>
+      </select>
+      <div *ngIf="errors['comuna']" class="text-danger">{{ errors['comuna'] }}</div>
+    </div>
+
+  </div>
+
+  <!-- FILA 5 -->
+  <div class="row mb-2">
+
+    <div class="col-md-6">
+      <!-- Calle -->
+      <label for="calle" class="form-label">Calle:</label>
+      <input type="text" id="calle" name="calle" [(ngModel)]="casa.calle" class="form-control" required (input)="validateCalle()">
+      <div *ngIf="errors['calle']" class="text-danger">{{ errors['calle'] }}</div>
+    </div>
+
+    <div class="col-md-6">
+      <!-- posee o no estacionamiento -->
+        <label for="estacionemiento" class="form-label">Posee estacionamiento:</label>
+        <select class="form-select" id="estacionemiento" name="estacionemiento" [(ngModel)]="casa.tieneEstacionamiento" required (change)="validateEstacionamiento()">
+          <option value="true">Si</option>
+          <option value="false">No</option>
+        </select>
+        <div *ngIf="errors['estacionamiento']" class="text-danger">{{ errors['estacionamiento'] }}</div>
+    </div>
+
+  </div>
   
+  <br>
+  
+  <div class="row">
     <button type="submit" class="btn btn-primary">Agregar Casa</button>
+  </div>
+    
   </form>
   
