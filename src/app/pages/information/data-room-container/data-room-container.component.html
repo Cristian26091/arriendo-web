@@ -1,41 +1,51 @@
-<div class="card" style="width: 100%;">
+<div class="card">
 
     <div class="card-body">
-      <h4 class="card-title texto-titulo">{{roomService.selectedRoom.comuna}}{{", "}}{{roomService.selectedRoom.calle}}</h4>
-      <p class="card-text">{{roomService.selectedRoom.descripcion}}</p>
-    </div>
-
-    <ul class="list-group list-group-flush">
+        <!-- Titulo -->
+        <h3 class="card-title mb-4">
+            <i class="bi bi-geo-alt-fill me-3"></i>
+            {{roomService.selectedRoom.calle}}{{", "}}{{roomService.selectedRoom.comuna}}{{", "}}{{roomService.selectedRoom.region}}
+        </h3>
 
         <!-- Precio -->
-        <li class="list-group-item">
-            <p> <b>Precio:</b> {{roomService.selectedRoom.precio}}</p>
-        </li>
+        <h3 class="price-text mb-4">
+            <i class="bi bi-cash-coin"></i>
+            {{"$"}}{{roomService.selectedRoom.precio}}
+        </h3>
 
         <!-- Baño compartido -->
-        <li class="list-group-item">
-            <p> <b>Baño compartido:</b> {{banio_compartido}}</p>
-        </li>
-
-        <!-- Región -->
-        <li class="list-group-item">
-            <p> <b>Región:</b> {{roomService.selectedRoom.region}}</p>
-        </li>
-
-        <!-- Comuna -->
-        <li class="list-group-item">
-            <p> <b>Comuna:</b> {{roomService.selectedRoom.comuna}}</p>
-        </li>
+        <p class="card-text mb-4 just">
+            <i class="bi bi-badge-wc-fill me-3"></i>
+            Baño compartido:
+            {{banio_compartido}}
+        </p>
 
         <!-- Tipo inmueble -->
-        <li class="list-group-item">
-            <p> <b>Tipo de residencia:</b> {{roomService.selectedRoom.casa_depto}}</p>
-        </li>
+        <p class="card-text mb-4">
+            <i class="bi bi-houses-fill me-3"></i>
+            Tipo de inmueble:
+            {{roomService.selectedRoom.casa_depto}}
+        </p>
 
         <!-- Fecha de publicaicon -->
-        <li class="list-group-item">
-            <p> <b>Fecha de publicación:</b> {{roomService.selectedRoom.fecha_publicacion | date}}</p>
-        </li>
+        <p class="card-text mb-4">
+            <i class="bi bi-calendar me-3" ></i>
+            Fecha de publicación:
+            {{roomService.selectedRoom.fecha_publicacion | date}}
+        </p>
 
-    </ul>
+        <!-- Descripcion -->
+        <p class="card-text mb-4">
+            <i class="bi bi-card-text me-3"></i>
+            Descripción:
+            {{roomService.selectedRoom.descripcion}}
+        </p>
+        
+
+        
+    </div>
+    
+    
+
+
 </div>
