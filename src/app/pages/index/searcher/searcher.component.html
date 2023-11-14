@@ -5,7 +5,7 @@
             <!-- Region -->
             <select class="form-select" [(ngModel)]="selectedRegion" (change)="onRegionSelected($event)">
                 <option class="start-input-text" value="" disabled selected>Seleccione una región</option>
-                <option *ngFor="let region of RegionService.regions" [value]="region.nombre_region">{{ region.numero + '-' +region.nombre_region}}</option>
+                <option *ngFor="let region of RegionService.regions" [value]="region.nombre_region">{{region.nombre_region}}</option>
             </select>
         </div>
 
