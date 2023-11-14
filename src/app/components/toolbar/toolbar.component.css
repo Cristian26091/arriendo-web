@@ -27,7 +27,7 @@
 /* Estilo para pantallas más grandes */
 @media (min-width: 1200px) {
   .navbar-nav .nav-item a.nav-link {
-    font-size: 18px; /* Ajusta el tamaño de la letra para pantallas más grandes */
+    font-size: 16px; /* Ajusta el tamaño de la letra para pantallas más grandes */
   }
 }
 
