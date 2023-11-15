@@ -12,6 +12,7 @@ export class ResultsComponentComponent {
 
   isRoomServiceVoid: boolean = false;
   resultsRooms: Room[] = [];
+  
   query: any = {
     minPrice: 0,
     maxPrice: 0,

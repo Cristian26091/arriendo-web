@@ -1,15 +1,39 @@
-<body>
+
+
+
     
-<div class="container">
-    <!-- FILTRO -->
+<div class="container-fluid">
     <br>
+    <!-- FILTRO -->
+    <div class="row">
+        <!-- Botón para mostrar/ocultar el filtro en pantallas pequeñas -->
+        <div class="col-12 d-lg-none">
+            <div class="container">
+                <button class="filter-btn btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+                    <i class="bi bi-chevron-down"></i>
+                    Filtrar habitaciones
+                </button>
+            </div>
+        </div>
+
+        <!-- Filtro colapsable (visible en pantallas pequeñas) -->
+        <div class="col-12 d-lg-none">
+            <div class="collapse" id="filterCollapse">
+                <app-filter-result (queryFilterEvent)="filterQuery($event)"></app-filter-result>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
     <div class="row">
 
-        <div class="col-3">
+         <!-- Filtro (visible en pantallas grandes) -->
+        <div class="col-lg-3 d-none d-lg-block">
             <app-filter-result (queryFilterEvent)="filterQuery($event)"></app-filter-result>
         </div>
 
-        <div class="col-9">
+        <div class="col-lg-9 col-sm-12">
             <!-- SI HAY RESUSLTADOS -->
             <div *ngIf="!isRoomServiceVoid; else noRooms">
                 <div class="container" *ngFor="let room of resultsRooms" >
@@ -24,14 +48,12 @@
                     message="Pruebe con otra busqueda">
                 </app-error-view>
             </ng-template>
-
         </div>
 
     </div>
 
 </div>
 
-</body>
 
 <footer>
     <app-footer></app-footer>

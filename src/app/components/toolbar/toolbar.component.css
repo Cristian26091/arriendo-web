@@ -6,13 +6,12 @@
   box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1s); /* Ajusta los valores según tus preferencias */
 }
 
-.navbar-brand img {
-  margin-left: 70px;
-  scale : 5.0;
+.logo-small{
+  scale:1;
 }
 
 .navbar-nav .nav-item a.nav-link:hover {
-  padding: 15px; /* Ajusta el padding al hacer hover según tus necesidades */
+  /* padding: 15px; Ajusta el padding al hacer hover según tus necesidades */
   color: #2a67a3;
   background-color: #f0f0f0;
   transition: background-color 0.2s ease;
@@ -21,7 +20,7 @@
 
 /* Agrandar los botones de Ayuda e Ingresar */
 .navbar-nav .nav-item a.nav-link {
-  padding: 15px; /* Ajusta el padding según tus necesidades */
+  /* padding: 15px; Ajusta el padding según tus necesidades */
 }
 
 /* Estilo para pantallas más grandes */
