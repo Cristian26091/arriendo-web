@@ -1,0 +1,17 @@
+body{
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.payment-btn{
+    width: 100%;
+    margin-top: 1rem;
+    background-color: #2a67a3;
+    color: white;
+}
+
+.payment-btn:hover{
+    background-color: #1478DB;
+    color: white;
+}

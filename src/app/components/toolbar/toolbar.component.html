@@ -2,10 +2,16 @@
     <nav class="navbar navbar-expand-lg ">
         
         <div class="container-fluid">
-            <!-- Logo -->
-            <a class="navbar-brand" href="/index">
-                <img  alt="Logo" width="30" height="30" class="d-inline-block align-top">
+            <!-- Logo Grande y horizontal-->
+            <a class="navbar-brand d-none d-lg-block" href="/index">
+                <img  alt="Logo Grande" class="img-fluid" style="max-width: 100%; width: auto;" src="https://storage.googleapis.com/bucket-arriendo-web/logos/color-horizontal-fix.png">
             </a>
+
+            <!-- Logo para pantallas pequeñas -->
+            <a class="navbar-brand d-block d-lg-none" href="/index">
+                <img alt="Logo Pequeño" class="logo-small img-fluid" src="https://storage.googleapis.com/bucket-arriendo-web/logos/color-horizontal-mobile.png">
+            </a>
+
             <!-- Título -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -41,12 +47,12 @@
 
                 <!-- Botón de ayuda -->
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/help">Ayuda</a>
+                    <a class="nav-link" href="javascript:void(0)" routerLink="/help">Ayuda</a>
                 </li>
 
                 <!-- Botón de ingreso (modal) -->
                 <li class="nav-item" *ngIf="!loggedIn" >
-                    <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginSignupModal">Ingresar</a>
+                    <a class="nav-link" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#loginSignupModal">Ingresar</a>
                 </li>
 
                 </ul>

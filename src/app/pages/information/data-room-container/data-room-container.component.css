@@ -1,22 +1,19 @@
-.mat-raised-button{
-    width: 100%;
+.card-title{
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
-.mat-card-content{
-
+.price-text{
+    font-size: 1.5rem;
 }
 
-.icon-card{
-    padding-top: 5%;
-
+.card-text{
+    font-size: 1rem;
 }
 
-.footer-card {
-    padding-right: 5%;
-    text-align: right;
+.bi {
+    font-size: 1.8rem;
     color: gray;
 }
 
-.texto-titulo{
-    font-weight: bold;
-}
+

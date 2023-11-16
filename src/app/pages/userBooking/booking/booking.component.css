@@ -1,34 +1,34 @@
-/* Estilo para el campo de entrada de archivo */
-#fileInput {
-    display: none; /* Ocultar el campo de entrada de archivo */
-  }
-  
-  /* Estilo para el botón personalizado */
-  #fileInput + label {
-    display: inline-block;
-    padding: 6px 12px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    background-color: #337ab7;
-    color: #fff;
-    border: 1px solid #2e6da4;
-    border-radius: 4px;
-  }
-  
-  /* Estilo para el botón personalizado cuando el ratón pasa por encima */
-  #fileInput + label:hover {
-    background-color: #286090;
-    border: 1px solid #204d74;
-  }
-  
-  /* Estilo para el botón personalizado cuando está activo */
-  #fileInput + label:active {
-    background-color: #204d74;
-    border: 1px solid #122b40;
-  }
+
+
+.card-title{
+  font-size: 1.2rem;
+}
+
+.price-text{
+  font-size: 1.1rem;
+}
+
+.download-pdf-btn{
+  background-color: #1478DB; 
+}
+
+.download-pdf-btn:hover{
+  background-color: #1D5DA3;
+}
+
+.upload-pdf-btn{
+  background-color: #2a67a3;
+}
+
+.upload-pdf-btn:hover{
+  background-color: #6BAED8 ;
+}
+
+.payment-btn{
+  background-color: #004080;
+}
+
+.payment-btn:hover{
+  background-color: #005A99 ;
+}
   

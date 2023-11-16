@@ -19,7 +19,7 @@ export class PaymentComponentComponent implements OnInit {
   steps = [
     { title: 'Servicios', content: 'services'},
     { title: 'Tus datos', content: 'details' },
-    { title: 'Detalles', content: 'data' },
+    { title: 'Resumen de compra', content: 'resumen' },
     { title: 'Pago', content: 'payment' },
     
   ];

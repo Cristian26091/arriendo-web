@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentDataComponent implements OnInit {
 
+  reglas: string[] = [
+    "Respetar el horario de silencio",
+    "No fumar dentro de las habitaciones",
+    "Mantener el orden y la limpieza"
+  ];
+
   constructor() { }
 
   ngOnInit(): void {

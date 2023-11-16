@@ -9,14 +9,14 @@
         <div *ngIf="errors['namePropiedad']" class="text-danger">{{ errors['namePropiedad'] }}</div>
     </div>
 
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <label for="cantPisos" class="cantPisos">Cantidad de pisos</label>
         <input type="number" id="cantPisos" name="cantPisos" [(ngModel)]="house.numPisos" class="form-control" required (input)="validateNumPisos()">
         <div class="invalid-feedback">
           Por favor, ingrese la cantidad de pisos.
         </div>
         <div *ngIf="errors['numPisos']" class="text-danger">{{ errors['numPisos'] }}</div>
-    </div>
+    </div> -->
   
     <div class="mb-3">
         <label for="fechaPublicacion" class="form-label">Fecha de Publicación:</label>

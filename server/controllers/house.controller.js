@@ -13,7 +13,8 @@ houseCtrl.getHouse = async (req, res) => {
 }
 
 houseCtrl.createHouse = async (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
+
     if (!req.body) {
         return res.status(400).send({
             message: "House content can not be empty"
@@ -26,7 +27,12 @@ houseCtrl.createHouse = async (req, res) => {
         precio: req.body.precio,
         duenio: req.body.duenio,
         nombrePropiedad: req.body.nombrePropiedad,
-        numPisos: req.body.numPisos,
+        numHabitaciones: req.body.numHabitaciones,
+        numBanios: req.body.numBanios,
+        tieneEstacionamiento: req.body.tieneEstacionamiento,
+        region: req.body.region,
+        comuna: req.body.comuna,
+        calle: req.body.calle,
     });
 
     house.save()
