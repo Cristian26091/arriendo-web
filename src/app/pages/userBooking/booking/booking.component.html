@@ -1,7 +1,7 @@
 <br>
 
 <div class="row justify-content-center">
-    <div class="col-12 col-md-8" *ngIf="bookingService.bookings && bookingService.bookings.length">
+    <div class="col-12 col-md-8" *ngIf="bookingService.bookings && bookingService.bookings.length > 0; else voidBooking">
         <div *ngFor="let booking of bookingService.bookings" class="mb-2">
             <div class="card">
                 <div class="card-body">
