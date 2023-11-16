@@ -1,4 +1,32 @@
 .selected-service {
     border: 2px solid lightblue; /* Cambia el color y el estilo del borde a tu preferencia */
 }
-  
+
+body{
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1.2rem;
+}
+
+.h2{
+    padding: 1.4;
+}
+
+.fluid-container{
+    padding: 1.2rem;
+}
+
+.tex-left{
+    padding: 1rem;
+}
+
+.card-title{
+    font-size: 1.2rem;
+}
+
+.card:hover{
+    color: white;
+    background-color: #2a67a3;
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño de la tarjeta */
+    transition: transform 0.3s ease; /* Agrega una transición suave al cambio de tamaño */
+}

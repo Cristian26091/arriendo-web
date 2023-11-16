@@ -1,6 +1,13 @@
-<div class="container">
+<body>
+  
+  <div class="container">
     <div class="row g-3">
-      <h2 class="text-left">¿Necesitas añadir un servicio?</h2>
+
+      <!-- TITULO  -->
+      <div class="fluid-container">
+        <h2 class="text-left">¿Necesitas añadir un servicio?</h2>
+      </div>
+
       <div class="col-md-4" *ngFor="let service of services">
         <div class="card" [ngClass]="{'selected-service': isServiceSelected(service._id)}">
           <!-- <img [src]="service.imagen" class="card-img-top" alt="{{service.nombre}}"> -->
@@ -24,4 +31,6 @@
       </div>
     </div>
   </div>
+
+</body>
   
