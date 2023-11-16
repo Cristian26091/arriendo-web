@@ -1,12 +1,7 @@
 <body>
+
   <header>
     <h1>GESTIÓN DE RESERVAS</h1>
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
-            <li class="breadcrumb-item" *ngFor="let part of currentRouteParts; let last = last" [ngClass]="{ 'active': last }">{{ part }}</li>
-        </ol>
-    </nav>
   </header>
     
 <!-- FILTROS -->
@@ -24,7 +19,7 @@
         <div class="col-md-4">
             <div class="input-group">
                 <input type="text" class="form-control search-input" placeholder="Buscar habitación...">
-                <button class="btn btn-primary search-button">
+                <button class="search-btn btn btn-primary">
                   <i class="bi bi-search"></i>
                 </button>
             </div>
@@ -41,7 +36,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let booking of bookingService.bookings">
-                <th scope="row">{{ booking._id }}</th>
+                <td>{{ booking._id }}</td>
                 <td>{{ booking.fecha_inicio | dateFormat }}</td>
                 <td>{{ booking.fecha_fin | dateFormat}}</td>
                 <!-- <td>{{ booking.estado }}</td> -->
@@ -54,15 +49,20 @@
                 </td>
                 
                 <td>
-                    <button type="button" class="btn btn-danger" (click)="selectToDeleteItem(booking)" data-bs-toggle="modal" data-bs-target="#deleteBookingModal"> Eliminar</button>
-                    <button type="button" class="btn btn-primary" (click)="selectToViewInfo(booking)" data-bs-toggle="modal" data-bs-target="#viewInfoBookingModal">Inspeccionar</button>
-                    <!-- <button type="button" class="btn btn-primary" (click)="selectToAprove(booking)"> Aprobar</button> -->
+                    <button type="button" class="btn btn-danger" (click)="selectToDeleteItem(booking)" data-bs-toggle="modal" data-bs-target="#deleteBookingModal"> 
+                        <i class="bi bi-trash3-fill"></i>
+                    </button>
+
+                    <button type="button" class="see-btn btn btn-primary" (click)="selectToViewInfo(booking)" data-bs-toggle="modal" data-bs-target="#viewInfoBookingModal">
+                        <i class="bi bi-eye-fill"></i>
+                    </button>
                     <a *ngIf="validateUploadDocument(booking)" [href]="booking.url_pdf_user" target="_blank" class="btn btn-primary">Ver contrato</a>
                 </td>
 
             </tr>
         </tbody>
     </table>
+    
 <!-- PAGINACIÓN -->
     <nav aria-label="Page navigation example">
         <ul class="pagination">

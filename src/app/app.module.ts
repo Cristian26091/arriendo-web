@@ -87,6 +87,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ServiceComponent } from './pages/payment/service/service.component';
+import { IndexAdminComponent } from './pages/admin/admin-views/index-admin/index-admin.component';
 
 
 @NgModule({
@@ -136,6 +137,7 @@ import { ServiceComponent } from './pages/payment/service/service.component';
     RegistrationStepComponent,
     RoomMateCardComponent,
     ServiceComponent,
+    IndexAdminComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,10 @@
 
-<div class="card mb-3">
+<div class="card mb-3 mx-auto">
 
-  <div class="row g-0">
+  <div class="row g-0 justify-content-center">
 
-    <div class="col-md-4 image-container">
-        <img src= "{{room.url_img_cover}}" class="img-fluid rounded-start" alt="...">
+    <div class="col-sm-6 col-md-6 col-lg-4 image-container">
+        <img src= "{{room.url_img_cover}}" alt="room_img">
     </div>
 
     <div class="col-md-8">
@@ -13,26 +13,24 @@
 
           <h4 class="card-title">{{room.comuna}}{{", "}}{{room.calle}}</h4>
 
-          <h5> {{room.region}} </h5>
+          <h3 class="region"> {{room.region}} </h3>
           
-          <h5 class="precio-text"> {{room.precio}} </h5>
+          <h5 class="precio-text"> {{"$"}}{{room.precio}} </h5>
           
           <p class="card-text"> {{room.descripcion}} </p>
 
           <div class="footer-container row justify-content-between">
 
-            <div class="col-4">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
               <p class="card-text"><small class="text-muted">{{room.fecha_publicacion | date}}</small></p>
             </div>
 
-            <div class="col-4 button-container">
-              <button type="button" class="btn btn-light" (click)="goToRoom(room._id)">Ver</button>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 button-container">
+              <button type="button" class="see-btn btn btn-light" (click)="goToRoom(room._id)">Ver</button>
             </div>
             
           </div>
-
       </div>
-
     </div>
 
   </div>

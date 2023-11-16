@@ -1,12 +1,9 @@
 
-.salto-linea {
-    font-size: 0;
-    display: block;
-}
-
-.mat-paginator{
-    display: flex;
-    align-items: center;
+.filter-btn{
+    width: 100%;
     justify-content: center;
+    background-color: white;
+    border: white;
+    color : black
 }
 

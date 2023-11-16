@@ -1,25 +1,44 @@
+<br>
+
 <div class="row justify-content-center">
-    <div class="col-12 col-md-8" *ngIf="bookingService.bookings && bookingService.bookings.length > 0;else voidBooking">
+    <div class="col-12 col-md-8" *ngIf="bookingService.bookings && bookingService.bookings.length > 0; else voidBooking">
         <div *ngFor="let booking of bookingService.bookings" class="mb-2">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">{{ getRoomName(booking.roomId) }}</h5>
-                    <p class="card-text">Fecha inicio reserva: {{ booking.fecha_inicio | date: 'dd/MM/yyyy' }}</p>
-                    <p class="card-text">Fecha termino reserva: {{ booking.fecha_fin | date: 'dd/MM/yyyy' }}</p>
-                    <p class="card-text">Estado: {{ booking.estado }}</p>
-                    <p class="card-text">Precio: ${{ booking.precio }}</p>
+                    <h5 class="card-title mb-3">{{ getRoomName(booking.roomId) }}</h5>
+                    <p class="price-text mb-3">Precio: ${{ booking.precio }}</p>
+                    <p class="card-text mb-3">Fecha inicio reserva: {{ booking.fecha_inicio | date: 'dd/MM/yyyy' }}</p>
+                    <p class="card-text mb-3">Fecha termino reserva: {{ booking.fecha_fin | date: 'dd/MM/yyyy' }}</p>
+                    <p class="card-text mb-3">Estado reserva: {{ booking.estado }}</p>
                     <div class="d-flex justify-content-end">
 
-                        <a class="btn btn-danger ml-2" (click)="cancelBooking(booking._id)"  toast="cancelToast">Cancelar Reserva</a>
-                        <p-toast position="bottom-center" key="cancelToast"></p-toast>
+                        <!-- Cancelar Reserva -->
+                        <a class="btn btn-danger ml-2" (click)="cancelBooking(booking._id)" toast="cancelToast">
+                            <i class="bi bi-trash3-fill d-inline d-md-none"></i>
+                            <span class="d-md-inline d-none">Cancelar reserva</span>
+                        </a>
+                        
+                        <!-- Descargar contrato -->
+                        <a class="download-pdf-btn btn btn-primary ml-2" (click)="generateContract(booking)">
+                            <i class="bi bi-file-earmark-arrow-down-fill d-inline d-md-none"></i>
+                            <span class="d-md-inline d-none">Descargar contrato</span>
+                        </a>
+                        
+                        <!-- Cargar contrato -->
+                        <a class="upload-pdf-btn btn btn-primary ml-2">
+                            <input type="file" class="btn btn-primary ml-2" (change)="capturarPDF($event, booking)" accept=".pdf" multiple="false" id="fileInput" style="display: none;">
+                            <label for="fileInput">
+                            <i class="bi bi-file-earmark-arrow-up-fill d-inline d-md-none"></i>
+                            <span class="d-md-inline d-none">Cargar contrato</span>
+                        </label>
+                        </a>
+                        
+                        <!-- Completar Pago -->
+                        <a *ngIf="isConfirmed(booking)" class="payment-btn btn btn-primary ml-2" (click)="goToPayment(booking._id)">
+                            <i class="bi bi-credit-card-2-back-fill d-inline d-md-none"></i>
+                            <span class="d-md-inline d-none">Completar pago</span>
+                        </a>
 
-                        <a class="btn btn-primary ml-2" (click)="generateContract(booking)" >Descargar contrato</a>
-
-                        <input type="file" (change)="capturarPDF($event, booking)" accept=".pdf" multiple="false" id="fileInput" style="display: none;">
-                        <label for="fileInput" class="btn btn-primary ml-2">Cargar contrato</label>
-
-                        <a  *ngIf="isConfirmed(booking)" class="btn btn-primary ml-2" (click)="goToPayment(booking._id)">Completar Pago</a>
-                       
                     </div>
                 </div>
             </div>

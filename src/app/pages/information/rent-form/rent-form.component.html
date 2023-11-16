@@ -4,7 +4,7 @@
 
     <div class="row">
       <!-- Campos de fecha de inicio y fecha de término -->
-      <div class="col-md-6 mb-2">
+      <div class="col-md-6 mb-4">
         <div class="form-group">
           <label for="fecha-inicio">Fecha de inicio</label>
           <input type="date" class="form-control" id="fecha-inicio" name="fecha-inicio" [(ngModel)]="fechaInicio">
@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <div class="col-md-6 mb-2">
+      <div class="col-md-6 mb-4">
         <div class="form-group">
           <label for="fecha-termino">Fecha de término</label>
           <input type="date" class="form-control" id="fecha-termino" name="fecha-termino" [(ngModel)]="fechaTermino">
@@ -24,7 +24,7 @@
 
     <div class="row">
       <!-- Campo de aceptación de términos y condiciones -->
-      <div class="col-md-12 mb-2">
+      <div class="col-md-12 mb-4">
         <div class="form-check">
           <input type="checkbox" class="form-check-input" id="terminos" name="terminos" [(ngModel)]="aceptaTerminos">
           <label class="form-check-label" for="terminos">Acepto los términos y condiciones y autorizo el uso de mis datos de acuerdo a la Declaración de Privacidad</label>
@@ -34,8 +34,9 @@
     </div>
 
     <!-- Botón de envío del formulario -->
-  <button type="submit" class="btn btn-primary" >Agenda una reserva</button>
+  <div class="row md-3 justify-content-center">
+    <button type="submit" class="btn btn-primary" >Agenda una reserva</button>
+  </div>
   
-
   </form>
   

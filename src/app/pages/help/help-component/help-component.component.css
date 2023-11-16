@@ -1,0 +1,37 @@
+/* Estilos para el jumbotron */
+.jumbotron {
+    color: #ffffff; /* Color del texto en el jumbotron */
+}
+
+.container {
+    background-color: #2a67a3;
+    border-radius: 15px;
+}
+
+/* Estilos para el título del jumbotron */
+.display-4 {
+    color: #ffffff; /* Color del título */
+    margin: 10px;
+}
+
+/* Estilos para el texto principal en el jumbotron */
+.lead {
+    color: #ffffff; /* Color del texto principal */
+    margin: 10px;
+}
+
+/* Cambiar el color del logo al color específico (#2a67a3) */
+.app-card-grid {
+    color: #2a67a3;
+}
+
+body{
+    background-color: white;
+    border-radius: 15px;
+    width: 80%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto; /* Esto centrará el cuerpo horizontalmente */
+}

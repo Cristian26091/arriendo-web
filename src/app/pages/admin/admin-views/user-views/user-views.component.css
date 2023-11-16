@@ -1,24 +1,14 @@
 /* Estilos para el encabezado */
 header {
-    background-color: #007BFF;
-    color: white;
+    color: black;
     text-align: center;
     padding: 20px 0;
+    border-radius: 20px;
 }
 
 h1 {
     font-size: 28px;
     margin-bottom: 10px;
-}
-
-/* Estilos para el breadcrumb */
-.breadcrumb-item a {
-    color: white;
-    text-decoration: none;
-}
-
-.breadcrumb-item a:hover {
-    text-decoration: underline;
 }
 
 /* Estilos para la tabla */
@@ -37,7 +27,7 @@ th, td {
 }
 
 th {
-    background-color: #007BFF;
+    background-color: #2a67a3;
     color: white;
 }
 
@@ -66,14 +56,14 @@ tr:nth-child(even) {
 
 .page-link {
     text-decoration: none;
-    color: #007BFF;
-    border: 1px solid #007BFF;
+    color: #2a67a3;
+    border: 1px solid #2a67a3;
     padding: 8px 16px;
     border-radius: 5px;
 }
 
 .page-link:hover {
-    background-color: #007BFF;
+    background-color: #2a67a3;
     color: white;
     transition: 0.3s;
 }
@@ -106,4 +96,14 @@ tr:nth-child(even) {
     padding: 2%;
 
 }
+
+body{
+    background-color: white;
+    border-radius: 20px;
+}
+
+.search-btn{
+    background-color: #2a67a3;
+}
+
 

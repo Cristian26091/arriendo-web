@@ -1,42 +1,48 @@
-<div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-  <!-- Logo y-->
-  <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <span class="fs-5 d-none d-sm-inline">Roomatch</span>
+<div class="container-bar d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+  <!-- Logo-->
+  <a class="logo-container" (click)="mostrarIndex()">
+      <img src="https://storage.googleapis.com/bucket-arriendo-web/logos/color-vertical-sin-bordes.png" alt="logo" class="logo-image">
   </a>
+
   <!-- Listado de los botones -->
-  <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+  <ul class="botonera nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
       <!-- Habitaciones -->
-      <li class="nav-item">
+      <li class="nav-item w-100">
         <a (click)="mostrarHome()" class="nav-link align-middle px-0">
-            <i class="fs-4 bi-door-open-fill"></i> <span class="ms-1 d-none d-sm-inline">  Gestionar habitaciones</span>
+            <i class="bi bi-door-closed-fill"></i> 
+            <span class="ms-1 d-none d-sm-inline"> Habitaciones</span>
         </a>
       </li>
       <!-- Casa -->
-      <li>
+      <li class="nav-item w-100">
         <a (click)="mostrarCasas()" class="nav-link px-0 align-middle">
-          <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Gestionar Casas</span> </a>
+          <i class="bi bi-houses-fill"></i> 
+          <span class="ms-1 d-none d-sm-inline"> Casas</span> </a>
       </li>
       <!-- Usuarios -->
-      <li>
+      <li class="nav-item w-100">
         <a (click)="mostrarUsuarios()" class="nav-link px-0 align-middle">
-            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Gestionar usuarios</span>
+            <i class="bi bi-people-fill"></i> 
+            <span class="ms-1 d-none d-sm-inline"> Usuarios</span>
         </a>
       </li>
       <!-- Reservas -->
-      <li>
+      <li class="nav-item w-100">
         <a (click)="mostrarReservas()" class="nav-link px-0 align-middle">
-          <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">Gestionar reservas</span></a>
+          <i class="bi bi-journals"></i> 
+          <span class="ms-1 d-none d-sm-inline"> Reservas</span></a>
       </li>
   
   </ul>
 
   <div class="dropdown pb-4">
     <!-- Listado de los botones -->
-    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+    <ul class="botonera nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
       <!-- Botón salir -->
       <li>
-          <a href="#" class="nav-link px-0 align-middle">
-              <i class="fs-4 bi-box-arrow-in-left"></i> <span class="ms-1 d-none d-sm-inline">Salir</span> </a>
+          <a href="/index" class="nav-link px-0 align-middle">
+            <i class="bi bi-box-arrow-left"></i>
+              <span class="ms-1 d-none d-sm-inline">Salir</span> </a>
       </li>
     </ul>
   </div>

@@ -1,19 +1,17 @@
-
+<body>
+    
     <header>
         <h1>GESTIÓN DE HABITACIONES</h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
-                <li class="breadcrumb-item" *ngFor="let part of currentRouteParts; let last = last" [ngClass]="{ 'active': last }">{{ part }}</li>
-            </ol>
-        </nav>
     </header>
  
     <!-- FILTROS -->
     <div class="container filter-container align-items-center justify-content-center">
         <div class="row">
             <div class="col-md-2 mx-auto my-auto text-center">  
-                <button class="btn btn-primary add-button" (click)="goToAddRoom()">Agregar Habitación</button>
+                <button class=" btn-add-house btn btn-primary" (click)="goToAddRoom()">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    Agregar Habitación
+                </button>
             </div>
             <div class="col-md-4 text-center">
                 <select class="form-select sort-select">
@@ -25,7 +23,7 @@
             <div class="col-md-4 text-center">
                 <div class="input-group">
                     <input type="text" class="form-control search-input" placeholder="Buscar habitación...">
-                    <button class="btn btn-primary search-button">
+                    <button class="search-btn btn btn-primary">
                     <i class="bi bi-search"></i>
                     </button>
                 </div>
@@ -42,14 +40,18 @@
         </thead>
         <tbody>
             <tr *ngFor="let room of RoomService.rooms">
-                <th scope="row">{{ room._id }}</th>
+                <td>{{ room._id }}</td>
                 <td>{{ room.numero + ' ' + room.calle + ' ' + room.comuna + ' ' + room.region }}</td>
                 <td>{{ room.fecha_publicacion | dateFormat }}</td>
                 <td>{{ formatPrice(room.precio) | currency:'CLP':'symbol-narrow' }}</td>
                 <td>{{ room.esta_arrendado }}</td>
                 <td>
-                    <button class="btn btn-primary" (click)="seletcToEdit(room)" data-bs-toggle="modal" data-bs-target="#editRoomModal">Editar</button>
-                    <button class="btn btn-danger" (click)="selectToDelete(room)" data-bs-toggle="modal" data-bs-target="#deleteRoomModal">Eliminar</button>
+                    <button class="btn-edit btn btn-primary" (click)="seletcToEdit(room)" data-bs-toggle="modal" data-bs-target="#editRoomModal">
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+                    <button class="btn btn-danger" (click)="selectToDelete(room)" data-bs-toggle="modal" data-bs-target="#deleteRoomModal">
+                        <i class="bi bi-trash3-fill"></i>
+                    </button>
                 </td>
             </tr>
         </tbody>
@@ -116,4 +118,4 @@
                 </div>
             </div>
         </div>
-
+</body>
