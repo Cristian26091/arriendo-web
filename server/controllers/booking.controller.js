@@ -27,7 +27,8 @@ bookingCtrl.getBookings = async (req, res) => {
 }
 
 bookingCtrl.getBooking = async (req, res) => {
-    const booking = await Booking.findById(req.params.id);
+    console.log(req.params);
+    const booking = await Booking.findById(req.params.idBooking);
     res.json(booking);
 }
 
@@ -77,7 +78,7 @@ bookingCtrl.putBooking = async (req, res) => {
     
         const { _id } = req.body; // id de la reserva
         const existingBooking = await Booking.findById(_id);
-        console.log(existingBooking);
+        // console.log(existingBooking);
     
         if(!existingBooking){
             return res.status(400).json({ message: 'La reserva no está registrada!' });
@@ -148,7 +149,7 @@ bookingCtrl.uploadPdfToBucket = async (req, res) => {
     
             // Devuelve el enlace descargable y el nombre de archivo
             const downloadLink = `https://storage.googleapis.com/bucket-arriendo-web/${fileName}`;
-            console.log(`Archivo ${fileName} cargado con éxito en el bucket.`);
+            // console.log(`Archivo ${fileName} cargado con éxito en el bucket.`);
             return res.status(200).json({ 
                 message: 'Archivo cargado con éxito en el bucket.',
                 downloadLink,
