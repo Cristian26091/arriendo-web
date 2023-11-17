@@ -46,7 +46,7 @@ export class PaymentComponentComponent implements OnInit {
     private bookingService : BookingService,
     private userService : UserService,
     private roomService: RoomService,
-    private paymentService : PaymentService) { }
+    public paymentService : PaymentService) { }
 
    ngOnInit(): void{
     this.currentContent = this.steps[0].content;

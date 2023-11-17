@@ -1,5 +1,5 @@
 <body>
-
+  <p>{{paymentService.booking$?.estado}}</p>
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -10,32 +10,27 @@
             <form>
               <div class="form-group mb-3">
                 <label for="nombre">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre">
+                <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre" [value]="nombres" disabled>
               </div>
   
               <div class="form-group mb-3">
                 <label for="apellido">Apellido:</label>
-                <input type="text" class="form-control" id="apellido" placeholder="Ingrese su apellido">
+                <input type="text" class="form-control" id="apellido" placeholder="Ingrese su apellido" [value]="apellidos" disabled>
               </div>
   
               <div class="form-group mb-3">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" placeholder="Ingrese su email">
+                <input type="email" class="form-control" id="email" placeholder="Ingrese su email" [value]="email" disabled>
               </div>
 
               <div class="form-group mb-3">
                 <label for="telefono">Teléfono:</label>
-                <input type="tel" class="form-control" id="telefono" placeholder="Ingrese su teléfono">
+                <input type="tel" class="form-control" id="telefono" placeholder="Ingrese su teléfono" [value]="telefono" disabled>
               </div>
   
-              <!-- <div class="form-group">
-                <label for="cantidadHuespedes">Cantidad de huéspedes:</label>
-                <input type="number" class="form-control" id="cantidadHuespedes" placeholder="Ingrese la cantidad de huéspedes">
-              </div> -->
-  
               <div class="form-group mb-3">
-                <label for="peticionesEspeciales">Peticiones especiales:</label>
-                <textarea class="form-control" id="peticionesEspeciales" rows="3" placeholder="Ingrese sus peticiones especiales"></textarea>
+                <label for="peticionesEspeciales">Peticiones especiales (opcional):</label>
+                <textarea class="form-control" name="peticiones" id="peticionesEspeciales" rows="2" placeholder="Ingrese sus peticiones especiales" [(ngModel)]="peticiones" (ngModelChange)="peticionesOnChange($event)"></textarea>
               </div>
   
             </form>
@@ -51,7 +46,7 @@
           <div class="card-body">
             <div class="form-group">
               <label for="horaLlegada">Seleccione la hora de llegada:</label>
-              <input type="time" class="form-control" id="horaLlegada">
+              <input type="time" class="form-control" id="horaLlegada" name="horaLlegada" [(ngModel)]="horaLlegada" (ngModelChange)="horaLlegadaOnChange($event)">
             </div>
           </div>
         </div>
