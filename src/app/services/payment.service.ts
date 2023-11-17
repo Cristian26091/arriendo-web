@@ -21,15 +21,28 @@ export class PaymentService {
   user$: User = new User();
   room$: Room = new Room();
   booking$: Booking = new Booking();
-  selectedServices$: string[] = [];
+  selectedServices$: Service[] = [];
   horaLLegada: string = '';
   
   selectedPaymentMethod: string = '';
   totalPrice: number = 0;
   date: string = '';
 
+  estadoFormularios = {
+    services : true,
+    details : false,
+    resumen : true,
+    // payment : false,
+  };
+
   constructor(private serviceService: ServiceService, private userService : UserService, private roomService : RoomService) { 
 
 
   }
+
+  // Método para verificar si un formulario específico está completo
+  isFormComplete(formKey: string): boolean {
+    return this.estadoFormularios[formKey];
+  }
+
 }

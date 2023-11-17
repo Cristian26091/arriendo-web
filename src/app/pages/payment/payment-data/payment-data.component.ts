@@ -15,6 +15,10 @@ export class PaymentDataComponent implements OnInit {
   peticiones : string = '';
   horaLlegada : string = '';
 
+  errors = {
+    horaLlegada : '',
+  }
+
 
   reglas: string[] = [
     "Respetar el horario de silencio",
@@ -38,8 +42,27 @@ export class PaymentDataComponent implements OnInit {
   }
 
   horaLlegadaOnChange(event: any) {
-    // console.log(event);
+    this.validateHoraLlegada();
+    this.paymentService.horaLLegada = this.horaLlegada;
     console.log(this.horaLlegada);
   }
+
+  validateHoraLlegada() : boolean{
+    this.cleanErrors();
+    if(this.horaLlegada == ''){
+      this.errors.horaLlegada = 'Debes introducir una hora de llegada';
+      return false
+    }
+    this.paymentService.estadoFormularios.details = true;
+    return true;
+
+
+  }
+
+  cleanErrors(){
+    this.errors.horaLlegada = '';
+  }
+
+
 
 }

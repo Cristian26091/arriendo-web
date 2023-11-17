@@ -42,6 +42,8 @@ export class PaymentComponentComponent implements OnInit {
   userID : string | undefined;
   roomID : string | undefined;
 
+  isCurrentFormComplete: boolean = false;
+
   constructor(private cookieService: CookieService,
     private bookingService : BookingService,
     private userService : UserService,
@@ -125,10 +127,21 @@ export class PaymentComponentComponent implements OnInit {
   }
 
   nextStep() {
+   
     if (this.currentStep < this.steps.length) {
-      this.currentStep++;
-      this.currentContent = this.steps[this.currentStep - 1].content;
+      // Verifica si el formulario actual está completo antes de permitir el siguiente paso
+      if (this.paymentService.isFormComplete(this.currentContent)) {
+        // Cambia el estado del formulario actual al siguiente paso
+        this.paymentService.estadoFormularios[this.currentContent] = true;
+
+        this.currentStep++;
+        this.currentContent = this.steps[this.currentStep - 1].content;
+      } else {
+        console.log('Completa el formulario antes de continuar.');
+      }
     }
+
+    this.isCurrentFormComplete = this.paymentService.isFormComplete(this.currentContent);
     this.updateButtonVisibility();
   }
 
@@ -137,4 +150,5 @@ export class PaymentComponentComponent implements OnInit {
     this.hidePreviousButton = this.currentStep === 1;
   }
 
+  
 }

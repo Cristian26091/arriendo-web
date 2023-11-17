@@ -30,31 +30,25 @@ export class ServiceComponent implements OnInit {
     }
   }
 
-  async getService(_id: string){
-    try {
-      const res = await this.serviceService.getService(_id).toPromise();
-      this.serviceService.selectedService = res as Service;
-      // console.log(res);
-    } catch (error) {
-      // console.log("Error al obtener el servicio", error);
-    }
-  }
-
-  toggleServiceSelection(serviceId: string) {
-    if (this.selectedServices.includes(serviceId)) {
+  toggleServiceSelection(service: Service) {
+    if (this.selectedServices.includes(service._id)) {
       // Si el servicio ya está seleccionado, quitarlo de la lista de selección
-      this.selectedServices = this.selectedServices.filter(id => id !== serviceId);
-      console.log(this.selectedServices);
+      this.selectedServices = this.selectedServices.filter(id => id !== service._id);
+      this.paymentService.selectedServices$ = this.paymentService.selectedServices$.filter(servicio => servicio._id !== service._id);
+      console.log("payment servicio selecionado:",this.paymentService.selectedServices$);
+      // console.log(this.selectedServices);
     } else {
       // Si el servicio no está seleccionado, añadirlo a la lista de selección
-      this.selectedServices.push(serviceId);
-      console.log(this.selectedServices);
+      this.selectedServices.push(service._id);
+      this.paymentService.selectedServices$.push(service);
+      // console.log(this.paymentService.selectedServices$);
+      console.log("payment servicio selecionado:",this.paymentService.selectedServices$);
     }
   }
 
   // Función para verificar si un servicio está seleccionado
-  isServiceSelected(serviceId: string): boolean {
-    return this.selectedServices.includes(serviceId);
+  isServiceSelected(servicio : Service): boolean {
+    return this.selectedServices.includes(servicio._id);
   }
 
 }

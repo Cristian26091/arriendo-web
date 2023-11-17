@@ -9,20 +9,20 @@
       </div>
 
       <div class="col-md-4" *ngFor="let service of services">
-        <div class="card" [ngClass]="{'selected-service': isServiceSelected(service._id)}">
+        <div class="card" [ngClass]="{'selected-service': isServiceSelected(service)}">
           <!-- <img [src]="service.imagen" class="card-img-top" alt="{{service.nombre}}"> -->
           <div class="card-body">
-            <h5 class="card-title">{{service.nombre}}</h5>
-            <p class="card-text">{{service.descripcion}}</p>
-            <p class="card-text">Precio: {{service.precio | currency:'CLP':'symbol-narrow' }}</p>
+            <h5 class="card-title">{{service?.nombre}}</h5>
+            <p class="card-text">{{service?.descripcion}}</p>
+            <p class="card-text">Precio: {{service?.precio | currency:'CLP':'symbol-narrow' }}</p>
             <div class="form-check">
               <input
                 type="checkbox"
                 class="form-check-input"
                 [id]="'checkbox_' + service._id"
                 [name]="'selectedServices'"
-                [value]="service._id"
-                (change)="toggleServiceSelection(service._id)"
+                [value]="service"
+                (change)="toggleServiceSelection(service)"
               >
               <label [for]="'checkbox_' + service._id" class="form-check-label">Seleccionar</label>
             </div>

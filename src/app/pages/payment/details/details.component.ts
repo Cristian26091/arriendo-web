@@ -31,10 +31,6 @@ export class DetailsComponent implements OnInit {
     this.horaLLegada = this.paymentService.horaLLegada;
     this.numeroHabitacion = this.paymentService.room$.numero.toString();
     this.direccion = this.paymentService.room$.calle + ', ' + this.paymentService.room$.comuna + ', ' + this.paymentService.room$.region;
-
-
-  
-    
   }
 
   calculateTotalPrice(){
