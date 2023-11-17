@@ -8,27 +8,27 @@
           <div class="card-body">
             <div class="form-group">
               <label for="fechaInicio">Fecha de inicio:</label>
-              <input type="text" class="form-control" id="fechaInicio" value="2023-06-01" disabled>
+              <input type="text" class="form-control" id="fechaInicio" [value]="fecha_inicio | dateFormat" disabled>
             </div>
   
             <div class="form-group">
               <label for="fechaFin">Fecha de fin:</label>
-              <input type="text" class="form-control" id="fechaFin" value="2023-06-08" disabled>
+              <input type="text" class="form-control" id="fechaFin" [value]="fecha_fin | dateFormat" disabled>
             </div>
   
             <div class="form-group">
               <label for="horaLLegada">Hora de llegada:</label>
-              <input type="text" class="form-control" id="horaLLegada" value="13:45" disabled>
+              <input type="text" class="form-control" id="horaLLegada" [value]="horaLLegada" disabled>
             </div>
   
             <div class="form-group">
               <label for="habitacion">Habitación seleccionada:</label>
-              <input type="text" class="form-control" id="habitacion" value="Habitación 102" disabled>
+              <input type="text" class="form-control" id="habitacion" [value]="numeroHabitacion" disabled>
             </div>
 
             <div class="form-group">
               <label for="direccion">Dirección:</label>
-              <input type="text" class="form-control" id="direccion" value="Heriberto Alvarez, Coínco, Libertador Bernardo O'higgins" disabled>
+              <input type="text" class="form-control" id="direccion" [value]="direccion" disabled>
             </div>
 
 

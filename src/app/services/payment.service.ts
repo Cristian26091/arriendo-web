@@ -22,6 +22,7 @@ export class PaymentService {
   room$: Room = new Room();
   booking$: Booking = new Booking();
   selectedServices$: string[] = [];
+  horaLLegada: string = '';
   
   selectedPaymentMethod: string = '';
   totalPrice: number = 0;
