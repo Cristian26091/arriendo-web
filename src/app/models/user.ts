@@ -19,6 +19,7 @@ export class User {
         this.tipo_actividad = tipo_actividad;
         this.pais = pais;
         this.intereses = intereses;
+        this.genero = genero;
     }
     _id: string;
     nombre: string;
