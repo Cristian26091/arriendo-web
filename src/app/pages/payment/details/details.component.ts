@@ -19,9 +19,14 @@ export class DetailsComponent implements OnInit {
   direccion : string;
 
   // Desgloce del precio
-  precioHabitacion : number = 0;
+  precioBooking : number = 0;
   precioServicios : number = 0;
   precioTotal : number = 0;
+
+  listadoServicios :{
+    servicio : string,
+    precio : number,
+  }[] = [];
 
   constructor(private paymentService : PaymentService) { }
 
@@ -31,27 +36,38 @@ export class DetailsComponent implements OnInit {
     this.horaLLegada = this.paymentService.horaLLegada;
     this.numeroHabitacion = this.paymentService.room$.numero.toString();
     this.direccion = this.paymentService.room$.calle + ', ' + this.paymentService.room$.comuna + ', ' + this.paymentService.room$.region;
+
+    this.listadoServicios = this.paymentService.selectedServices$.map((service) => ({
+      servicio: service.nombre,
+      precio: service.precio,
+    }));
+
+    this.precioServicios = this.calculateServicesPrice().valueOf();
+    this.precioBooking = this.paymentService.booking$.precio.valueOf();
+    console.log(this.precioBooking.valueOf())
+    console.log(this.precioServicios.valueOf())
+    this.precioTotal = this.calculateTotalPrice(this.precioBooking, this.precioServicios).valueOf();
+    
   }
 
-  calculateTotalPrice(){
-
+  calculateTotalPrice(bookingPrice : Number, servicesPrice : Number) : Number{
+    return bookingPrice.valueOf() + servicesPrice.valueOf();
   }
 
-  calculateRoomPrice(){
-
-  }
-
-  calculateServicesPrice(){
-
-  }
-
-  getNumberDays(){
-
+  calculateServicesPrice() : Number{
+    let totalServicesPrice = 0;
+    this.paymentService.selectedServices$.forEach(service => {
+      totalServicesPrice += service.precio;
+      console.log(totalServicesPrice.valueOf())
+    });
+    return totalServicesPrice;
   }
 
   formateDate(date: Date): string  {
     const datePipe = new DatePipe('en-US');
     return datePipe.transform(date, 'yyyy-MM-dd');
   }
+
+
 
 }

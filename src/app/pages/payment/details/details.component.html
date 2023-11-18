@@ -51,24 +51,38 @@
   
         <h2 class="text-left">Desglose del precio</h2>
   
-         <div class="card">
+        <div class="card">
           <div class="card-body">
-            <ul class="list-group">
-              <li class="list-group-item">
-                <span class="font-weight-bold">Precio por servicio</span>
-                <span class="float-right">$100</span>
-              </li>
-              <li class="list-group-item">
-                <span class="font-weight-bold">Habitación</span>
-                <span class="float-right">7 días</span>
-              </li>
-              <li class="list-group-item bg-info text-white">
-                <span class="font-weight-bold">Total:</span>
-                <span class="float-right">$700</span>
-              </li>
-            </ul>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Servicio</th>
+                  <th class="text-right">Precio</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let servicio of listadoServicios">
+                  <td>{{ servicio.servicio }}</td>
+                  <td class="text-right">{{ (servicio.precio) }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">Total servicios:</td>
+                  <td class="font-weight-bold text-right">{{ (precioServicios) }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">Habitación:</td>
+                  <td class="font-weight-bold text-right">{{ (precioBooking) }}</td>
+                </tr>
+                <tr class="total">
+                  <td class="font-weight-bold">Total:</td>
+                  <td class="font-weight-bold text-right">{{ (precioTotal) }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
+        
+        
 
       </div>
     </div>
