@@ -23,12 +23,14 @@ export class RentFormComponent implements OnInit {
   fechaInicio: Date = null;
   fechaTermino: Date = null;
   aceptaTerminos: boolean = false;
+  cantidadMeses: number = 0;
 
   //errores
   errorMessages = {
     fechaInicio: '',
-    fechaTermino: '',
+    // fechaTermino: '',
     aceptaTerminos: '',
+    cantidadMeses: '',
   };
 
   constructor(private router: Router, private bookingService: BookingService, private userService: UserService, private roomService: RoomService) { }
@@ -47,19 +49,23 @@ export class RentFormComponent implements OnInit {
   
   public validateInputs(): boolean {
     this.errorMessages.fechaInicio = this.fechaInicio ? '' : 'Debe ingresar una fecha de inicio';
-    this.errorMessages.fechaTermino = this.fechaTermino ? '' : 'Debe ingresar una fecha de término';
+    // this.errorMessages.fechaTermino = this.fechaTermino ? '' : 'Debe ingresar una fecha de término';
     this.errorMessages.aceptaTerminos = this.aceptaTerminos ? '' : 'Debe aceptar los términos y condiciones';
+    this.errorMessages.cantidadMeses = this.cantidadMeses > 0 ? '' : 'Debe ingresar una cantidad de meses';
   
     return (
       this.errorMessages.fechaInicio === '' &&
-      this.errorMessages.fechaTermino === '' &&
-      this.errorMessages.aceptaTerminos === ''
+      // this.errorMessages.fechaTermino === '' &&
+      this.errorMessages.aceptaTerminos === '' &&
+      this.errorMessages.cantidadMeses === ''
     );
   }
 
-  validateDates(fechaInicio: Date, fechaTermino: Date): boolean {
+
+  validateFechaInicio(fechaInicio: Date): boolean {
+
     const fechaInicioDate = new Date(fechaInicio);
-    const fechaTerminoDate = new Date(fechaTermino);
+    // const fechaTerminoDate = new Date(fechaTermino);
     const fechaActual = new Date();
 
     // Validar que la fecha de inicio sea mayor o igual a la fecha actual
@@ -68,40 +74,55 @@ export class RentFormComponent implements OnInit {
       return false;
     }
 
-    // Validar que la fecha de inicio sea menor a la fecha de término
-    if (fechaInicioDate > fechaTerminoDate) {
-      this.errorMessages.fechaInicio = 'La fecha de inicio debe ser anterior a la fecha de término';
-      return false;
-    }
+    //VALIDAR QUE NO HAYA RESERVAS EN ESTA FECHA
+
+    // // Validar que la fecha de inicio sea menor a la fecha de término
+    // if (fechaInicioDate > fechaTerminoDate) {
+    //   this.errorMessages.fechaInicio = 'La fecha de inicio debe ser anterior a la fecha de término';
+    //   return false;
+    // }
   
     // Validar que la fecha de término sea mayor a la fecha actual
-    if (fechaTerminoDate < fechaActual) {
-      this.errorMessages.fechaTermino = 'La fecha de término debe ser posterior a la fecha actual';
+    // if (fechaTerminoDate < fechaActual) {
+    //   this.errorMessages.fechaTermino = 'La fecha de término debe ser posterior a la fecha actual';
+    //   return false;
+    // }
+  
+    // Si todas las validaciones pasan, no hay errores
+    this.errorMessages.fechaInicio = '';
+    // this.errorMessages.fechaTermino = '';
+    return true;
+  }
+
+  validateCantidadMeses(cantidadMeses: number): boolean {
+    // Validar que la cantidad de meses sea mayor a 0
+    if (cantidadMeses <= 0) {
+      this.errorMessages.cantidadMeses = 'La cantidad de meses debe ser mayor a 0';
       return false;
     }
   
     // Si todas las validaciones pasan, no hay errores
-    this.errorMessages.fechaInicio = '';
-    this.errorMessages.fechaTermino = '';
+    this.errorMessages.cantidadMeses = '';
     return true;
   }
 
-  calculateDays(fechaInicio: Date, fechaTermino: Date): number {
-    // console.log("fecha inicio tipo:", typeof(fechaInicio));
-    // console.log("fecja final:", typeof(fechaTermino));
-    const fechaInicioDate = new Date(fechaInicio);
-    const fechaTerminoDate = new Date(fechaTermino);
-    // Calcula la diferencia en milisegundos entre las dos fechas
-    const diferenciaMs = fechaTerminoDate.getTime() - fechaInicioDate.getTime();
+  // calculateDays(fechaInicio: Date, cantidadMeses : Number): Number {
   
-    // Calcula la diferencia en días dividiendo la diferencia en milisegundos por el número de milisegundos en un día
-    const diferenciaDias = Math.ceil(diferenciaMs / (1000 * 60 * 60 * 24));
-    console.log(diferenciaDias);
-    return diferenciaDias;
-  }
+  //   // TOMAR LA CANTIDAD DE MESES Y MULTIPLICAR POR 30
 
-  calculatePrice(dayCount: number, price: number): number {
-    const totalPrice = dayCount * price;
+  //   const fechaInicioDate = new Date(fechaInicio);
+  //   // const fechaTerminoDate = new Date(fechaTermino);
+  //   // Calcula la diferencia en milisegundos entre las dos fechas
+  //   const diferenciaMs = fechaTerminoDate.getTime() - fechaInicioDate.getTime();
+  
+  //   // Calcula la diferencia en días dividiendo la diferencia en milisegundos por el número de milisegundos en un día
+  //   const diferenciaDias = Math.ceil(diferenciaMs / (1000 * 60 * 60 * 24));
+  //   console.log(diferenciaDias);
+  //   return diferenciaDias;
+  // }
+
+  calculatePrice(cantidadMeses: number, price: number): number {
+    const totalPrice = cantidadMeses * price;
     return totalPrice;
   }
 
@@ -113,7 +134,7 @@ export class RentFormComponent implements OnInit {
       fechaInicio : Date, 
       fechaTermino : Date,
       precio : number,
-      duracion : number,
+      cantidadMeses : number,
     ): string {
     // Obtener información del usuario y de la habitación si es necesario
     const userName = user ? user.nombre + user.apellido : 'Nombre del Usuario';
@@ -126,9 +147,9 @@ export class RentFormComponent implements OnInit {
 
       1.- PROPIEDAD SUBARRENDADA Y PARTES: ${userName} es arrendatario de la habitación número 2 ubicada en ${roomInfo},Chile y lo da en subarriendo RooMatch.SA, quien lo recibe en arriendo para destinarlo a vivienda.
       
-      2.- PLAZO DE ARRENDAMIENTO: El período del subarriendo es desde el ${fechaInicio} hasta ${fechaTermino}, esto es por un periodo de ${duracion}.
+      2.- PLAZO DE ARRENDAMIENTO: El período del subarriendo es desde el ${fechaInicio} hasta ${fechaTermino}, esto es por un periodo de ${cantidadMeses}.
       
-      3.- RENTA: El precio del arriendo es de $${precio} por ${duracion} días, e incluye los gastos comunes. Esto es, interet, agua, gas y gasto comunes de la propiedad.
+      3.- RENTA: El precio del arriendo es de $${precio} por ${cantidadMeses} meses, e incluye los gastos comunes. Esto es, interet, agua, gas y gasto comunes de la propiedad.
       
       4.- PLAZO DE PAGO: La totalidad del monto debe ser pagado antes de la fecha de inicio del arriendo. En caso de arrendar por un periodo mayor a 30 días, el pago se realizará en cuotas mensuales de $${room.precio} por día, pagaderas los primeros 5 días habiles del mes.
       
@@ -186,18 +207,20 @@ generatePdfContract(contractContent: string) {
   pdfDocGenerator.open();
 }
 
-uploadContractToBucket(contractContent: string) {
-  
+calculateFechaTermino(fechaInicio: Date, cantidadMeses: number): Date {
+  const fechaInicioDate = new Date(fechaInicio);
+  const fechaTerminoDate = new Date(fechaInicio);
+  fechaTerminoDate.setMonth(fechaInicioDate.getMonth() + cantidadMeses);
+  return fechaTerminoDate;
 }
-
-
  
 submitForm(){
   //además debo validar las fechas que ya tienen reserva
-  if(this.validateInputs() && this.validateDates(this.fechaInicio, this.fechaTermino)){
-    const dayCount = this.calculateDays(this.fechaInicio, this.fechaTermino);
+  if(this.validateInputs() && this.validateFechaInicio(this.fechaInicio) && this.validateCantidadMeses(this.cantidadMeses)){
+    // const dayCount = this.calculateDays(this.fechaInicio, this.cantidadMeses);
     const numberPrice = parseFloat(this.roomService.selectedRoom.precio.toString());
-    const totalPrice = this.calculatePrice(dayCount, numberPrice);
+    const totalPrice = this.calculatePrice(this.cantidadMeses, numberPrice);
+    this.fechaTermino = this.calculateFechaTermino(this.fechaInicio, this.cantidadMeses);
     
     const contractContent = this.generateGenericContract(
       this.userService.selectedUser, 
@@ -205,7 +228,7 @@ submitForm(){
       this.fechaInicio, 
       this.fechaTermino,
       totalPrice,
-      dayCount,
+      this.cantidadMeses,
     );
 
     const bookingData = {
@@ -222,9 +245,10 @@ submitForm(){
       url_pdf_user: '',
       precio_servicio : 0,
       precio_total : 0,
+      periodoMeses : this.cantidadMeses,
     }
   
-    this.bookingService.postBooking(bookingData).subscribe(
+    this.bookingService.postBooking(bookingData as Booking).subscribe(
       (res) => {
         console.log(res);
         // Genera un enlace al contrato genérico y ábrelo en una nueva ventana o pestaña del navegador

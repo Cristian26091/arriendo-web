@@ -12,6 +12,7 @@ const bookingSchema = new Schema({
     pdf: { type: String, required: true },
     url_pdf_user: { type: String, required: true },
     ref_pdf_user: { type: String, required: true },
+    periodoMeses: { type: Number, required: true },
 });
 
 const Booking = mongoose.model('Booking', bookingSchema);

@@ -12,11 +12,19 @@
         </div>
       </div>
 
-      <div class="col-md-6 mb-4">
+      <!-- <div class="col-md-6 mb-4">
         <div class="form-group">
-          <label for="fecha-termino">Fecha de término</label>
+          <label for="fecha-termino">Fecha de término:</label>
           <input type="date" class="form-control" id="fecha-termino" name="fecha-termino" [(ngModel)]="fechaTermino">
           <div class="text-danger">{{ errorMessages.fechaTermino }}</div>
+        </div>
+      </div> -->
+
+      <div class="col-md-6 mb-4">
+        <div class="form-group">
+          <label for="cantidadMeses">Cantidad de meses:</label>
+          <input type="number" class="form-control" name="cantidadMeses" id="cantidadMeses" [(ngModel)]="cantidadMeses">
+          <div class="text-danger">{{errorMessages.cantidadMeses}}</div>
         </div>
       </div>
 

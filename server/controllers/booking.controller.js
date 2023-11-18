@@ -46,7 +46,7 @@ bookingCtrl.getBookingByRoom = async (req, res) => {
 
 bookingCtrl.createBooking = async (req, res) => {
 
-    // console.log(req.body);
+    console.log(req.body);
 
     const booking = new Booking({
         userId: req.body.userId,
@@ -59,6 +59,7 @@ bookingCtrl.createBooking = async (req, res) => {
         pdf: req.body.pdf,
         url_pdf_user: 'null',
         ref_pdf_user: 'null',
+        periodoMeses: req.body.periodoMeses,
 
     });
     await booking.save();

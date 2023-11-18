@@ -5,8 +5,8 @@
     </div>
     <div class="col-md-4 col-sm-12">
       <!-- Boton arrendar -->
-      <button type="button" *ngIf="loginService.isAuthenticated()" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#rentModal">Reservar</button>
-      <button type="button" *ngIf="!loginService.isAuthenticated()" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#messageLogin">Reservar</button>
+      <button type="button" *ngIf="loginService?.isAuthenticated()" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#rentModal">Reservar</button>
+      <button type="button" *ngIf="!loginService?.isAuthenticated()" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#messageLogin">Reservar</button>
       <app-data-room-container class="mb-4"></app-data-room-container>
     </div>
     <div class="col-md-8 col-sm-12 mb-4">
