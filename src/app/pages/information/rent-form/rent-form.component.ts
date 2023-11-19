@@ -55,7 +55,6 @@ export class RentFormComponent implements OnInit {
   
     return (
       this.errorMessages.fechaInicio === '' &&
-      // this.errorMessages.fechaTermino === '' &&
       this.errorMessages.aceptaTerminos === '' &&
       this.errorMessages.cantidadMeses === ''
     );
@@ -75,22 +74,9 @@ export class RentFormComponent implements OnInit {
     }
 
     //VALIDAR QUE NO HAYA RESERVAS EN ESTA FECHA
-
-    // // Validar que la fecha de inicio sea menor a la fecha de término
-    // if (fechaInicioDate > fechaTerminoDate) {
-    //   this.errorMessages.fechaInicio = 'La fecha de inicio debe ser anterior a la fecha de término';
-    //   return false;
-    // }
-  
-    // Validar que la fecha de término sea mayor a la fecha actual
-    // if (fechaTerminoDate < fechaActual) {
-    //   this.errorMessages.fechaTermino = 'La fecha de término debe ser posterior a la fecha actual';
-    //   return false;
-    // }
   
     // Si todas las validaciones pasan, no hay errores
     this.errorMessages.fechaInicio = '';
-    // this.errorMessages.fechaTermino = '';
     return true;
   }
 
@@ -106,20 +92,17 @@ export class RentFormComponent implements OnInit {
     return true;
   }
 
-  // calculateDays(fechaInicio: Date, cantidadMeses : Number): Number {
-  
-  //   // TOMAR LA CANTIDAD DE MESES Y MULTIPLICAR POR 30
-
-  //   const fechaInicioDate = new Date(fechaInicio);
-  //   // const fechaTerminoDate = new Date(fechaTermino);
-  //   // Calcula la diferencia en milisegundos entre las dos fechas
-  //   const diferenciaMs = fechaTerminoDate.getTime() - fechaInicioDate.getTime();
-  
-  //   // Calcula la diferencia en días dividiendo la diferencia en milisegundos por el número de milisegundos en un día
-  //   const diferenciaDias = Math.ceil(diferenciaMs / (1000 * 60 * 60 * 24));
-  //   console.log(diferenciaDias);
-  //   return diferenciaDias;
-  // }
+  checkearConflictoFechas(fechaInicio: Date, fechaTermino: Date): boolean {
+    // Obtén las reservas existentes que podrían tener conflictos de fechas
+    const reservasConPosibleConflicto = this.bookingService.bookings.filter(booking =>
+      (fechaInicio >= booking.fecha_inicio && fechaInicio < booking.fecha_fin) ||
+      (fechaTermino > booking.fecha_inicio && fechaTermino <= booking.fecha_fin) ||
+      (fechaInicio <= booking.fecha_inicio && fechaTermino >= booking.fecha_fin)
+    );
+    this.errorMessages.fechaInicio = reservasConPosibleConflicto.length > 0 ? 'Ya existe una reserva en este periodo' : '';
+    // Si hay al menos una reserva con conflicto, devuelve true; de lo contrario, devuelve false
+    return reservasConPosibleConflicto.length > 0;
+  }
 
   calculatePrice(cantidadMeses: number, price: number): number {
     const totalPrice = cantidadMeses * price;
@@ -216,7 +199,7 @@ calculateFechaTermino(fechaInicio: Date, cantidadMeses: number): Date {
  
 submitForm(){
   //además debo validar las fechas que ya tienen reserva
-  if(this.validateInputs() && this.validateFechaInicio(this.fechaInicio) && this.validateCantidadMeses(this.cantidadMeses)){
+  if(this.validateInputs() && this.validateFechaInicio(this.fechaInicio) && this.validateCantidadMeses(this.cantidadMeses) && !this.checkearConflictoFechas(this.fechaInicio, this.fechaTermino)){
     // const dayCount = this.calculateDays(this.fechaInicio, this.cantidadMeses);
     const numberPrice = parseFloat(this.roomService.selectedRoom.precio.toString());
     const totalPrice = this.calculatePrice(this.cantidadMeses, numberPrice);

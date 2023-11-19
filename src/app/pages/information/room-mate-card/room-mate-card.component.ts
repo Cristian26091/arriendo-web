@@ -18,8 +18,6 @@ import { CookieService } from 'ngx-cookie-service';
 export class RoomMateCardComponent implements OnInit {
   users: User[] = []; // Array para almacenar los usuarios de las reservas
   
-
-
   constructor(private bookingService : BookingService, private roomService : RoomService, private userService: UserService, private cookieService: CookieService) { }
 
   async ngOnInit(): Promise<void> {
