@@ -97,6 +97,12 @@ import { MessageService } from 'primeng/api';
 import { ServiceComponent } from './pages/payment/service/service.component';
 import { IndexAdminComponent } from './pages/admin/admin-views/index-admin/index-admin.component';
 
+import { registerLocaleData } from '@angular/common';
+import localeEsCL from '@angular/common/locales/es-CL';
+
+
+registerLocaleData(localeEsCL, 'es-CL');
+
 
 @NgModule({
   declarations: [
