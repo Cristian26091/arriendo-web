@@ -1,6 +1,12 @@
 .mat-calendar .custom-marked-date {
-    background-color: #CCCCCC; /* Color gris suave de fondo */
-    color: white !important;
-    border-radius: 100% !important;
+    background-color: #2a67a3; /* Color gris suave de fondo */
+    color: white ;
+    width: 90%;
+    height: 90%;
+    border-radius: 100% ;
     pointer-events: none; /* Evita que las fechas marcadas sean seleccionables */
+}
+
+.mat-calendar .custom-marked-date .mat-calendar-body-cell-content {
+    color: white;
 }

@@ -5,6 +5,9 @@ import { LoginService } from 'src/app/services/login.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Booking } from 'src/app/models/booking';
 import { BookingService } from 'src/app/services/booking.service';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -33,7 +36,9 @@ export class RoomComponentComponent implements OnInit {
     // Si se encuentra el ID en la cookie, carga la habitación correspondiente
     if (selectedRoomId) {
       await this.getRoomByID(selectedRoomId);
-      await this.getBookingsByRoomID(selectedRoomId);
+      const confirmedBookings = await this.getConfirmedBookings();
+      this.bookingService.bookings = [...confirmedBookings];
+      console.log("Reservas confirmadazzzzzzs: ", confirmedBookings);
     }
     
   }
@@ -53,13 +58,20 @@ export class RoomComponentComponent implements OnInit {
     }
   }
 
-  async getBookingsByRoomID(id:string){
+
+  async getConfirmedBookings(): Promise<Booking[]> {
     try {
-      const res = await this.bookingService.getBookingByRoom(id).toPromise();
-      this.bookingService.bookings = res as Booking[];
-      // console.log("Reservas obtenidas: ", this.bookingService.bookings);
+      const res = await this.bookingService.getBookingByRoom(this.roomService.selectedRoom._id).toPromise();
+      this.bookingService.isBookingsLoaded = true;
+      if (Array.isArray(res)) {
+        return res.filter(booking => booking.estado === environment.estado.confirmada) as Booking[];
+      } else {
+        console.log("El resultado no es un arreglo:", res);
+        return [];
+      }
     } catch (error) {
       console.log("Error al obtener las reservas de la habitación", error);
+      return [];
     }
   }
 

@@ -77,6 +77,14 @@ import { RegistrationStepComponent } from './pages/register/registrationStep/reg
 
 import { RoomMateCardComponent } from './pages/information/room-mate-card/room-mate-card.component';
 
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { LOCALE_ID } from '@angular/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+
+import { ReactiveFormsModule } from '@angular/forms';
+
+
+
 
 
 //componentes prime ng
@@ -168,8 +176,16 @@ import { IndexAdminComponent } from './pages/admin/admin-views/index-admin/index
     MultiSelectModule,
     CardModule,
     ToastModule,
+    MatTooltipModule,
+    ReactiveFormsModule,
   ],
-  providers: [CookieService, DatePipe, MessageService],
+  providers: [
+    CookieService, 
+    DatePipe, 
+    MessageService,
+    { provide: MAT_DATE_LOCALE, useValue: 'es-CL' },
+    { provide: LOCALE_ID, useValue: 'es-CL' }
+  ],
   bootstrap: [AppComponent],
   
   schemas: [ 

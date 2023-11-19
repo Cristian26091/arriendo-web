@@ -11,6 +11,8 @@ export class BookingService {
   selectedBookin: Booking;
   bookings: Booking[];
 
+  isBookingsLoaded = false;
+
   readonly URL_API = environment.uri + '/api/booking';
   readonly URL_PDF_USER = environment.uri + '/api/uploadPdfUser';
 
@@ -18,7 +20,7 @@ export class BookingService {
     this.bookings = []
   }
 
-  getBookings() {
+  getBookings(): Observable<any> {
     return this.http.get(this.URL_API);
   }
 
@@ -26,17 +28,17 @@ export class BookingService {
     return this.http.get(this.URL_API + `/${_id}`);
   }
 
-  getBookingByUser(_id: string) {
+  getBookingByUser(_id: string): Observable<any> {
     // console.log(_id);
     return this.http.get(this.URL_API + `/user/${_id}`);
   }
 
-  getBookingByRoom(_id: string) {
+  getBookingByRoom(_id: string) : Observable<any> {
     // console.log(_id);
     return this.http.get(this.URL_API + `/room/${_id}`);
   }
 
-  postBooking(booking: Booking) {
+  postBooking(booking: Booking) : Observable<any> {
     return this.http.post(this.URL_API, booking);
   }
 
