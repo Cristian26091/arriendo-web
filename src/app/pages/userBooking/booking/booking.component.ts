@@ -24,26 +24,33 @@ export class BookingComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
 
-      const userID = this.cookieService.get('user_id');
+      if(this.cookieService.check('user_id')){
+        const userID = this.cookieService.get('user_id');
 
-      try {
-        const res = await this.bookingService.getBookingByUser(userID).toPromise();
-        this.bookingService.bookings = res as Booking[];
+        try {
+          const res = await this.bookingService.getBookingByUser(userID).toPromise();
+          this.bookingService.bookings = res as Booking[];
 
-        if (this.bookingService.bookings) {
-          for (const booking of this.bookingService.bookings) {
-              const roomId = booking.roomId;
-              const room = await this.roomService.getRoom(roomId).toPromise();
-              this.roomService.rooms.push(room);
-          }
-      } else {
-          this.bookingService.bookings = [];
-          console.log("No hay reservas");
+          if (this.bookingService.bookings) {
+            for (const booking of this.bookingService.bookings) {
+                const roomId = booking.roomId;
+                const room = await this.roomService.getRoom(roomId).toPromise();
+                this.roomService.rooms.push(room);
+            }
+        } else {
+            this.bookingService.bookings = [];
+            console.log("No hay reservas");
+        }
+
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      else{
+        console.log("No hay usuario logueado");
       }
 
-      } catch (error) {
-        console.error(error);
-      }
+      
   }
 
   showCancelToast() {
