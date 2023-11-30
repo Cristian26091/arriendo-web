@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IndexCarrouselComponent } from './index-carrousel.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 
 describe('IndexCarrouselComponent', () => {
   let component: IndexCarrouselComponent;
@@ -8,7 +10,13 @@ describe('IndexCarrouselComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IndexCarrouselComponent ]
+      declarations: [ IndexCarrouselComponent ],
+      providers: [
+        IndexCarrouselComponent
+      ],
+      imports: [
+        HttpClientTestingModule
+      ],
     })
     .compileComponents();
 

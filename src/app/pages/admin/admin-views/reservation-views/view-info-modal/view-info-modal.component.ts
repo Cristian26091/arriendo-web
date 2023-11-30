@@ -15,11 +15,9 @@ export class ViewInfoModalComponent implements OnInit {
   constructor(public bookingService: BookingService, public userService : UserService, public roomService:RoomService) { }
 
   ngOnInit(): void {
-    console.log(this.roomService.selectedRoom);
-    console.log(this.userService.selectedUser);
-    console.log(this.bookingService.selectedBookin);
-
+  
   }
+
 
 
 }

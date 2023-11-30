@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookingComponent } from './booking.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+import { MessageService } from 'primeng/api';
+
 
 describe('BookingComponent', () => {
   let component: BookingComponent;
@@ -8,7 +12,15 @@ describe('BookingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BookingComponent ]
+      declarations: [ BookingComponent ],
+      providers: [
+        BookingComponent,
+        MessageService
+      ],
+      imports: [
+        HttpClientTestingModule,
+       
+      ],
     })
     .compileComponents();
 

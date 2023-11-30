@@ -7,7 +7,7 @@
               <label>ID de Reserva:</label>
             </div>
             <div class="col-md-6">
-              <p>{{ bookingService.selectedBookin._id }}</p>
+              <p>{{ bookingService.selectedBookin?._id }}</p>
             </div>
           </div>
           <div class="row">
@@ -15,7 +15,7 @@
               <label>Fecha de Inicio:</label>
             </div>
             <div class="col-md-6">
-              <p>{{ bookingService.selectedBookin.fecha_inicio | date: 'dd/MM/yyyy' }}</p>
+              <p>{{ bookingService.selectedBookin?.fecha_inicio | date: 'dd/MM/yyyy' }}</p>
             </div>
           </div>
           <div class="row">
@@ -23,7 +23,7 @@
               <label>Fecha de Fin:</label>
             </div>
             <div class="col-md-6">
-              <p>{{ bookingService.selectedBookin.fecha_fin | date: 'dd/MM/yyyy' }}</p>
+              <p>{{ bookingService.selectedBookin?.fecha_fin | date: 'dd/MM/yyyy' }}</p>
             </div>
           </div>
           <div class="row">
@@ -31,7 +31,7 @@
               <label>Estado:</label>
             </div>
             <div class="col-md-6">
-              <p>{{ bookingService.selectedBookin.estado }}</p>
+              <p>{{ bookingService.selectedBookin?.estado }}</p>
             </div>
           </div>
           <div class="row">
@@ -39,7 +39,7 @@
               <label>Precio:</label>
             </div>
             <div class="col-md-6">
-              <p>{{ bookingService.selectedBookin.precio | currency }}</p>
+              <p>{{ bookingService.selectedBookin?.precio | currency }}</p>
             </div>
           </div>
           <div class="row">
@@ -47,7 +47,7 @@
               <label>Fecha de Creación:</label>
             </div>
             <div class="col-md-6">
-              <p>{{ bookingService.selectedBookin.fecha_creacion | date: 'dd/MM/yyyy' }}</p>
+              <p>{{ bookingService.selectedBookin?.fecha_creacion | date: 'dd/MM/yyyy' }}</p>
             </div>
           </div>
   
@@ -58,7 +58,7 @@
               <label>Nombre:</label>
             </div>
             <div class="col-md-6">
-              <p>{{ userService.selectedUser.nombre }}</p>
+              <p>{{ userService.selectedUser?.nombre }}</p>
             </div>
           </div>
           <div class="row">
@@ -66,7 +66,7 @@
               <label>Apellido:</label>
             </div>
             <div class="col-md-6">
-              <p>{{ userService.selectedUser.apellido }}</p>
+              <p>{{ userService.selectedUser?.apellido }}</p>
             </div>
           </div>
           <div class="row">
@@ -74,7 +74,7 @@
               <label>RUT:</label>
             </div>
             <div class="col-md-6">
-              <p>{{ userService.selectedUser.rut }}</p>
+              <p>{{ userService.selectedUser?.rut }}</p>
             </div>
           </div>
           <!-- Agregar más detalles del usuario según sea necesario -->

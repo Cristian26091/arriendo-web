@@ -1,7 +1,7 @@
-import { Heelp } from './heelp';
+import { Help } from './heelp';
 
 describe('Heelp', () => {
   it('should create an instance', () => {
-    expect(new Heelp()).toBeTruthy();
+    expect(new Help()).toBeTruthy();
   });
 });

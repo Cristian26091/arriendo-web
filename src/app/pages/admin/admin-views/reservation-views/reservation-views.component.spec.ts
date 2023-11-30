@@ -2,13 +2,23 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReservationViewsComponent } from './reservation-views.component';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 describe('ReservationViewsComponent', () => {
   let component: ReservationViewsComponent;
   let fixture: ComponentFixture<ReservationViewsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ReservationViewsComponent ]
+      declarations: [ ReservationViewsComponent ],
+      providers: [
+        ReservationViewsComponent
+      ],
+      imports: [
+        HttpClientTestingModule
+      ],
+
+
     })
     .compileComponents();
 

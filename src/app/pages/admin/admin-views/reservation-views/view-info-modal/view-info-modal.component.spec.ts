@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ViewInfoModalComponent } from './view-info-modal.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+
 
 describe('ViewInfoModalComponent', () => {
   let component: ViewInfoModalComponent;
@@ -8,7 +10,13 @@ describe('ViewInfoModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewInfoModalComponent ]
+      declarations: [ ViewInfoModalComponent ],
+      providers: [
+        ViewInfoModalComponent
+      ],
+      imports: [
+        HttpClientTestingModule
+      ],
     })
     .compileComponents();
 
